@@ -1,0 +1,194 @@
+\documentclass{VUMIFInfKursinis}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{color}
+\usepackage{graphicx}
+% \usepackage{hyperref}  % Nuorodų aktyvavimas
+\usepackage{url}
+
+
+% Titulinio aprašas
+\university{Vilniaus universitetas}
+\faculty{Matematikos ir informatikos fakultetas}
+\institute{Informatikos institutas}  % Užkomentavus šią eilutę - institutas neįtraukiamas į titulinį
+\department{Informatikos katedra}
+\papertype{Kursinis darbas}
+\title{Automatizuotas kriptovaliutų prekybos robotas "Binance" platformoje}
+\titleineng{Automated cryptocurrency trading bot on "Binance" platform}
+\status{3 kurso 1 grupės studentas}
+\author{Matas Kaminskas}
+\supervisor{J. Asist., Dr. Igor Katin}
+\date{Vilnius \\ \the\year}
+
+% Nustatymai
+% \setmainfont{Palemonas}   % Pakeisti teksto šriftą į Palemonas (turi būti įdiegtas sistemoje)
+\bibliography{bibliografija} 
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\sectionnonum{Įvadas}
+% Įvade apibūdinamas darbo tikslas, temos aktualumas ir siekiami rezultatai. 
+Pasaulis vis labiau modernėja, technologijos tampa vis išmanėsnės ir našesnes, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
+kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara jau seniau turimai standartinei akciju biržai. Po 2007-2008 metų įvykusios finansų krizės, 
+visai neužilgo - \cite{SatBitcoin}2009 metais, atsirado pirmoji kriptovaliuta - Bitkoinas, decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
+blokų grandinės technologija. Dabartiniais apskaičiavimais tinklalapyje coinmarketcap.com, šios rinkos bendra vertė viršija 1 trilijonus JAV dolerių, 
+nors visai nesenai, mažiau nei prieš metus, ši vertė siekė 3 trilijonus JAV dolerių. Tai tik parodo šios rinkos nepastovumą, bei kodėl ši rinką susilaukia
+daug apibusių nuomonių. Nors tai 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės, bei daug kas, jog kriptovaliutos yra laikinas dalykas,
+galima pamatyti, jog tai sulaukia vis daugiau susidomėjimo, įtakos ir populiarumo mūsų pasaulyje.     
+
+Kriptovaliutų rinkos pagrindinis skirtumas lyginant su tradicine birža yra jog mainai vyksta 24 valandas per parą. Atvirkščiai nei akcijų birža, kur 
+darbo valandos yra nustatytos institucijos, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška, 
+bei neįmanoma visą dieną stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą prekybos 
+robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
+
+Šio darbo tikslas yra sukurti patogų automatizuotą robota prekiauti kriptovaliutų rinkoje, suprasti kriptovaliutų rinkos niuansus ir parodyti kodėl 
+automatizacija šiuo atveju yra reikalinga bei patogi. Roboto pagalba vartotojas galėtų sukonfiguroti jį pagal savo poreikius ir palikti dirbti norėdamas 
+pasipelnyti ar tiesiog akademiniais tikslais labiau suprasti tendencijas rinkoje.
+
+\section{Pagrindinė tiriamoji dalis}
+Vienas dalykas yra tas, jog esant nereguliuotai rinkai, ją labai gali įtakoti didelį kiekį turintis asmenys, jie gali priversti valiutą
+dirbtinai kilti iki didelių kainų prieš parduodant, akcijų biržoje tai būtų sukčiavimo vadovelinis pavyzdys, kadangi rinka yra nereguliuojama, 
+individai gali elgtis kaip nori, ir yra patys atsakinga už visą sukelta riziką. Antras dalykas - Bitcoin. Pagrindinė ir pirmoji valiuta
+šioje rinkoje. Kaip galima matyti, nuo šitos valiutos kainos priklauso visos rinkos kainos. Nepaslaptis jeigu kyla bitkoinas - kyla ir kitos 
+valiutos (coinsai), jeigu krenta bitcoinas - krenta ir kitos valiutos. Tačiau yra atveju kai valiutos nepriklausomai auga dėl esančių pažanagių
+sprendimų arba krenta dėl esančių problemų susijusių su kriptovaliutomis. Dar kitas dalykas yra jog dauguma valiutų yra riboto kiekio, taigi galima
+teigti jeigu prekybos robotas per metus uždirba maža procenta kriptovaliutų atžvilgių, jų kainą gali keleriopai išaugti iš musų naudojamų gyvenime 
+pinigų atžvilgio , eurais ar doleriais. Taigi pradinė užduotis suprasti kaip veikia rinka ir ką reikia pastėbeti. Nuo ko priklauso kada yra meškų turgus 
+(angl. bear market), o kada yra bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis, o 
+pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelios įtakos valiutų kainai.
+Bet šitame darbe stengsimes atsižvelgti tik į neapdarotus duomenys ir iš jų rasti prasmingi reikšme, kas nutiks toliau. 
+
+Pagrindinis tyrimas šiame darbe bus išsiaiškinti kaip automatizuoti robotą kuris tiksliai ir precisiškai veiktų pagal mūsų norus ir neturėtume
+prastovų. T.y. robotas pasiektų kuo didesnį našuma, išvengtume klaidų ir jį galėtume ramiai sau palikti atlikinėti savo darbą, o būtų galima sugrįžti 
+ir peržvelgti gautus rezultatus. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiancčias kainas ir atitinkamai elgtis.
+Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Žmogus gali tik tiek laiko išlaikyti dėmėsį ir kadangi šis stebėjimas turi būti labai precišikas,
+jį geriausia palikti altikti kompiuteriui, kuriam yra nesvarbu, jis tik atlieką savo turimą užduotį. Kaip minėta kriptovaliutų rinka yra labai nepastovi, taigi iš pradžų
+reikia suprasti kas sukelia ši nepastovumą.
+
+% Apie kriptovaliutas galima pašnekėti labiau antroje dalyje tiesiog?
+Visų pirmą - visos kriptovaliutos yra paremtos blokų grandinės technologija, taigi jos yra
+niekam nepriklausomos, antra - visa blokų informacija yra viešai prieinama publikai, puikiai žinoma iš kur į kur vyksta sandoriai. 
+Taip suteikiama skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką, bei valiutą. 
+Tačiau kaip ir kiekvienas daiktas turi savo vertę, taip ir valiutos turi vertę.
+
+Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai, remiantis šiais laikais turinčiomis
+žiniomis. Daugelis kriptovaliutų yra decentralizuoti tinklai, pagrįsti blokų grandinių technologija. Ypatingas kriptovaliutų bruožas yra tas, kad jų paprastai neišleidžia
+jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema kadangi vis daugiau žmonių 
+naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taip ogi sukeltos ekonominės krizės mažina
+institucijų pasitikėjima, todėl visuomene nori alternatyvos.
+
+
+%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika;
+%pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
+%klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
+%išanalizuota medžiaga.
+
+\subsection{Darbinė aplinka}
+Strategija kaip automatizuoti ši robotą. Naudosime docker konteinerius, kad ši programa veiktų bet kur, kur veikia dockeris. Taip pat turėsime sujungta duomenų bazę
+saugoti norimus duomenis. Pavyzdžiui galima saugoti tam tikrus rinkos duomenis tam tikrame intervale ir atsižvelgiant į tai naudoti robotą. 
+Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
+keli šaltiniai \cite{PvzStraipsnEn, PvzKonfLt, PvzKonfEn, PvzKnygLt, PvzKnygEn,
+  PvzElPubLt, PvzElPubEn, PvzMagistrLt, PvzPhdEn}.
+
+\subsubsection{Python}
+Python programavaimo kalba. Python yra auktšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą:
+procedurinę, objektinę ir netgi funkcinę. Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją.
+Python yra interpretuojama* kalba, todėl ji veikia nuo failo pradžios iki galo "interpetuojant" kiekvieną eilutę iš viršaus į apačia.
+Python yra įgyvendinta naudojant C kalbą, todėl yra optimalesnis python plėtinys - Cython, jeigu programoje pritrūksta našumo. Šiais laikais
+python yra viena populiariausių kalbų pasaulyje, dėl savo paprastumo ir paprasto naudojomo naujam vartotojui, bet tikrai yra daugybę savybių
+kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant, kaip sakoma "easy to learn, hard to master". Taigi, beveik dauguma
+egzsistuojančiu API bibliotekų palaiko python programavimo kalbą.
+
+\subsubsubsection{Python-binance API}
+Šiame darbe naudojama "python binance" API. Ji gali būti lengvai instaliuojama vartotojo sistemoje jeigu yra "pip" paleidžiant komanda terminale "pip install python-binance"
+, kur pip yra vartotojo turima pip versija. Ji yra populiarausiai binance API turinti netgi 4.7 tūkstančių žvaigždžių GITHUB platformoje\cite{DokTest}, palyginimui populiaurisias github projektas turi
+200 tūstančių stars'u, taigi neoficialiam API projektui turėti tiek dėmėsio yra labai didelis pasiekimas, taip pat 1.9k forksų. Šis API yra "wrapperis" oficialim
+Binance API - binance-connector-python (šis API yra labai paprasta ir lengvasvoris, taigi didelio patogumo nėra, tik paprasčiausios užklausos, kurias visvien
+reikėtų apdoroti, ka labai padeda padaryt ankščiau minėta wrapper API - python-binance)  
+
+Straipsnis kuriuo remiasi šitas darbas
+\subsubsection{Binance}
+Binance yra didžiausia kriptovaliutų birža pagal prekybos apimtį. Kadangi tai yra didžiausia ir populiaursia platforma, ja naudotis yra saugausia, nes ji 
+sulaukia daugiausia demesio, todel yra labiausia prižiurima ir reguliuojama, taip pat turi didžiausia valiutų pasiulą ir patogiai prieinamus duomenis(nežinau istikri
+ant kiek geriausia)
+Dar viena įdėja
+\section{Docker}
+docker yra gana nauja technologija, ispopuliarejusi praeitame desimtmetyje. Docker yra konteinerių technologija, leidžianti sukurti "konteinerius" ir juos visur paleisti kur gali veikti docker'is. T.y. sukuriame konteineri kuriame turime savo visas programos dalis (šiuo atveju python programos skriptą ir prijungtą duomenų bazę, bet atskirais atvejais gali būti daug daugiau, taip pat įmanoma turėti dockerio konteineryje dar vieną dokcer konteinerį, dockerception). Ši technologija yra patogi, nes jeigu veikia tau lokaliai, tai veiks ir kitur
+nes dockeris suvienodina aplinka ir nenaudoja tiek daug resursų kaip 
+virtauli mašina
+\subsection{Ubuntu Linux}
+naudosime linux operacinę sistemą - tiksliau Ubuntu, nes linux savyje turi gana patogius automatizacijos įrankius - CRON. Šis įrankis leidžia pasirinktį dažnį 
+ir periodą kada norime paleisti savo programą. Užtenka parašyti BASH skriptą 
+ir šis skriptas paleis mūsų norimą programa per kiekvieną laiko tarpą dirbant
+operacinėj sistemai, kadangi Linux yra labai efektyvi - dirba be prastovų,
+tai galime ja pasikliauti ir naudoti šiuos įrankius be problemų. Liuks
+\subsection{Pirkti valiutą}
+Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
+Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
+yra nepastovi ir greitai keičiasi 
+
+\section{Autoregressiniai modeliai ir jų skirstymas}
+Naudosime mašininį mokymą su šiais algoritmais
+\subsection{Autoregressive - AR}
+Papraščiausias ir esminis būdas
+\subsection{Autoregressive integrated moving average - ARIMA}
+
+\subsection{Autoregressive fractionally integrated moving average - SARFIMA}
+
+\subsection{Seasonal autoregressive integrated moving average - SARIMA}
+
+
+\sectionnonum{Išvados}
+Taigi matome kad šis robotas yra geras sprendimas norint automatizuot paprasta kriptovaliutų prekyba!
+Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
+suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
+
+
+\sectionnonum{Sąvokų apibrėžimai}
+\textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
+
+\printbibliography[heading=bibintoc] % Literatūros šaltiniai aprašomi
+% bibliografija.bib faile. Šaltinių sąraše nurodoma panaudota literatūra,
+% kitokie šaltiniai. Abėcėlės tvarka išdėstoma tik darbe panaudotų (cituotų,
+% perfrazuotų ar bent paminėtų) mokslo leidinių, kitokių publikacijų
+% bibliografiniai aprašai (šiuo punktu pasirūpina LaTeX). Aprašai pateikiami
+% netransliteruoti.
+
+\appendix  % Priedai
+% Prieduose gali būti pateikiama pagalbinė, ypač darbo autoriaus savarankiškai
+% parengta, medžiaga. Savarankiški priedai gali būti pateikiami kompiuterio
+% diskelyje ar kompaktiniame diske. Priedai taip pat vadinami ir numeruojami.
+% Tekstas su priedais siejamas nuorodomis (pvz.: \ref{img:mlp}).
+
+\section{Niauroninio tinklo struktūra}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{img/DIAGRAM}
+  \caption{Paveikslėlio pavyzdys}   % Antraštė įterpiama po paveikslėlio
+  \label{img:diagram}
+\end{figure}
+
+
+\section{Eksperimentinio palyginimo rezultatai}
+% tablesgenerator.com - converts calculators (e.g. excel) tables to LaTeX
+\begin{table}[H]\footnotesize
+  \centering
+  \caption{Lentelės pavyzdys}    % Antraštė įterpiama prieš lentelę
+  {\begin{tabular}{|l|c|c|} \hline
+      Algoritmas   & $\bar{x}$ & $\sigma^{2}$ \\
+      \hline
+      Algoritmas A & 1.6335    & 0.5584       \\
+      Algoritmas B & 1.7395    & 0.5647       \\
+      \hline
+    \end{tabular}}
+  \label{tab:table example}
+\end{table}
+
+\end{document}
