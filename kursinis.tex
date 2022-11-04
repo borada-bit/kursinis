@@ -134,16 +134,24 @@ Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuo
 Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
 yra nepastovi ir greitai keičiasi 
 
-\section{Autoregressiniai modeliai ir jų skirstymas}
-Naudosime mašininį mokymą su šiais algoritmais
-\subsection{Autoregressive - AR}
-Papraščiausias ir esminis būdas
-\subsection{Autoregressive integrated moving average - ARIMA}
+\section{Autoregresiniai modeliai ir jų skirstymas}
+Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko
+tarpą ar surenkant jų istorinius duomenius. Šiuo būdu analitikai bando nuspėti kintamūjų ateities reikšmes. Iš dalies tai ir yra autoregresinis modeliai. 
+Autoregresiniuose modeliuose naudojamos laiko eilučių analizė. Laiko eilučių analizės tikslas nuspėti kaip kinta sekama reikšmė bėgant laikui. Dažnai sutinkami laiko eilučių
+duomenų rinkimo pavyzdžiai: sekamas paciento širdies pulsas, prekyboje planuojant sandėlio prekių kiekį ar nuspėti akcijų kainas biržų akcijoje.
+Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas. Toliau autoregresija išsiskaido į šiuos modelius
+\subsection{Autoregressive - AR modelis}
+Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis modelis, kuris padėtų tiksliau nuspėti dydį ateityje.
+Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
+Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
-\subsection{Autoregressive fractionally integrated moving average - SARFIMA}
+\subsection{Autoregressive integrated moving average - ARIMA}
 
 \subsection{Seasonal autoregressive integrated moving average - SARIMA}
 
+\subsection{Autoregressive fractionally integrated moving average - SARFIMA}
+
+%\subsection(Auto regressive - ABS)
 
 \sectionnonum{Išvados}
 Taigi matome kad šis robotas yra geras sprendimas norint automatizuot paprasta kriptovaliutų prekyba!
