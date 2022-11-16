@@ -50,7 +50,7 @@ robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
 
 Šio darbo tikslas yra sukurti patogų automatizuotą robota prekiauti kriptovaliutų rinkoje, suprasti kriptovaliutų rinkos niuansus ir parodyti kodėl 
 automatizacija šiuo atveju yra reikalinga bei patogi. Roboto pagalba vartotojas galėtų sukonfiguroti jį pagal savo poreikius ir palikti dirbti norėdamas 
-pasipelnyti ar tiesiog akademiniais tikslais labiau suprasti tendencijas rinkoje.
+pasipelnyti ar akademiniais tikslais stebėti tendencijas rinkoje.
 
 \section{Pagrindinė tiriamoji dalis}
 Vienas dalykas yra tas, jog esant nereguliuotai rinkai, ją labai gali įtakoti didelį kiekį turintis asmenys, jie gali priversti valiutą
@@ -85,56 +85,82 @@ naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžia
 institucijų pasitikėjima, todėl visuomene nori alternatyvos.
 
 
-%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika;
+%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
 %pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
 %klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
 %išanalizuota medžiaga.
 
 \subsection{Darbinė aplinka}
-Strategija kaip automatizuoti ši robotą. Naudosime docker konteinerius, kad ši programa veiktų bet kur, kur veikia dockeris. Taip pat turėsime sujungta duomenų bazę
-saugoti norimus duomenis. Pavyzdžiui galima saugoti tam tikrus rinkos duomenis tam tikrame intervale ir atsižvelgiant į tai naudoti robotą. 
+Strategija kaip automatizuoti ši robotą ir taikyti reikiamus "lošimo" modelius. Naudosime docker konteinerius, kad ši programa nepriklausomai 
+nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų bazę saugoti norimus duomenis. 
 Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
 keli šaltiniai \cite{PvzStraipsnEn, PvzKonfLt, PvzKonfEn, PvzKnygLt, PvzKnygEn,
   PvzElPubLt, PvzElPubEn, PvzMagistrLt, PvzPhdEn}.
 
 \subsubsection{Python}
-Python programavaimo kalba. Python yra auktšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą:
-procedurinę, objektinę ir netgi funkcinę. Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją.
+Python programavimo kalba. Python yra aukšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą:
+procedurinę, objektinę ir netgi funkcinę. Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją ir panaudoti AR modelius.
 Python yra interpretuojama* kalba, todėl ji veikia nuo failo pradžios iki galo "interpetuojant" kiekvieną eilutę iš viršaus į apačia.
-Python yra įgyvendinta naudojant C kalbą, todėl yra optimalesnis python plėtinys - Cython, jeigu programoje pritrūksta našumo. Šiais laikais
+Python yra įgyvendinta naudojant C kalbą, todėl egzistuoja optimalesnis python plėtinys - Cython, jeigu programoje pritrūksta našumo. Šiais laikais
 python yra viena populiariausių kalbų pasaulyje, dėl savo paprastumo ir paprasto naudojomo naujam vartotojui, bet tikrai yra daugybę savybių
-kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant, kaip sakoma "easy to learn, hard to master". Taigi, beveik dauguma
-egzsistuojančiu API bibliotekų palaiko python programavimo kalbą.
+kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant, lengva išmokti, bet sunku įvaldyti. Dėl šios kalbos privalumų minėtų anksčiau
+beveik dauguma egzsistuojančių API bibliotekų palaiko python programavimo kalbą.
 
 \subsubsubsection{Python-binance API}
 Šiame darbe naudojama "python binance" API. Ji gali būti lengvai instaliuojama vartotojo sistemoje jeigu yra "pip" paleidžiant komanda terminale "pip install python-binance"
 , kur pip yra vartotojo turima pip versija. Ji yra populiarausiai binance API turinti netgi 4.7 tūkstančių žvaigždžių GITHUB platformoje\cite{DokTest}, palyginimui populiaurisias github projektas turi
-200 tūstančių stars'u, taigi neoficialiam API projektui turėti tiek dėmėsio yra labai didelis pasiekimas, taip pat 1.9k forksų. Šis API yra "wrapperis" oficialim
-Binance API - binance-connector-python (šis API yra labai paprasta ir lengvasvoris, taigi didelio patogumo nėra, tik paprasčiausios užklausos, kurias visvien
-reikėtų apdoroti, ka labai padeda padaryt ankščiau minėta wrapper API - python-binance)  
+200 tūstančių žvaigždžių, taigi neoficialiam API projektui turėti tiek dėmėsio yra labai didelis pasiekimas. Šis API yra "wrapperis" oficialiam Binance 
+API - binance-connector-python (šis API yra labai paprastas ir lengvasvoris, todėl didelio patogumo nėra, tik paprasčiausios užklausos, kurias visvien
+reikėtų apdoroti, ką labai padeda padaryt ankščiau minėta wrapper API - python-binance)  
 
 Straipsnis kuriuo remiasi šitas darbas
 \subsubsection{Binance}
-Binance yra didžiausia kriptovaliutų birža pagal prekybos apimtį. Kadangi tai yra didžiausia ir populiaursia platforma, ja naudotis yra saugausia, nes ji 
-sulaukia daugiausia demesio, todel yra labiausia prižiurima ir reguliuojama, taip pat turi didžiausia valiutų pasiulą ir patogiai prieinamus duomenis(nežinau istikri
-ant kiek geriausia)
-Dar viena įdėja
-\section{Docker}
-docker yra gana nauja technologija, ispopuliarejusi praeitame desimtmetyje. Docker yra konteinerių technologija, leidžianti sukurti "konteinerius" ir juos visur paleisti kur gali veikti docker'is. T.y. sukuriame konteineri kuriame turime savo visas programos dalis (šiuo atveju python programos skriptą ir prijungtą duomenų bazę, bet atskirais atvejais gali būti daug daugiau, taip pat įmanoma turėti dockerio konteineryje dar vieną dokcer konteinerį, dockerception). Ši technologija yra patogi, nes jeigu veikia tau lokaliai, tai veiks ir kitur
-nes dockeris suvienodina aplinka ir nenaudoja tiek daug resursų kaip 
-virtauli mašina
-\subsection{Ubuntu Linux}
-naudosime linux operacinę sistemą - tiksliau Ubuntu, nes linux savyje turi gana patogius automatizacijos įrankius - CRON. Šis įrankis leidžia pasirinktį dažnį 
-ir periodą kada norime paleisti savo programą. Užtenka parašyti BASH skriptą 
-ir šis skriptas paleis mūsų norimą programa per kiekvieną laiko tarpą dirbant
-operacinėj sistemai, kadangi Linux yra labai efektyvi - dirba be prastovų,
-tai galime ja pasikliauti ir naudoti šiuos įrankius be problemų. Liuks
-\subsection{Pirkti valiutą}
-Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
-Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
-yra nepastovi ir greitai keičiasi 
+Binance yra didžiausia kriptovaliutų birža pagal prekybos apimtį, turinti itin didelį valiutų pasiulą ir patogiai prieinamus duomenis. Ši birža taip pat
+suteikia galimybė "lošti" kriptovaliutomis testiniame tinkle. Tinklo paskirtis yra lengvai nuspėjama iš pavadinimo, jame galima atlikti tuos pačius 
+% issiplesti ir papasakoti apie rinkoje galimus atlikti veiksmus, LIMIT BUY, LIMIT SELL ir t.t.
+veiksmus kaip realioje rinkoje, tik naudojama netikra valiuta kuri tikros vertės neturi. 
+
+\subsubsection{Binance Spot Test Network}
+Testinis tinklas yra beveik identiškas tikrajam "Binance" tinklui, kainos yra vienodos kaip ir pagrindiniame tinkle ar pasaulyje, todėl galima analizuoti 
+seniausius rinkos duomenis ir juos taikyti reikiame modelyje. Testinis tinklas nėra toks populiarus, tad jame yra ženkliai mažiau prekiaujančių žmonių. 
+Testiniame tinkle pąskyra sukuriama naudojant "Github" prisijungimą. Kiekvienas naujas vartotojas turi pradinį balansą susidendantį iš kriptovaliutų
+matomų 1 lentelėje.
+
+\begin{table}[H]\footnotesize
+  % tablesgenerator.com - converts calculators (e.g. excel) tables to LaTeX
+  \centering
+  \caption{Pradinis likutis}    % Antraštė įterpiama prieš lentelę
+  {\begin{tabular}{|l|c|} \hline
+      Kriptovaliuta & Kiekis  \\
+      \hline
+      BNB           & 1,000   \\
+      BTC           & 1       \\
+      BUSD          & 10,000  \\
+      ETH           & 100     \\
+      LTC           & 500     \\
+      TRX           & 500,000 \\
+      USDT          & 10,000  \\
+      XRP           & 50,000  \\
+      \hline 
+    \end{tabular}}
+\end{table}
+
+Šiuo likučiu galima elgtis kaip norima. Pradinis likutis yra pakankamas atlikti prasmingoms transakcijomis testiniame tinkle. Reikėtų pabrėžti, jog testinis
+tinklas kas mėnesį laiko yra iš naujo nustatomas ir visas turimas likutis yra konvertuojamas atgal į pradinį likutį, išvalant ankščiau buvusį balansą, tad jeigu
+nepavyko praturtėti prekiaujant kriptovaliutomis, vėl įgaunama proga pradėti prekyba, na o sėkmingu atveju visas pelnas yra ištrinamas ir reikia vėl pradėti
+nuo nulio.
+
+
+\subsubsection{Docker}
+Docker yra gana nauja technologija, išpopuliarėjusi praeitame dešimtmetyje. Tai yra konteinerių technologija, leidžianti sukurti "konteinerius" ir 
+juos dislokuoti. Pavyzdys: sukuriame konteinerį kuriame turime savo visas programos dalis 
+(šiuo atveju python programos failus ir config failą, taip pat įmanoma turėti
+dockerio konteineryje dar vieną docker konteinerį) ir paleidžiame robotą izoliuotoje aplinkoje. 
+Ši technologija yra patogi, nes jeigu veikia lokaliai, tai veiks ir kitur naudojant Docker, nes ši technologija
+suvienodina programavimo aplinką, bei nenaudoja tiek daug resursų kaip virtuali mašina.
 
 \section{Autoregresiniai modeliai ir jų skirstymas}
+% interpolation vs extrapolation
 Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko
 tarpą ar surenkant jų istorinius duomenius. Šiuo būdu analitikai bando nuspėti kintamūjų ateities reikšmes. Iš dalies tai ir yra autoregresinis modeliai. 
 Autoregresiniuose modeliuose naudojamos laiko eilučių analizė. Laiko eilučių analizės tikslas nuspėti kaip kinta sekama reikšmė bėgant laikui. Dažnai sutinkami laiko eilučių
@@ -145,19 +171,20 @@ Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo 
 Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
 Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
-\subsection{Autoregressive integrated moving average - ARIMA}
+% autoregression crypto currency predict
+% ar, ar-abs, arima, arfima, sarima
 
 \subsection{Seasonal autoregressive integrated moving average - SARIMA}
 
 \subsection{Autoregressive fractionally integrated moving average - SARFIMA}
 
+% autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
 
 \sectionnonum{Išvados}
-Taigi matome kad šis robotas yra geras sprendimas norint automatizuot paprasta kriptovaliutų prekyba!
-Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
-suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
-
+Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
+% Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
+% suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 
 \sectionnonum{Sąvokų apibrėžimai}
 \textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
@@ -180,28 +207,12 @@ siekti numatyti būsimas akcijų kainas, remiantis ankstesniais rezultatais.
 % diskelyje ar kompaktiniame diske. Priedai taip pat vadinami ir numeruojami.
 % Tekstas su priedais siejamas nuorodomis (pvz.: \ref{img:mlp}).
 
-\section{Niauroninio tinklo struktūra}
+\section{Roboto veikimo struktūra}
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{img/DIAGRAM}
   \caption{Paveikslėlio pavyzdys}   % Antraštė įterpiama po paveikslėlio
   \label{img:diagram}
 \end{figure}
-
-
-\section{Eksperimentinio palyginimo rezultatai}
-% tablesgenerator.com - converts calculators (e.g. excel) tables to LaTeX
-\begin{table}[H]\footnotesize
-  \centering
-  \caption{Lentelės pavyzdys}    % Antraštė įterpiama prieš lentelę
-  {\begin{tabular}{|l|c|c|} \hline
-      Algoritmas   & $\bar{x}$ & $\sigma^{2}$ \\
-      \hline
-      Algoritmas A & 1.6335    & 0.5584       \\
-      Algoritmas B & 1.7395    & 0.5647       \\
-      \hline
-    \end{tabular}}
-  \label{tab:table example}
-\end{table}
 
 \end{document}
