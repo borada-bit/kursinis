@@ -35,55 +35,54 @@
 
 \sectionnonum{Įvadas}
 % Įvade apibūdinamas darbo tikslas, temos aktualumas ir siekiami rezultatai. 
-Pasaulis vis labiau modernėja, technologijos tampa vis išmanėsnės ir našesnes, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
-kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara jau seniau turimai standartinei akciju biržai. Po 2007-2008 metų įvykusios finansų krizės, 
+Pasaulis vis labiau modernėja, technologijos tampa vis išmanesnės ir našesnės, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
+kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara standartinei akciju biržai. Po 2007-2008 metų įvykusios finansų krizės,
 visai neužilgo - \cite{SatBitcoin}2009 metais, atsirado pirmoji kriptovaliuta - Bitkoinas, decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
-blokų grandinės technologija. Dabartiniais apskaičiavimais tinklalapyje coinmarketcap.com, šios rinkos bendra vertė viršija 1 trilijonus JAV dolerių, 
-nors visai nesenai, mažiau nei prieš metus, ši vertė siekė 3 trilijonus JAV dolerių. Tai tik parodo šios rinkos nepastovumą, bei kodėl ši rinką susilaukia
-daug apibusių nuomonių. Nors tai 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės, bei daug kas, jog kriptovaliutos yra laikinas dalykas,
-galima pamatyti, jog tai sulaukia vis daugiau susidomėjimo, įtakos ir populiarumo mūsų pasaulyje.     
+blokų grandinės technologija. Dabartiniais apskaičiavimais tinklalapyje coinmarketcap.com, šios rinkos bendra vertė viršija 1 trilijonus JAV dolerių,
+nors mažiau nei prieš metus, ši vertė siekė 3 trilijonus JAV dolerių. Tai tik parodo šios rinkos nepastovumą, bei kodėl ši rinką susilaukia
+daug abipusių nuomonių. Nors tai 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės, bei daug kas, jog kriptovaliutos yra laikinas dalykas,
+galima pamatyti, jog tai sulaukia vis daugiau susidomėjimo, įtakos ir populiarumo mūsų pasaulyje.    
 
-Kriptovaliutų rinkos pagrindinis skirtumas lyginant su tradicine birža yra jog mainai vyksta 24 valandas per parą. Atvirkščiai nei akcijų birža, kur 
-darbo valandos yra nustatytos institucijos, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška, 
-bei neįmanoma visą dieną stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą prekybos 
+Kriptovaliutų rinkos pagrindinis skirtumas lyginant su tradicine birža yra jog mainai vyksta 24 valandas per parą. Atvirkščiai nei akcijų birža, kur
+darbo valandos yra nustatytos institucijos, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška,
+bei neįmanoma visą dieną stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą prekybos
 robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
 
-Šio darbo tikslas yra sukurti patogų automatizuotą robota prekiauti kriptovaliutų rinkoje, suprasti kriptovaliutų rinkos niuansus ir parodyti kodėl 
-automatizacija šiuo atveju yra reikalinga bei patogi. Roboto pagalba vartotojas galėtų sukonfiguroti jį pagal savo poreikius ir palikti dirbti norėdamas 
+Šio darbo tikslas yra sukurti patogų automatizuotą robota prekiauti kriptovaliutų rinkoje, suprasti kriptovaliutų rinkos niuansus ir parodyti kodėl
+automatizacija šiuo atveju yra reikalinga bei patogi. Roboto pagalba vartotojas galėtų sukonfiguroti jį pagal savo poreikius ir palikti dirbti norėdamas
 pasipelnyti ar akademiniais tikslais stebėti tendencijas rinkoje.
 
 \section{Pagrindinė tiriamoji dalis}
 Vienas dalykas yra tas, jog esant nereguliuotai rinkai, ją labai gali įtakoti didelį kiekį turintis asmenys, jie gali priversti valiutą
-dirbtinai kilti iki didelių kainų prieš parduodant, akcijų biržoje tai būtų sukčiavimo vadovelinis pavyzdys, kadangi rinka yra nereguliuojama, 
+dirbtinai kilti iki didelių kainų prieš parduodant, akcijų biržoje tai būtų sukčiavimo vadovėlinis pavyzdys, kadangi rinka yra nereguliuojama,
 individai gali elgtis kaip nori, ir yra patys atsakinga už visą sukelta riziką. Antras dalykas - Bitcoin. Pagrindinė ir pirmoji valiuta
-šioje rinkoje. Kaip galima matyti, nuo šitos valiutos kainos priklauso visos rinkos kainos. Nepaslaptis jeigu kyla bitkoinas - kyla ir kitos 
-valiutos (coinsai), jeigu krenta bitcoinas - krenta ir kitos valiutos. Tačiau yra atveju kai valiutos nepriklausomai auga dėl esančių pažanagių
+šioje rinkoje. Kaip galima matyti, nuo šitos valiutos kainos priklauso visos rinkos kainos. Nepaslaptis jeigu kyla bitkoinas - kyla ir kitos
+valiutos (coinsai), jeigu krenta bitcoinas - krenta ir kitos valiutos. Tačiau yra atveju kai valiutos nepriklausomai auga dėl esančių pažangių
 sprendimų arba krenta dėl esančių problemų susijusių su kriptovaliutomis. Dar kitas dalykas yra jog dauguma valiutų yra riboto kiekio, taigi galima
-teigti jeigu prekybos robotas per metus uždirba maža procenta kriptovaliutų atžvilgių, jų kainą gali keleriopai išaugti iš musų naudojamų gyvenime 
-pinigų atžvilgio , eurais ar doleriais. Taigi pradinė užduotis suprasti kaip veikia rinka ir ką reikia pastėbeti. Nuo ko priklauso kada yra meškų turgus 
-(angl. bear market), o kada yra bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis, o 
-pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelios įtakos valiutų kainai.
-Bet šitame darbe stengsimes atsižvelgti tik į neapdarotus duomenys ir iš jų rasti prasmingi reikšme, kas nutiks toliau. 
+teigti jeigu prekybos robotas per metus uždirba maža procenta kriptovaliutų atžvilgių, jų kainą gali keleriopai išaugti iš musų naudojamų gyvenime
+pinigų atžvilgiu , eurais ar doleriais. Taigi pradinė užduotis suprasti kaip veikia rinka ir ką reikia pastebėti. Nuo ko priklauso kada yra meškų turgus
+(angl. bear market), o kada yra bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis, o
+pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelės įtakos valiutų kainai.
+Bet šitame darbe stengsimes atsižvelgti tik į neapdarotus duomenys ir iš jų rasti prasmingi reikšme, kas nutiks toliau.
 
-Pagrindinis tyrimas šiame darbe bus išsiaiškinti kaip automatizuoti robotą kuris tiksliai ir precisiškai veiktų pagal mūsų norus ir neturėtume
-prastovų. T.y. robotas pasiektų kuo didesnį našuma, išvengtume klaidų ir jį galėtume ramiai sau palikti atlikinėti savo darbą, o būtų galima sugrįžti 
+Pagrindinis tyrimas šiame darbe bus išsiaiškinti kaip automatizuoti robotą kuris tiksliai ir preciziškai veiktų pagal mūsų norus ir neturėtume
+prastovų. T.y. robotas pasiektų kuo didesnį našumą, išvengtume klaidų ir jį galėtume ramiai sau palikti atlikinėti savo darbą, o būtų galima sugrįžti
 ir peržvelgti gautus rezultatus. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiancčias kainas ir atitinkamai elgtis.
-Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Žmogus gali tik tiek laiko išlaikyti dėmėsį ir kadangi šis stebėjimas turi būti labai precišikas,
-jį geriausia palikti altikti kompiuteriui, kuriam yra nesvarbu, jis tik atlieką savo turimą užduotį. Kaip minėta kriptovaliutų rinka yra labai nepastovi, taigi iš pradžų
+Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Žmogus gali tik tiek laiko išlaikyti dėmesį ir kadangi šis stebėjimas turi būti labai preciziškas,
+jį geriausia palikti atlikti kompiuteriui, kuriam yra nesvarbu, jis tik atlieka savo turimą užduotį. Kaip minėta kriptovaliutų rinka yra labai nepastovi, taigi iš pradžų
 reikia suprasti kas sukelia ši nepastovumą.
 
 % Apie kriptovaliutas galima pašnekėti labiau antroje dalyje tiesiog?
 Visų pirmą - visos kriptovaliutos yra paremtos blokų grandinės technologija, taigi jos yra
-niekam nepriklausomos, antra - visa blokų informacija yra viešai prieinama publikai, puikiai žinoma iš kur į kur vyksta sandoriai. 
-Taip suteikiama skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką, bei valiutą. 
+niekam nepriklausomos, antra - visa blokų informacija yra viešai prieinama publikai, puikiai žinoma iš kur į kur vyksta sandoriai.
+Taip suteikiama skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką, bei valiutą.
 Tačiau kaip ir kiekvienas daiktas turi savo vertę, taip ir valiutos turi vertę.
 
 Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai, remiantis šiais laikais turinčiomis
 žiniomis. Daugelis kriptovaliutų yra decentralizuoti tinklai, pagrįsti blokų grandinių technologija. Ypatingas kriptovaliutų bruožas yra tas, kad jų paprastai neišleidžia
-jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema kadangi vis daugiau žmonių 
-naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taip ogi sukeltos ekonominės krizės mažina
+jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema kadangi vis daugiau žmonių
+naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taipogi sukeltos ekonominės krizės mažina
 institucijų pasitikėjima, todėl visuomene nori alternatyvos.
-
 
 %Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
 %pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
@@ -173,10 +172,35 @@ Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gal
 
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
+\subsection {ARMA}
 
-\subsection{Seasonal autoregressive integrated moving average - SARIMA}
+\subsection {ARIMA}
+ARIMA modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas pažodžiui: AR - Autoregresinis modelis,
+I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA - (Moving average) slankusis vidurkis. AR ir MA yra atskiri
+modeliai, kurie gali būti naudojami paprastesnei laiko eilučiu analizei. Šio modelio privalumas, jog jis sujungia AR ir MA naudojimą kartu su
+diferencijavimu, kuris suteikia galimybė giliau analizuoti laiko eilutes.
 
-\subsection{Autoregressive fractionally integrated moving average - SARFIMA}
+\subsection {ARFIMA}
+ARFIMA modelis šifruojasi taip pat kaip ARIMA modelis, tik su vienu skirtumu - šiame modelyje yra F, reiškianti "Trupmenomis" (angl. Fractionally).
+Šis modelis taip pat apibendrina autoregresyvų integruotą slankiojo vidurkio (ARIMA) modelį su sveikaisiais integracijos laipsniais.
+Parametrizavimas sujungia autoregresyvų slankiojo vidurkio (ARMA) modelį, kuris yra plačiai naudojamas trumpos atminties procesu, taip 
+patampant ilgos atminties procesu.
+
+\subsection {SARIMA}
+SARIMA modelis yra labai panašus, tačiau turi vieną papildomą savybę - sezoniškumą. Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, 
+galima taikyti šį modelį. Geras ir paprastas pavyzdys, prekyba šventiniu laikotarpiu - kalėdos. Prekybos centruose, tuo metu padidėja prekybą, tačiau 
+kitą mėnesį ženkliai sumažėja. Spartus sumažėjimas nereiškia, jog prekybai yra didėlės problemos ir reikia pokyčių. Tai dažniausiai yra žmonių 
+poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius sezoniškai atsitinkančius įvykius, juos atpažįsta ir pritaiko naudojant
+ankščiau minėtą ARIMA modelį. 
+
+\subsection {Autoregressive fractionally integrated moving average - SARFIMA}
+
+\subsection{Pirkti valiutą}
+Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
+Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
+yra nepastovi ir greitai keičiasi 
+
+
 
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
