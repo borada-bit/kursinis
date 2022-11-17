@@ -17,8 +17,9 @@
 \institute{Informatikos institutas}  % Užkomentavus šią eilutę - institutas neįtraukiamas į titulinį
 \department{Informatikos katedra}
 \papertype{Kursinis darbas}
-\title{Automatizuotas kriptovaliutų prekybos robotas "Binance" platformoje}
-\titleineng{Automated cryptocurrency trading bot on "Binance" platform}
+% Nenurodytas vienas arba keli iš būtinų atributų: kalba, raktiniai žodžiai, santrauka.
+\title{Automatizuotas kriptovaliutų prekybos robotas}
+\titleineng{Automated cryptocurrency trading bot}
 \status{3 kurso 1 grupės studentas}
 \author{Matas Kaminskas}
 \supervisor{J. Asist., Dr. Igor Katin}
@@ -33,8 +34,8 @@
 
 \tableofcontents
 
-\sectionnonum{Įvadas}
 % Įvade apibūdinamas darbo tikslas, temos aktualumas ir siekiami rezultatai. 
+\sectionnonum{Įvadas}
 Pasaulis vis labiau modernėja, technologijos tampa vis išmanesnės ir našesnės, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
 kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara standartinei akciju biržai. Po 2007-2008 metų įvykusios finansų krizės,
 visai neužilgo - \cite{SatBitcoin}2009 metais, atsirado pirmoji kriptovaliuta - Bitkoinas, decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
@@ -48,10 +49,28 @@ darbo valandos yra nustatytos institucijos, dažniausiai standartinėmis darbo v
 bei neįmanoma visą dieną stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą prekybos
 robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
 
-Šio darbo tikslas yra sukurti patogų automatizuotą robota prekiauti kriptovaliutų rinkoje, suprasti kriptovaliutų rinkos niuansus ir parodyti kodėl
-automatizacija šiuo atveju yra reikalinga bei patogi. Roboto pagalba vartotojas galėtų sukonfiguroti jį pagal savo poreikius ir palikti dirbti norėdamas
-pasipelnyti ar akademiniais tikslais stebėti tendencijas rinkoje.
+Šio darbo tikslas yra ištirti kaip galima sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius
+sprendimams priimti. Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, ARFIMA, SARIMA ar kt., tiksliausiai nuspėti kriptovaliutos
+kainos elgesį ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias robotui naudoti jį automatizuojant.
 
+Tikslui įgyvendinti keliami uždaviniai:
+% bullet points
+\begin{itemize}
+  \item Atlikti mokslinės literatūros analizę kriptovaliutų ir autoregresinių modelių tema;
+  \item Autoregresinių modelių parinkimas ir jų paruošimas prognozuoti kainą.
+  \item Sukurti automatizuotą robotą kuris šiuos modelius gali pritaikyti;
+  \item Ekspermentiškai ištirti Autoregresinius modelius juos taikant robotui.
+        % elaborate a little, effectivnees, speed, accuraccy, simplicity or smth else?
+  \item Ištirti gautus rezultatus atlikus modelių taikymą;
+  \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas;
+\end{itemize}
+
+
+% bakalauriniame darbe palyginti standartinius time series eilutes modelius vs ML/DL/AI?
+%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
+%pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
+%klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
+%išanalizuota medžiaga.
 \section{Pagrindinė tiriamoji dalis}
 Vienas dalykas yra tas, jog esant nereguliuotai rinkai, ją labai gali įtakoti didelį kiekį turintis asmenys, jie gali priversti valiutą
 dirbtinai kilti iki didelių kainų prieš parduodant, akcijų biržoje tai būtų sukčiavimo vadovėlinis pavyzdys, kadangi rinka yra nereguliuojama,
@@ -84,11 +103,6 @@ jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausy
 naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taipogi sukeltos ekonominės krizės mažina
 institucijų pasitikėjima, todėl visuomene nori alternatyvos.
 
-%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
-%pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
-%klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
-%išanalizuota medžiaga.
-
 \subsection{Darbinė aplinka}
 Strategija kaip automatizuoti ši robotą ir taikyti reikiamus "lošimo" modelius. Naudosime docker konteinerius, kad ši programa nepriklausomai 
 nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų bazę saugoti norimus duomenis. 
@@ -112,13 +126,14 @@ beveik dauguma egzsistuojančių API bibliotekų palaiko python programavimo kal
 API - binance-connector-python (šis API yra labai paprastas ir lengvasvoris, todėl didelio patogumo nėra, tik paprasčiausios užklausos, kurias visvien
 reikėtų apdoroti, ką labai padeda padaryt ankščiau minėta wrapper API - python-binance)  
 
-Straipsnis kuriuo remiasi šitas darbas
+% Straipsnis kuriuo remiasi šitas darbas
 \subsubsection{Binance}
 Binance yra didžiausia kriptovaliutų birža pagal prekybos apimtį, turinti itin didelį valiutų pasiulą ir patogiai prieinamus duomenis. Ši birža taip pat
 suteikia galimybė "lošti" kriptovaliutomis testiniame tinkle. Tinklo paskirtis yra lengvai nuspėjama iš pavadinimo, jame galima atlikti tuos pačius 
 % issiplesti ir papasakoti apie rinkoje galimus atlikti veiksmus, LIMIT BUY, LIMIT SELL ir t.t.
 veiksmus kaip realioje rinkoje, tik naudojama netikra valiuta kuri tikros vertės neturi. 
 
+% kas yra SPOT market parašyti? https://academy.binance.com/en/articles/a-complete-guide-to-cryptocurrency-trading-for-beginners
 \subsubsection{Binance Spot Test Network}
 Testinis tinklas yra beveik identiškas tikrajam "Binance" tinklui, kainos yra vienodos kaip ir pagrindiniame tinkle ar pasaulyje, todėl galima analizuoti 
 seniausius rinkos duomenis ir juos taikyti reikiame modelyje. Testinis tinklas nėra toks populiarus, tad jame yra ženkliai mažiau prekiaujančių žmonių. 
@@ -149,6 +164,10 @@ tinklas kas mėnesį laiko yra iš naujo nustatomas ir visas turimas likutis yra
 nepavyko praturtėti prekiaujant kriptovaliutomis, vėl įgaunama proga pradėti prekyba, na o sėkmingu atveju visas pelnas yra ištrinamas ir reikia vėl pradėti
 nuo nulio.
 
+% padaryti ka reiškią žymėjimas, PADARYTI KODĖL PASIRENKAmE šitas? žiurėjom į marketa, buvo mažas volume kitų porų 
+Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, šiame tyrime apsiribojama prekiauti šiomis poromis rinkoje: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
+iv) BNB/BTC ir v) ETH/BTC
+
 
 \subsubsection{Docker}
 Docker yra gana nauja technologija, išpopuliarėjusi praeitame dešimtmetyje. Tai yra konteinerių technologija, leidžianti sukurti "konteinerius" ir 
@@ -158,6 +177,8 @@ dockerio konteineryje dar vieną docker konteinerį) ir paleidžiame robotą izo
 Ši technologija yra patogi, nes jeigu veikia lokaliai, tai veiks ir kitur naudojant Docker, nes ši technologija
 suvienodina programavimo aplinką, bei nenaudoja tiek daug resursų kaip virtuali mašina.
 
+% autoregression crypto currency predict
+% ar, ar-abs, arima, arfima, sarima
 \section{Autoregresiniai modeliai ir jų skirstymas}
 % interpolation vs extrapolation
 Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko
@@ -170,8 +191,7 @@ Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo 
 Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
 Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
-% autoregression crypto currency predict
-% ar, ar-abs, arima, arfima, sarima
+
 \subsection {ARMA}
 
 \subsection {ARIMA}
@@ -212,6 +232,9 @@ Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniai
 
 \sectionnonum{Sąvokų apibrėžimai}
 \textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
+\textbf{Kriptovaliutų pora} - Kriptovaliutų pora rinkoje yra naudojama prekiaujant. Kriptovaliutos yra susietos poromis, tad norint nusipirkt BTC valiutos pirmiausia reikia surasti 
+galimus keitimo variantus, jei egzistuoja pora BTC/BUSD, galima nusipirkti BTC kriptovaliutos uz turimas BUSD valiutas. Dažnu atveju rinkoje pasidėjus ("FIAT") valiuta
+prekybos rinką ją konvertuoją i panašių token valiuta kaip BUSD(us -regulated stablecoin), USDT (usd tether) ar BNB (binance coin)
 \textbf{Slankusis vidurkis} - Finansų srityje akcijos ar kito prekiaujamo objekto kainos vidurkio tam tikru periodu rodiklis. Vidurkio skaičiavimo priežastis - padėti išlyginti
 kainos duomenis nuolat atnaujinant vidutinę kainą.
 % TODO: autoregresinis ar autoregresyvus
