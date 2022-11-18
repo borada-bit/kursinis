@@ -51,15 +51,16 @@ robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
 
 Šio darbo tikslas yra ištirti kaip galima sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius
 sprendimams priimti. Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, ARFIMA, SARIMA ar kt., tiksliausiai nuspėti kriptovaliutos
-kainos elgesį ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias robotui naudoti jį automatizuojant.
+kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias pagal poreikius robotui naudoti jį automatizuojant.
 
 Tikslui įgyvendinti keliami uždaviniai:
 % bullet points
 \begin{itemize}
   \item Atlikti mokslinės literatūros analizę kriptovaliutų ir autoregresinių modelių tema;
   \item Autoregresinių modelių parinkimas ir jų paruošimas prognozuoti kainą.
+        % swaps these steps? first robot -> ar models 
   \item Sukurti automatizuotą robotą kuris šiuos modelius gali pritaikyti;
-  \item Ekspermentiškai ištirti Autoregresinius modelius juos taikant robotui.
+  \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui.
         % elaborate a little, effectivnees, speed, accuraccy, simplicity or smth else?
   \item Ištirti gautus rezultatus atlikus modelių taikymą;
   \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas;
@@ -72,40 +73,35 @@ Tikslui įgyvendinti keliami uždaviniai:
 %klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
 %išanalizuota medžiaga.
 \section{Pagrindinė tiriamoji dalis}
-Vienas dalykas yra tas, jog esant nereguliuotai rinkai, ją labai gali įtakoti didelį kiekį turintis asmenys, jie gali priversti valiutą
-dirbtinai kilti iki didelių kainų prieš parduodant, akcijų biržoje tai būtų sukčiavimo vadovėlinis pavyzdys, kadangi rinka yra nereguliuojama,
-individai gali elgtis kaip nori, ir yra patys atsakinga už visą sukelta riziką. Antras dalykas - Bitcoin. Pagrindinė ir pirmoji valiuta
-šioje rinkoje. Kaip galima matyti, nuo šitos valiutos kainos priklauso visos rinkos kainos. Nepaslaptis jeigu kyla bitkoinas - kyla ir kitos
-valiutos (coinsai), jeigu krenta bitcoinas - krenta ir kitos valiutos. Tačiau yra atveju kai valiutos nepriklausomai auga dėl esančių pažangių
-sprendimų arba krenta dėl esančių problemų susijusių su kriptovaliutomis. Dar kitas dalykas yra jog dauguma valiutų yra riboto kiekio, taigi galima
-teigti jeigu prekybos robotas per metus uždirba maža procenta kriptovaliutų atžvilgių, jų kainą gali keleriopai išaugti iš musų naudojamų gyvenime
-pinigų atžvilgiu , eurais ar doleriais. Taigi pradinė užduotis suprasti kaip veikia rinka ir ką reikia pastebėti. Nuo ko priklauso kada yra meškų turgus
-(angl. bear market), o kada yra bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis, o
-pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelės įtakos valiutų kainai.
-Bet šitame darbe stengsimes atsižvelgti tik į neapdarotus duomenys ir iš jų rasti prasmingi reikšme, kas nutiks toliau.
+Pagrindinė ir pirmoji kriptovaliuta visoje rinkoje - Bitcoin. Stebint kriptovaliutų rinka matoma, jog nuo šios valiutos kainos koreliuoja visos kitos kriptovaliutų kainos.
+Kyla bitcoin kainą - kyla kitų valiutų kainą, krenta bitcoin kainą - krenta kitų valiutų kainą. Retais atvejais kriptovaliuta sparčiau keičia kainą dėl pažangaus vystymosi ar dėl
+% SOL auga labai? XRP freeze del teismo? ADA kyla nes pazangi, nors btc stabilus? ir kiti E.g. nezinu ar reikia čia šitą plėstis
+esančių vidinių problemų. Dauguma kriptovaliutų yra riboto kiekio, tad jeigu prekybos robotas per laiko tarpą uždirba maža procentą, jų kainą gali keleriopai išaugti
+tikrų valiutų (€ ar \$) atžvilgiu. Vienas iš uždavinių suprasti kaip veikia kriptovaliutų rinka, jog būtų galima automatizuoti šį robotą. Kriptovaliutų rinkoje, kaip ir
+akcijų biržoje yra sezoniškumo laikotarpis meškų turgus (angl. bear market) ir bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis,
+o pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelės įtakos valiutų kainai. Bet šitame darbe stengsimes
+atsižvelgti tik į diskrečius duomenys kuriuos galima analizuoti naudojant autoregersinius modelius. Populiarus aforizmas statistikoje "Visi modeliai yra neteisingi", kuris
+dažnai yra pratęsiamas kaip "Visi modeliai yra neteisingi, bet kai kurie yra naudingi", todėl šiame darba bus bandoma surasti tinkamiausią modelį šiai problemai.
 
-Pagrindinis tyrimas šiame darbe bus išsiaiškinti kaip automatizuoti robotą kuris tiksliai ir preciziškai veiktų pagal mūsų norus ir neturėtume
-prastovų. T.y. robotas pasiektų kuo didesnį našumą, išvengtume klaidų ir jį galėtume ramiai sau palikti atlikinėti savo darbą, o būtų galima sugrįžti
-ir peržvelgti gautus rezultatus. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiancčias kainas ir atitinkamai elgtis.
-Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Žmogus gali tik tiek laiko išlaikyti dėmesį ir kadangi šis stebėjimas turi būti labai preciziškas,
-jį geriausia palikti atlikti kompiuteriui, kuriam yra nesvarbu, jis tik atlieka savo turimą užduotį. Kaip minėta kriptovaliutų rinka yra labai nepastovi, taigi iš pradžų
-reikia suprasti kas sukelia ši nepastovumą.
+Pagrindinis tyrimas šiame darbe yra tinkamiausio auto-regresyvaus modelio pritaikymas automatizuotam robotui lošėjui, kuris tiksliai ir preciziškai veiktų pagal nustatymus
+t.y. išvengtų klaidų ir būtų galimybė palikti atlikiti savo darbą ilgam laikui. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiančias
+kainas ir atitinkamai elgtis. Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Automatizavimui reikia taikyti pasirinktą strategiją, kuri spręstų
+kada yra tinkamas metas įsigyti kriptovaliutą, o kada parduoti. Šiame darbe tyrinėsime auto-regresyviuosius taikomus laiko eilutėms, labiausiai paplitusius statistikoje
+prognozuojant kaip keisis reikšmė pagal dabartines tendencijas ir kitus niuansus.
 
 % Apie kriptovaliutas galima pašnekėti labiau antroje dalyje tiesiog?
-Visų pirmą - visos kriptovaliutos yra paremtos blokų grandinės technologija, taigi jos yra
-niekam nepriklausomos, antra - visa blokų informacija yra viešai prieinama publikai, puikiai žinoma iš kur į kur vyksta sandoriai.
-Taip suteikiama skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką, bei valiutą.
-Tačiau kaip ir kiekvienas daiktas turi savo vertę, taip ir valiutos turi vertę.
-
-Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai, remiantis šiais laikais turinčiomis
-žiniomis. Daugelis kriptovaliutų yra decentralizuoti tinklai, pagrįsti blokų grandinių technologija. Ypatingas kriptovaliutų bruožas yra tas, kad jų paprastai neišleidžia
-jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema kadangi vis daugiau žmonių
-naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taipogi sukeltos ekonominės krizės mažina
-institucijų pasitikėjima, todėl visuomene nori alternatyvos.
+Kriptovaliutos yra paremtos blokų grandinės technologija, todėl daugelis jų yra decentralizuoti tinklai. Visa blokų informacija yra viešai prieinama publikai, puikiai žinoma
+tarp kokių šalių įvyksta vyksta sandoriai, taip suteikiamas skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką. Ypatingas kriptovaliutų bruožas yra tas,
+kad jų paprastai neišleidžia jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema
+kadangi vis daugiau žmonių naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taipogi sukeltos
+ekonominės krizės mažina institucijų pasitikėjimą, todėl kriptovaliutos yra alternatyvi valiuta visuomenei. Nors šiais laikais pastebima tendencija, jog kriptovaliutų sandoriai
+dominuoja nereguliuojamose rinkose. Vienas pirmųjų ir didžiausios apyvartos sulaukęs nelegalių prekių tinklalapis "Silkroad" kaip atsiskaitymą už prekes naudojo bitcoiną, tai
+skatino bitcoin augimą, kas paspartino ir kitų kriptovaliutų progresą.
 
 \subsection{Darbinė aplinka}
-Strategija kaip automatizuoti ši robotą ir taikyti reikiamus "lošimo" modelius. Naudosime docker konteinerius, kad ši programa nepriklausomai 
-nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų bazę saugoti norimus duomenis. 
+Šiam robotui įgyvendinti naudosime Python programavimo kalbą, kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias bibliotekas autoregresyviems modeliams.
+Docker konteinerius, kad ši programa nepriklausomai nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų
+bazę saugoti analizuotems duomenis. 
 Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
 keli šaltiniai \cite{PvzStraipsnEn, PvzKonfLt, PvzKonfEn, PvzKnygLt, PvzKnygEn,
   PvzElPubLt, PvzElPubEn, PvzMagistrLt, PvzPhdEn}.
@@ -191,7 +187,6 @@ Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo 
 Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
 Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
-
 \subsection {ARMA}
 
 \subsection {ARIMA}
@@ -220,8 +215,6 @@ Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuo
 Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
 yra nepastovi ir greitai keičiasi 
 
-
-
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
 
@@ -236,6 +229,9 @@ Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniai
 \textbf{Kriptovaliutų pora} - Kriptovaliutų pora rinkoje yra naudojama prekiaujant. Kriptovaliutos yra susietos poromis, tad norint nusipirkt BTC valiutos pirmiausia reikia surasti 
 galimus keitimo variantus, jei egzistuoja pora BTC/BUSD, galima nusipirkti BTC kriptovaliutos uz turimas BUSD valiutas. Dažnu atveju rinkoje pasidėjus ("FIAT") valiuta
 prekybos rinką ją konvertuoją i panašių token valiuta kaip BUSD(us -regulated stablecoin), USDT (usd tether) ar BNB (binance coin)
+
+\textbf{API} - Aplikacijų programavimo sąsaja (angl. Application programming interface), tai sistemos suteikiama sąsaja, kuria galima naudotis norint pasiekti tos sistemos
+funckionalumą ar apsikeisti duomenimis.
 
 \textbf{Slankusis vidurkis} - Finansų srityje akcijos ar kito prekiaujamo objekto kainos vidurkio tam tikru periodu rodiklis. Vidurkio skaičiavimo priežastis - padėti išlyginti
 kainos duomenis nuolat atnaujinant vidutinę kainą.
