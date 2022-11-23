@@ -20,7 +20,7 @@
 % Nenurodytas vienas arba keli iš būtinų atributų: kalba, raktiniai žodžiai, santrauka.
 \title{Automatizuotas kriptovaliutų prekybos robotas}
 \titleineng{Automated cryptocurrency trading bot}
-\status{3 kurso 1 grupės studentas}
+\status{4 kurso 1 grupės studentas}
 \author{Matas Kaminskas}
 \supervisor{J. Asist., Dr. Igor Katin}
 \date{Vilnius \\ \the\year}
@@ -36,22 +36,26 @@
 
 % Įvade apibūdinamas darbo tikslas, temos aktualumas ir siekiami rezultatai. 
 \sectionnonum{Įvadas}
+% could be better, say something about novel nature of cryptocurrency
 Pasaulis vis labiau modernėja, technologijos tampa vis išmanesnės ir našesnės, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
-kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara standartinei akciju biržai. Po 2007-2008 metų įvykusios finansų krizės,
-visai neužilgo - \cite{SatBitcoin}2009 metais, atsirado pirmoji kriptovaliuta - Bitkoinas, decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
+kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara standartinei akcijų biržai. Po 2007-2008 metų įvykusios finansų krizės,
+visai neužilgo - \cite{SatBitcoin}2008 metais, atsirado pirmoji kriptovaliuta - Bitcoin. Tai yra decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
 blokų grandinės technologija. Dabartiniais apskaičiavimais tinklalapyje coinmarketcap.com, šios rinkos bendra vertė viršija 1 trilijonus JAV dolerių,
 nors mažiau nei prieš metus, ši vertė siekė 3 trilijonus JAV dolerių. Tai tik parodo šios rinkos nepastovumą, bei kodėl ši rinką susilaukia
-daug abipusių nuomonių. Nors tai 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės, bei daug kas, jog kriptovaliutos yra laikinas dalykas,
-galima pamatyti, jog tai sulaukia vis daugiau susidomėjimo, įtakos ir populiarumo mūsų pasaulyje.    
+daug abipusių nuomonių. Nors 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės bet pastebima, jog kriptovaliutos 
+sulaukia vis daugiau susidomėjimo ir populiarumo mūsų pasaulyje.    
+
 
 Kriptovaliutų rinkos pagrindinis skirtumas lyginant su tradicine birža yra jog mainai vyksta 24 valandas per parą. Atvirkščiai nei akcijų birža, kur
-darbo valandos yra nustatytos institucijos, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška,
-bei neįmanoma visą dieną stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą prekybos
-robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
+darbo valandos yra nustatytos institucijų, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška,
+bei neįmanoma visą dieną stebėti ir atlikti trumpus prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą
+prekybos robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
+
 
 Šio darbo tikslas yra ištirti kaip galima sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius
 sprendimams priimti. Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, ARFIMA, SARIMA ar kt., tiksliausiai nuspėti kriptovaliutos
 kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias pagal poreikius robotui naudoti jį automatizuojant.
+
 
 Tikslui įgyvendinti keliami uždaviniai:
 % bullet points
@@ -130,7 +134,7 @@ suteikia galimybė "lošti" kriptovaliutomis testiniame tinkle. Tinklo paskirtis
 veiksmus kaip realioje rinkoje, tik naudojama netikra valiuta kuri tikros vertės neturi. 
 
 % kas yra SPOT market parašyti? https://academy.binance.com/en/articles/a-complete-guide-to-cryptocurrency-trading-for-beginners
-\subsubsection{Binance Spot Test Network}
+\subsubsubsection{Binance Spot Test Network}
 Testinis tinklas yra beveik identiškas tikrajam "Binance" tinklui, kainos yra vienodos kaip ir pagrindiniame tinkle ar pasaulyje, todėl galima analizuoti 
 seniausius rinkos duomenis ir juos taikyti reikiame modelyje. Testinis tinklas nėra toks populiarus, tad jame yra ženkliai mažiau prekiaujančių žmonių. 
 Testiniame tinkle pąskyra sukuriama naudojant "Github" prisijungimą. Kiekvienas naujas vartotojas turi pradinį balansą susidendantį iš kriptovaliutų
@@ -185,6 +189,12 @@ reikšmė tiesiškai priklauso nuo praeitų reikšmių ir dabartines. Žymėjima
 \[X_{t} = \mu + \epsilon_{t} + \sum_{i=1}^{q}\theta_{i}  \epsilon_{t-i}\]
 
 \subsection {ARMA}
+% @article{makridakis1997arma}
+ARMA yra autoregresyviaus ir slankaus vidurkio modelio junginys, tai pastebima iš pavadinimo (angl. auto-regressive moving average). Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis
+pastebėjo jog ARMA modelis gal apimti dideles stacionaraus laiko eilučių klases, kai yra tinkamai nurodytas p laipsnis (AR termų skaičius) ir q (slankaus vidurkio termai).
+Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praietes $x_{t}$ reikšmių ir/arba praieties $e_{t}$ klaidų:
+\[X_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + ... + \phi_{p}x_{t-p} + e_{t} - \theta_{1}e_{t-1} - \theta_{2}e_{t-2} - ... - \theta_{q}e_{t-q}\]
+
 
 \subsection {ARIMA}
 ARIMA modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas pažodžiui: AR - Autoregresinis modelis,
