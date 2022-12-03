@@ -66,6 +66,7 @@ Tikslui įgyvendinti keliami uždaviniai:
   \item Sukurti automatizuotą robotą kuris šiuos modelius gali pritaikyti;
   \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui.
         % elaborate a little, effectivnees, speed, accuraccy, simplicity or smth else?
+        % last two points not needed, they should be at the bottom either way?:D
   \item Ištirti gautus rezultatus atlikus modelių taikymą;
   \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas;
 \end{itemize}
@@ -183,7 +184,7 @@ Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo 
 Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
 
-\subsection {MA - Moving average}
+\subsection {MA}
 Toliau tyrinėjami autoregresyvieji modeliai susideda iš dar vienos dalies - Slankaus vidurkio - MA (angl. Moving average). Slenkančio vidurkio dabartinė
 reikšmė tiesiškai priklauso nuo praeitų reikšmių ir dabartines. Žymėjimas MA(q) reiškia q laipsnio slenkamajį vidurkį, kurio formulę atrodo taip:  
 \[X_{t} = \mu + \epsilon_{t} + \sum_{i=1}^{q}\theta_{i}  \epsilon_{t-i}\]
@@ -216,6 +217,7 @@ poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius 
 ankščiau minėtą ARIMA modelį. 
 
 \subsection {Autoregressive fractionally integrated moving average - SARFIMA}
+SARFIMA modelis yra SARIMA modelio papildymas naudojant integravimą trupmenomis.
 
 \subsection{Pirkti valiutą}
 Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
@@ -224,6 +226,13 @@ yra nepastovi ir greitai keičiasi
 
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
+
+\section{Rezultatai}
+Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti darbinę sritį ir pasigilinti į 
+tyrinėjamą dalyką. 
+Palyginti autoregresiniai modeliai ir kuo jie skiriasi, surastas tinkamiausias esamoje situacijoje modelis
+Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
+Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
 
 \sectionnonum{Išvados}
 Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
