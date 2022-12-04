@@ -201,7 +201,10 @@ Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praietes $x_{t
 ARIMA modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas pažodžiui: AR - Autoregresinis modelis,
 I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA - (Moving average) slankusis vidurkis. AR ir MA yra atskiri
 modeliai, kurie gali būti naudojami paprastesnei laiko eilučiu analizei. Šio modelio privalumas, jog jis sujungia AR ir MA naudojimą kartu su
-diferencijavimu, kuris suteikia galimybė giliau analizuoti laiko eilutes.
+diferencijavimu, kuris suteikia galimybė giliau analizuoti laiko eilutes. Diferencijavimo dalis turimus duomenis padeda paversti į stacionarius, 
+kurie yra reikalingi korektiškam modelio veikimui. Diferencijavimas vyksta baigtinį kartų skaičių, jog būtų pasiekta beveik-validi stacionari būseną. 
+Kitais žodžiais ARIMA yra ekvivalentus ARMA modelis tiem patiems MA ir AR laipsniams \cite{hua2020bitcoin}. 
+
 
 \subsection {ARFIMA}
 ARFIMA modelis šifruojasi taip pat kaip ARIMA modelis, tik su vienu skirtumu - šiame modelyje yra F, reiškianti "Trupmenomis" (angl. Fractionally).
@@ -218,6 +221,9 @@ ankščiau minėtą ARIMA modelį.
 
 \subsection {Autoregressive fractionally integrated moving average - SARFIMA}
 SARFIMA modelis yra SARIMA modelio papildymas naudojant integravimą trupmenomis.
+
+\subsection {AR-ABS}
+%Autoregressive - asset backed security
 
 \subsection{Pirkti valiutą}
 Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
