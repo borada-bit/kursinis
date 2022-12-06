@@ -203,14 +203,23 @@ I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA -
 modeliai, kurie gali būti naudojami paprastesnei laiko eilučiu analizei. Šio modelio privalumas, jog jis sujungia AR ir MA naudojimą kartu su
 diferencijavimu, kuris suteikia galimybė giliau analizuoti laiko eilutes. Diferencijavimo dalis turimus duomenis padeda paversti į stacionarius, 
 kurie yra reikalingi korektiškam modelio veikimui. Diferencijavimas vyksta baigtinį kartų skaičių, jog būtų pasiekta beveik-validi stacionari būseną. 
-Kitais žodžiais ARIMA yra ekvivalentus ARMA modelis tiem patiems MA ir AR laipsniams \cite{hua2020bitcoin}. 
+Kitais žodžiais ARIMA yra ekvivalentus ARMA modelis tiem patiems MA ir AR laipsniams \cite{hua2020bitcoin}. Taigi ARIMA modelis yra paremtas ARMA modeliu. 
+Pagrindinis skirtumas tarp šių modelių yra tas, jog ARIMA konvertuoja nestacionarius duomenis į stacionarius prieš dirbant su jais. Modelio tipas yra 
+klasifikuojamas kaip ARIMA(p,d,q), kur p - autoregresyvoji dalis, d - integravimo (diferencijavimo) dalis, q - slenkančio vidurkio dalis. Visos ARIMA modelio
+reikšmės yra neneigiami sveikieji skaičiai \cite{mondal2014study}.
 
+% Not sure about this
+Dažniausiai yra 3 žingsniai naudojant ARIMA modelį:
+1. Duomenų surinkimas ir verifikavimas - tikriname ar gauti duomenys yra stacionarūs ir ieškome sezoniškumo.
+2. Diferencijavimas - vertimas laiko eilutę į stacionarią.
+3. Prognozavimas naudojant ARIMA modelį - dažniausias taikomas ARIMA modelis yra ARIMA(1,1,0)
 
 \subsection {ARFIMA}
 ARFIMA modelis šifruojasi taip pat kaip ARIMA modelis, tik su vienu skirtumu - šiame modelyje yra F, reiškianti "Trupmenomis" (angl. Fractionally).
 Šis modelis taip pat apibendrina autoregresyvų integruotą slankiojo vidurkio (ARIMA) modelį su sveikaisiais integracijos laipsniais.
 Parametrizavimas sujungia autoregresyvų slankiojo vidurkio (ARMA) modelį, kuris yra plačiai naudojamas trumpos atminties procesu, taip 
 patampant ilgos atminties procesu.
+% šis modelis iš esmės 
 
 \subsection {SARIMA}
 SARIMA modelis yra labai panašus, tačiau turi vieną papildomą savybę - sezoniškumą. Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, 
