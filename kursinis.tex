@@ -169,6 +169,9 @@ nuo nulio.
 Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, šiame tyrime apsiribojama prekiauti šiomis poromis rinkoje: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
 iv) BNB/BTC ir v) ETH/BTC
 
+% PAŠNEKĖTI IŠ PRAŽDIŲ APIE LAIKO EILUTES???
+% stacionari vs non stacionari
+
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
 \section{Autoregresiniai modeliai ir jų skirstymas}
@@ -181,8 +184,10 @@ Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiaus
 \subsection{Autoregressive - AR modelis}
 Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis modelis, kuris padėtų tiksliau nuspėti dydį ateityje.
 Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
-Laikant, kad kintamasis X yra laiko eilutės kintamasis ARp modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
+Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
+%\cite{chi2018stock}
+${X_t}$ - stacionari laiko eilutė, $\Phi$ - AR modelio koeficientas, P - AR modelio laipsnis $ \epsilon_{t} $ - AR modelio paklaida.
 
 \subsection {MA}
 Toliau tyrinėjami autoregresyvieji modeliai susideda iš dar vienos dalies - Slankaus vidurkio - MA (angl. Moving average). Slenkančio vidurkio dabartinė
@@ -191,9 +196,10 @@ reikšmė tiesiškai priklauso nuo praeitų reikšmių ir dabartines. Žymėjima
 
 \subsection {ARMA}
 % @article{makridakis1997arma}
-ARMA yra autoregresyviaus ir slankaus vidurkio modelio junginys, tai pastebima iš pavadinimo (angl. auto-regressive moving average). Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis
-pastebėjo jog ARMA modelis gal apimti dideles stacionaraus laiko eilučių klases, kai yra tinkamai nurodytas p laipsnis (AR termų skaičius) ir q (slankaus vidurkio termai).
-Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praietes $x_{t}$ reikšmių ir/arba praieties $e_{t}$ klaidų:
+ARMA yra autoregresyviaus ir slankaus vidurkio modelio junginys, tai pastebima iš pavadinimo (angl. auto-regressive moving average). Modelis dažnai žymimas
+kaip ARMA(p, q), kur p yra AR laipsnis, o q yra MA laispnis. Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis pastebėjo jog ARMA modelis gal apimti 
+dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis.
+Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{t}$ reikšmių ir/arba praeities $e_{t}$ klaidų:
 \[X_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + ... + \phi_{p}x_{t-p} + e_{t} - \theta_{1}e_{t-1} - \theta_{2}e_{t-2} - ... - \theta_{q}e_{t-q}\]
 
 
