@@ -184,15 +184,18 @@ Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiaus
 \subsection{Autoregressive - AR modelis}
 Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis modelis, kuris padėtų tiksliau nuspėti dydį ateityje.
 Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
-Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: \[X_{t} = C + \Phi _{1}X_{t-1}+\epsilon_{t} \]
+Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: 
+\[X_{t} = \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
 %\cite{chi2018stock}
-${X_t}$ - stacionari laiko eilutė, $\Phi$ - AR modelio koeficientas, P - AR modelio laipsnis $ \epsilon_{t} $ - AR modelio paklaida.
+${X_t}$ - stacionari laiko eilutė, $\Phi$ - AR modelio koeficientas, P - AR modelio laipsnis, $ \epsilon_{t} $ - AR modelio paklaida.
 
 \subsection {MA}
 Toliau tyrinėjami autoregresyvieji modeliai susideda iš dar vienos dalies - Slankaus vidurkio - MA (angl. Moving average). Slenkančio vidurkio dabartinė
-reikšmė tiesiškai priklauso nuo praeitų reikšmių ir dabartines. Žymėjimas MA(q) reiškia q laipsnio slenkamajį vidurkį, kurio formulę atrodo taip:  
-\[X_{t} = \mu + \epsilon_{t} + \sum_{i=1}^{q}\theta_{i}  \epsilon_{t-i}\]
+reikšmė tiesiškai priklauso nuo dabartines ir praeitų reikšmių. Žymėjimas MA(q) reiškia q laipsnio slenkamajį vidurkį, kurio formulę atrodo taip:  
+\[X_{t} = \epsilon_{t} - \sum_{i=1}^{q}\theta_{i}  \epsilon_{t-i}\]
+
+${X_t}$ - stacionari laiko eilutė, q - MA modelio laipsnis, ${\epsilon_t}$ - MA modelio paklaida.
 
 \subsection {ARMA}
 % @article{makridakis1997arma}
