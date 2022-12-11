@@ -60,8 +60,8 @@ kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks mode
 Tikslui įgyvendinti keliami uždaviniai:
 % bullet points
 \begin{itemize}
-  \item Atlikti mokslinės literatūros analizę kriptovaliutų ir autoregresinių modelių tema;
-  \item Autoregresinių modelių parinkimas ir jų paruošimas prognozuoti kainą.
+  \item Atlikti mokslinės literatūros analizę kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
+  \item Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
         % swaps these steps? first robot -> ar models 
   \item Sukurti automatizuotą robotą kuris šiuos modelius gali pritaikyti;
   \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui.
@@ -72,7 +72,6 @@ Tikslui įgyvendinti keliami uždaviniai:
 \end{itemize}
 
 
-% bakalauriniame darbe palyginti standartinius time series eilutes modelius vs ML/DL/AI?
 %Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
 %pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
 %klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
@@ -82,7 +81,7 @@ Pagrindinė ir pirmoji kriptovaliuta visoje rinkoje - Bitcoin. Stebint kriptoval
 Kyla bitcoin kainą - kyla kitų valiutų kainą, krenta bitcoin kainą - krenta kitų valiutų kainą. Retais atvejais kriptovaliuta sparčiau keičia kainą dėl pažangaus vystymosi ar dėl
 % SOL auga labai? XRP freeze del teismo? ADA kyla nes pazangi, nors btc stabilus? ir kiti E.g. nezinu ar reikia čia šitą plėstis
 esančių vidinių problemų. Dauguma kriptovaliutų yra riboto kiekio, tad jeigu prekybos robotas per laiko tarpą uždirba maža procentą, jų kainą gali keleriopai išaugti
-tikrų valiutų (€ ar \$) atžvilgiu. Vienas iš uždavinių suprasti kaip veikia kriptovaliutų rinka, jog būtų galima automatizuoti šį robotą. Kriptovaliutų rinkoje, kaip ir
+tikrų valiutų atžvilgiu. Vienas iš uždavinių suprasti kaip veikia kriptovaliutų rinka, jog būtų galima automatizuoti šį robotą. Kriptovaliutų rinkoje, kaip ir
 akcijų biržoje yra sezoniškumo laikotarpis meškų turgus (angl. bear market) ir bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis,
 o pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelės įtakos valiutų kainai. Bet šitame darbe stengsimes
 atsižvelgti tik į diskrečius duomenys kuriuos galima analizuoti naudojant autoregersinius modelius. Populiarus aforizmas statistikoje "Visi modeliai yra neteisingi", kuris
@@ -169,37 +168,55 @@ nuo nulio.
 Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, šiame tyrime apsiribojama prekiauti šiomis poromis rinkoje: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
 iv) BNB/BTC ir v) ETH/BTC
 
-% PAŠNEKĖTI IŠ PRAŽDIŲ APIE LAIKO EILUTES???
-% stacionari vs non stacionari
+% interpolation vs extrapolation?
+\section{Laiko eilučių analizė}
+"Visi modeliai yra klaidingi. Kai kurie modeliai yra naudingi" (angl. "All models are wrong. Some models are useful") - citata priskiriama George Box. Šios minties
+reikėtų nepamiršti analizuojant laiko eilutes. Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti
+kintamieji, kurie yra stebimi nustatytą laiko tarpą surenkant jų istorinius duomenis. Šiuo būdu analitikai bando nuspėti kintamųjų ateities reikšmes. Iš dalies tai 
+ir yra autoregresinis modelis. Autoregresiniuose modeliuose naudojama laiko eilučių analizė. Laiko eilučių analizės tikslas nuspėti kaip kinta reikšmė bėgant laikui.
+Dažnai sutinkami laiko eilučių duomenų rinkimo pavyzdžiai: sekamas paciento širdies pulsas, prekyboje planuojant sandėlio prekių kiekį ar nuspėti akcijų kainas biržų akcijoje.
+Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas. Toliau autoregresija išsiskaido į šiuos modelius
+
+\subsection {Laiko eilutės}
+Laiko eilutė yra cronologiškai surikiuotas duomenų rinkinys. Laiko eilučių pagalbą analitkai gali pastebėti įvairias tendencijas ir taip bandyti numatyti reikšmes
+ateityje bei geriau pasiruošti įvykiams.
+%Stationarity implies that taking consecutive samples of data with the same size should have identical covariances regardless of the starting point.
+
+\subsection {Laiko eilučių stacionarumas}
+
+% sources!!!!!!!
+% later after introducing AR models?
+\subsection {ACF ir PACF}
+ACF (angl. autocorrelation function) ir PACF (angl. partial autocorrelation function) naudojama analizuoti laiko eilutes. Pritaikant ACF bei PACF modelį 
+galima lengviau parinkti ARMA, ARIMA modelio pradines reikšmes pagal atsilukusiuos kintamuosius.
 
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
-\section{Autoregresiniai modeliai ir jų skirstymas}
-% interpolation vs extrapolation
-Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko
-tarpą ar surenkant jų istorinius duomenius. Šiuo būdu analitikai bando nuspėti kintamūjų ateities reikšmes. Iš dalies tai ir yra autoregresinis modeliai. 
-Autoregresiniuose modeliuose naudojamos laiko eilučių analizė. Laiko eilučių analizės tikslas nuspėti kaip kinta sekama reikšmė bėgant laikui. Dažnai sutinkami laiko eilučių
-duomenų rinkimo pavyzdžiai: sekamas paciento širdies pulsas, prekyboje planuojant sandėlio prekių kiekį ar nuspėti akcijų kainas biržų akcijoje.
-Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas. Toliau autoregresija išsiskaido į šiuos modelius
-\subsection{Autoregressive - AR modelis}
-Autoregresinis modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis modelis, kuris padėtų tiksliau nuspėti dydį ateityje.
-Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių iš laiko periodo norima naudoti.
-Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: 
+\section{Autoregresiniai modeliai}
+Egzistuoja ne vienas laiko eilučių analizės modelis, kuris remiasi autoregresija. Populiarusi ir dažniausiai sutinkami modeliai tokie kaip: AR, ARMA, ARIMA.
+Šie modeliai taip pat naudojasi anksčiau nepaminėtu MA modeliu kuris yra slankaus vidurkio modelis (angl. MA - moving average). Taip pat yra SARIMA, SARFIMA 
+ir kitų modelių, turinčių savo specifinius panaudjimo atvejus. Toliau apžvelgsime detaliau autoregresinius modelius ir kaip jie galėtų būti panaudoti 
+iškeltiems užduotims šiame darbe spręsti.
+
+\subsection{AR modelis}
+AR (angl. autoregressive) modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis
+modelis, kuris padėtų tiksliau nuspėti dydį ateityje. Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių 
+iš laiko periodo norima naudoti. Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: 
 \[X_{t} = \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
-%\cite{chi2018stock}
+%\cite{chi2018stock} naudojami AR, MA ir ARMA modelio formulėms
 ${X_t}$ - stacionari laiko eilutė, $\Phi$ - AR modelio koeficientas, P - AR modelio laipsnis, $ \epsilon_{t} $ - AR modelio paklaida.
 
-\subsection {MA}
+\subsection {MA modelis}
 Toliau tyrinėjami autoregresyvieji modeliai susideda iš dar vienos dalies - Slankaus vidurkio - MA (angl. Moving average). Slenkančio vidurkio dabartinė
 reikšmė tiesiškai priklauso nuo dabartines ir praeitų reikšmių. Žymėjimas MA(q) reiškia q laipsnio slenkamajį vidurkį, kurio formulę atrodo taip:  
 \[X_{t} = \epsilon_{t} - \sum_{i=1}^{q}\theta_{i}  \epsilon_{t-i}\]
 
 ${X_t}$ - stacionari laiko eilutė, q - MA modelio laipsnis, ${\epsilon_t}$ - MA modelio paklaida.
 
-\subsection {ARMA}
+\subsection {ARMA modelis}
 % @article{makridakis1997arma}
-ARMA yra autoregresyviaus ir slankaus vidurkio modelio junginys, tai pastebima iš pavadinimo (angl. auto-regressive moving average). Modelis dažnai žymimas
+ARMA (angl. autorogressive moving average) modelis yra autoregresyviaus ir slankaus vidurkio modelio junginys. Modelis dažnai žymimas
 kaip ARMA(p, q), kur p yra AR laipsnis, o q yra MA laispnis. Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis pastebėjo jog ARMA modelis gal apimti 
 dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis.
 Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{t}$ reikšmių ir/arba praeities $e_{t}$ klaidų:
@@ -207,11 +224,10 @@ Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{
 
 
 %BAD SOURCE BUT W/E:
-%Stationarity implies that taking consecutive samples of data with the same size should have identical covariances regardless of the starting point.
-\subsection {ARIMA}
-ARIMA modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas pažodžiui: AR - Autoregresinis modelis,
-I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA - (Moving average) slankusis vidurkis. AR ir MA yra atskiri
-modeliai, kurie gali būti naudojami paprastesnei laiko eilučiu analizei. Šio modelio privalumas, jog jis sujungia AR ir MA naudojimą kartu su
+\subsection {ARIMA modelis}
+ARIMA (angl. autoregressive integrated moving average) modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas
+pažodžiui: AR - Autoregresinis modelis, I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA - (Moving average) slankusis vidurkis.
+AR ir MA yra atskiri modeliai, kurie gali būti naudojami paprastesnei laiko eilučiu analizei. Šio modelio privalumas, jog jis sujungia AR ir MA naudojimą kartu su
 diferencijavimu, kuris suteikia galimybė giliau analizuoti laiko eilutes. Diferencijavimo dalis turimus duomenis padeda paversti į stacionarius, 
 kurie yra reikalingi korektiškam modelio veikimui. Diferencijavimas vyksta baigtinį kartų skaičių, jog būtų pasiekta beveik-validi stacionari būseną. 
 Kitais žodžiais ARIMA yra ekvivalentus ARMA modelis tiem patiems MA ir AR laipsniams \cite{hua2020bitcoin}. Taigi ARIMA modelis yra paremtas ARMA modeliu. 
@@ -220,14 +236,15 @@ klasifikuojamas kaip ARIMA(p,d,q), kur p - autoregresyvoji dalis, d - integravim
 reikšmės yra neneigiami sveikieji skaičiai \cite{mondal2014study}.
 
 % Not sure about this
-Dažniausiai yra 3 žingsniai naudojant ARIMA modelį:
+% dažniausiai negalima naudoti šiame kontekste
+Dažniausiai yra 3 žingsniai naudoti ARIMA modelį:
 1. Duomenų surinkimas ir verifikavimas - tikriname ar gauti duomenys yra stacionarūs ir ieškome sezoniškumo.
 2. Diferencijavimas - vertimas laiko eilutę į stacionarią.
 3. Prognozavimas naudojant ARIMA modelį - dažniausias taikomas ARIMA modelis yra ARIMA(1,1,0)
 
 % atskirti trumpos atminties ir ilgos taminties modelius?
-\subsection {ARFIMA}
-ARFIMA modelis šifruojasi taip pat kaip ARIMA modelis, tik su vienu skirtumu - šiame modelyje yra papildoma raidė F, reiškianti "Trupmenomis" (angl. Fractionally).
+\subsection {ARFIMA modelis}
+ARFIMA (angl. autoregressive fractionally integrated moving average) modelis yra ARIMA modelio išplėtimas.
 Šis modelis apibendrina autoregresyvų integruotą slankiojo vidurkio (ARIMA) modelį su sveikaisiais integracijos laipsniais.
 Parametrizavimas sujungia autoregresyvų slankiojo vidurkio (ARMA) modelį, kuris yra plačiai naudojamas trumpos atminties procesu, taip 
 patampant ilgos atminties procesu. ARFIMA tinka analyzuoti toliau į priekį lyginant su ARIMA trumpos atminties procesu \cite{samimi2009long}.
@@ -239,23 +256,27 @@ Trupmeniškai diferencijuojama laiko eilutė, ko pasekoje gaunamas ARMA procesas
 Nustatomi kiti du ARFIMa modelio parametrai p ir q.
 % šis modelis iš esmės 
 
-\subsection {SARIMA}
-SARIMA modelis yra labai panašus, tačiau turi vieną papildomą savybę - sezoniškumą. Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, 
-galima taikyti šį modelį. Geras ir paprastas pavyzdys, prekyba šventiniu laikotarpiu - kalėdos. Prekybos centruose, tuo metu padidėja prekybą, tačiau 
-kitą mėnesį ženkliai sumažėja. Spartus sumažėjimas nereiškia, jog prekybai yra didėlės problemos ir reikia pokyčių. Tai dažniausiai yra žmonių 
-poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius sezoniškai atsitinkančius įvykius, juos atpažįsta ir pritaiko naudojant
+\subsection {SARIMA modelis}
+SARIMA (angl. seasonal autoregressive integrated moving average) modelis yra ARIMA modelio išplėtimas turintis vieną papildomą savybę - sezoniškumą. 
+Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, galima taikyti šį modelį. Geras ir paprastas pavyzdys, prekyba šventiniu laikotarpiu - kalėdos.
+Prekybos centruose, tuo metu padidėja prekybą, tačiau kitą mėnesį ženkliai sumažėja. Spartus sumažėjimas nereiškia, jog prekybai yra didėlės problemos ir reikia pokyčių.
+Tai dažniausiai yra žmonių poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius sezoniškai atsitinkančius įvykius, juos atpažįsta ir pritaiko naudojant
 ankščiau minėtą ARIMA modelį. 
 
-\subsection {Autoregressive fractionally integrated moving average - SARFIMA}
-SARFIMA modelis yra SARIMA modelio papildymas naudojant integravimą trupmenomis.
+\subsection {SARFIMA modelis}
+SARFIMA (angl. autoregressive fractionally integrated moving average) modelis yra SARIMA modelio papildymas naudojant integravimą trupmenomis.
 
 \subsection {AR-ABS}
-%Autoregressive - asset backed security
+%autoregressive - asset backed security
 
-\subsection{Pirkti valiutą}
+\section{Robotas lošėjas}
+Taigi po literatūros analizės galima pradėti modeliuoti robotą.
+
+\subsection{Pirkti}
 Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
 Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
 yra nepastovi ir greitai keičiasi 
+\subsection{Parduoti}
 
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
@@ -268,7 +289,10 @@ Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudot
 Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
 
 \sectionnonum{Išvados}
-Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
+Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais. Rekomenduojama geriausiams rezultatamas naudoti ARIMA modelį???.
+Neišvengiama, jog tokiame trumpame darbe būtų aptartos visos įmanomos sritys ir atvejai, taigi tolimesnei tyrimo eigai pasiūlymas nagrinėti prognozuojamus modelius, 
+kurie naudoja dirbtinį intelektą. Suprasti jų veikimą ir palyginti su standartiniais statistiniais prognozavimo būdais aptartais šiame darbe arba kitais nepaminėtais
+prognozavimo modeliais (VAR, GARCH).
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 
