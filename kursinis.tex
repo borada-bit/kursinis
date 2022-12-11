@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 % \usepackage{hyperref}  % Nuorodų aktyvavimas
 \usepackage{url}
+\usepackage{subcaption}	% You need this package for subfigures
 
 
 % Titulinio aprašas
@@ -170,20 +171,47 @@ iv) BNB/BTC ir v) ETH/BTC
 
 % interpolation vs extrapolation?
 \section{Laiko eilučių analizė}
-"Visi modeliai yra klaidingi. Kai kurie modeliai yra naudingi" (angl. "All models are wrong. Some models are useful") - citata priskiriama George Box. Šios minties
-reikėtų nepamiršti analizuojant laiko eilutes. Dauguma analizės sričių bando nuspėti kintamųjų elgsena bėgant laikui. Dažnu atveju tai yra vienas ar keli izoliuoti
-kintamieji, kurie yra stebimi nustatytą laiko tarpą surenkant jų istorinius duomenis. Šiuo būdu analitikai bando nuspėti kintamųjų ateities reikšmes. Iš dalies tai 
-ir yra autoregresinis modelis. Autoregresiniuose modeliuose naudojama laiko eilučių analizė. Laiko eilučių analizės tikslas nuspėti kaip kinta reikšmė bėgant laikui.
-Dažnai sutinkami laiko eilučių duomenų rinkimo pavyzdžiai: sekamas paciento širdies pulsas, prekyboje planuojant sandėlio prekių kiekį ar nuspėti akcijų kainas biržų akcijoje.
-Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas. Toliau autoregresija išsiskaido į šiuos modelius
+"Visi modeliai yra klaidingi. Kai kurie modeliai yra naudingi" (angl. "All models are wrong. Some models are useful") - citata priskiriama George Box, kurios
+reikėtų nepamiršti analizuojant laiko eilutes. Šis analizės būdas bando pastebėti pasikartojančius modelius bėgant laikui, jog būtų galima atlikti kuo tikslesnes
+prognozes apie ateitį. 
+Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko tarpą ar surenkant jų istorinius duomenis. Laiko eilučių duomenų 
+rinkimo ir analizavimo pavyzdžiai: sekamas paciento širdies pulsas, prekyboje sandelio prekių kieko priežiūra, konkrečios akcijos kainos prognozavimas akcijų biržoje. 
+Laiko eilučių analizės vienas iš tikslų yra nuspėti kaip kinta reikšmė bėgant laikui, tai ir yra ko prireiks norint prognozuoti kriptovaliutų kainą šiam robotui. 
+Kriptovaliutų kainų duomenys, taip pat yra laiko eilutė, nes kaina yra sekama bėgant laikui, tačiau dažniausiu atveju tai nėra stacionari laiko eilutė.
+Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas remiantis turimais duomeninimis ir naudojamu modeliu. 
 
 \subsection {Laiko eilutės}
-Laiko eilutė yra cronologiškai surikiuotas duomenų rinkinys. Laiko eilučių pagalbą analitkai gali pastebėti įvairias tendencijas ir taip bandyti numatyti reikšmes
-ateityje bei geriau pasiruošti įvykiams.
-%Stationarity implies that taking consecutive samples of data with the same size should have identical covariances regardless of the starting point.
+Laiko eilutė yra chronologiškai surikiuotas duomenų rinkinys. Laiko eilučių pagalbą analitkai gali pastebėti įvairias tendencijas ir taip bandyti numatyti reikšmes
+ateityje bei geriau pasiruošti įvykiams. Laiko eilutė gali būti stacionari arba ne stacionari. Šiame darbe norint analizuoti turimus duomenis naudojant 
+autoregresyvius modelius reikia turėti stacionarią laiko eilutę, jog būtų galima pritaikyti tam modeliui. Tačiau kriptovaliutų kainą iš tikrųjų yra
+ne stacionari laiko eilutė, todėl prieš dirbant reikia susitvarkyti
 
 \subsection {Laiko eilučių stacionarumas}
+Trumpai tariant stacionari laiko eilutė yra laikoma tokia eilutė, kurios statistinės savybės bėgant laikui nekinta \cite{nason2006stationary}. 
+Stacionarumas reiškia laiko eilučių kontekste reiškia, jog eilutės vidurkis, standartinis nuokrypis ir kovariacija turi pastovias reikšmes. 
+Stacionarumas implikuoja jog imant skirtingas to paties dydžio imtis išlieka identiška startuojant nuo bet kurio taško.
 
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=.6\linewidth]{img/history.png}
+    \caption{Stacionari laiko eilutė}
+    \label{fig:sub1}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=.6\linewidth]{img/SPY_500_trend.png}
+    \caption{Nestacionari}
+    \label{fig:sub2}
+  \end{subfigure}
+  \caption{Stacionari ir nestacionari laiko eilutė}
+  \label{fig:test}
+\end{figure}
+
+Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Pirmajame (stacionariame) grafe yra pavaizduota vidutinis metinis pelnas
+investuojant į S&P500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
+variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais.
 % sources!!!!!!!
 % later after introducing AR models?
 \subsection {ACF ir PACF}
@@ -193,10 +221,11 @@ galima lengviau parinkti ARMA, ARIMA modelio pradines reikšmes pagal atsilukusi
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
 \section{Autoregresiniai modeliai}
-Egzistuoja ne vienas laiko eilučių analizės modelis, kuris remiasi autoregresija. Populiarusi ir dažniausiai sutinkami modeliai tokie kaip: AR, ARMA, ARIMA.
-Šie modeliai taip pat naudojasi anksčiau nepaminėtu MA modeliu kuris yra slankaus vidurkio modelis (angl. MA - moving average). Taip pat yra SARIMA, SARFIMA 
-ir kitų modelių, turinčių savo specifinius panaudjimo atvejus. Toliau apžvelgsime detaliau autoregresinius modelius ir kaip jie galėtų būti panaudoti 
-iškeltiems užduotims šiame darbe spręsti.
+Vienas iš būdų analizuoti laiko eilutės yra autoregresija ir ją naudojantis modeliai. Egzistuoja ne vienas autoregresija naudojantis modelis. 
+Populiarusi ir dažniausiai sutinkami modeliai yra ARMA(p, q) ir ARIMA(p, d, q).
+Šie modeliai taip pat naudojasi anksčiau nepaminėtu MA modeliu kuris yra slankaus vidurkio modelis (angl. MA - moving average).
+Taip pat yra SARIMA, SARFIMA ir kitų modelių, turinčių savo specifinius panaudjimo atvejus. 
+Toliau apžvelgsime detaliau autoregresinius modelius ir kaip jie galėtų būti panaudoti iškeltiems užduotims šiame darbe spręsti.
 
 \subsection{AR modelis}
 AR (angl. autoregressive) modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis
@@ -218,7 +247,7 @@ ${X_t}$ - stacionari laiko eilutė, q - MA modelio laipsnis, ${\epsilon_t}$ - MA
 % @article{makridakis1997arma}
 ARMA (angl. autorogressive moving average) modelis yra autoregresyviaus ir slankaus vidurkio modelio junginys. Modelis dažnai žymimas
 kaip ARMA(p, q), kur p yra AR laipsnis, o q yra MA laispnis. Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis pastebėjo jog ARMA modelis gal apimti 
-dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis.
+dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis. Taip pat reikia pabrėžti, jog ARMA(0, q) = MA(q) ir ARMA(p, 0) = AR(p)
 Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{t}$ reikšmių ir/arba praeities $e_{t}$ klaidų:
 \[X_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + ... + \phi_{p}x_{t-p} + e_{t} - \theta_{1}e_{t-1} - \theta_{2}e_{t-2} - ... - \theta_{q}e_{t-q}\]
 
