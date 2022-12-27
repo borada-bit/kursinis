@@ -53,23 +53,20 @@ bei neįmanoma visą dieną stebėti ir atlikti trumpus prasmingus mainus rinkoj
 prekybos robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
 
 
-Šio darbo tikslas yra ištirti kaip galima sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius
-sprendimams priimti. Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, ARFIMA, SARIMA ar kt., tiksliausiai nuspėti kriptovaliutos
-kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias pagal poreikius robotui naudoti jį automatizuojant.
+Šio darbo tikslas yra sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius. 
+Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, ARFIMA, SARIMA ar kt., tiksliausiai nuspėti kriptovaliutos
+kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias robotui naudoti.
 
 
 Tikslui įgyvendinti keliami uždaviniai:
 % bullet points
 \begin{itemize}
-  \item Atlikti mokslinės literatūros analizę kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
-  \item Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
-        % swaps these steps? first robot -> ar models 
-  \item Sukurti automatizuotą robotą kuris šiuos modelius gali pritaikyti;
-  \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui.
-        % elaborate a little, effectivnees, speed, accuraccy, simplicity or smth else?
-        % last two points not needed, they should be at the bottom either way?:D
-  \item Ištirti gautus rezultatus atlikus modelių taikymą;
-  \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas;
+  \item Atlikti mokslinės literatūros analizę; % kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
+  \item Atlikti autoregresinių modelių analizę;%Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
+  \item Sukurti automatizuotą robotą kuris gali pritaikyti autoregresinius modelius;
+        % \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui;
+  \item Analizuoti gautus rezultatus atliktus modelių taikyma; % ištirti
+  \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas.
 \end{itemize}
 
 
@@ -210,7 +207,7 @@ Stacionarumas implikuoja jog imant skirtingas to paties dydžio imtis išlieka i
 \end{figure}
 
 Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Pirmajame (stacionariame) grafe yra pavaizduota vidutinis metinis pelnas
-investuojant į S&P500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
+investuojant į SnP500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
 variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais.
 % sources!!!!!!!
 % later after introducing AR models?
@@ -301,11 +298,10 @@ SARFIMA (angl. autoregressive fractionally integrated moving average) modelis yr
 \section{Robotas lošėjas}
 Taigi po literatūros analizės galima pradėti modeliuoti robotą.
 
-\subsection{Pirkti}
-Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
-Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
-yra nepastovi ir greitai keičiasi 
-\subsection{Parduoti}
+\subsection{Roboto veiksmai?}
+% Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
+% Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
+% yra nepastovi ir greitai keičiasi 
 
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
@@ -318,10 +314,16 @@ Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudot
 Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
 
 \sectionnonum{Išvados}
-Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais. Rekomenduojama geriausiams rezultatamas naudoti ARIMA modelį???.
+Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
+\begin{itemize}
+  \item Geriausi rezultatai gaunami naudojant ARIMA modelį (pavyzdys);
+  \item Dar viena išvada;
+  \item Paskutinė išvada;
+\end{itemize}
 Neišvengiama, jog tokiame trumpame darbe būtų aptartos visos įmanomos sritys ir atvejai, taigi tolimesnei tyrimo eigai pasiūlymas nagrinėti prognozuojamus modelius, 
 kurie naudoja dirbtinį intelektą. Suprasti jų veikimą ir palyginti su standartiniais statistiniais prognozavimo būdais aptartais šiame darbe arba kitais nepaminėtais
 prognozavimo modeliais (VAR, GARCH).
+
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 
@@ -355,12 +357,12 @@ siekti numatyti būsimas akcijų kainas, remiantis ankstesniais rezultatais.
 % diskelyje ar kompaktiniame diske. Priedai taip pat vadinami ir numeruojami.
 % Tekstas su priedais siejamas nuorodomis (pvz.: \ref{img:mlp}).
 
-\section{Roboto veikimo struktūra}
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.5]{img/DIAGRAM}
-  \caption{Paveikslėlio pavyzdys}   % Antraštė įterpiama po paveikslėlio
-  \label{img:diagram}
-\end{figure}
+% \section{Roboto veikimo struktūra}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[scale=0.5]{img/DIAGRAM}
+%   \caption{Paveikslėlio pavyzdys}   % Antraštė įterpiama po paveikslėlio
+%   \label{img:diagram}
+% \end{figure}
 
 \end{document}
