@@ -40,17 +40,16 @@
 % could be better, say something about novel nature of cryptocurrency
 Pasaulis vis labiau modernėja, technologijos tampa vis išmanesnės ir našesnės, nei bet kada anksčiau. Šiais laikais turime kontraversiškai pagarsėjusią
 kriptovaliutų rinką, kuri yra kaip skaidresnė atsvara standartinei akcijų biržai. Po 2007-2008 metų įvykusios finansų krizės,
-visai neužilgo - \cite{SatBitcoin}2008 metais, atsirado pirmoji kriptovaliuta - Bitcoin. Tai yra decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
-blokų grandinės technologija. Dabartiniais apskaičiavimais tinklalapyje coinmarketcap.com, šios rinkos bendra vertė viršija 1 trilijonus JAV dolerių,
-nors mažiau nei prieš metus, ši vertė siekė 3 trilijonus JAV dolerių. Tai tik parodo šios rinkos nepastovumą, bei kodėl ši rinką susilaukia
-daug abipusių nuomonių. Nors 1 trilijonas JAV dolerių, sudaro tik 10\% akcijų biržos vertės bet pastebima, jog kriptovaliutos 
-sulaukia vis daugiau susidomėjimo ir populiarumo mūsų pasaulyje.    
+visai neužilgo - \cite{nakamoto2008bitcoin} 2008 metais, atsirado pirmoji kriptovaliuta - Bitcoin. Tai yra decentralizuotą ir nepriklausoma elektroninę valiutą, paremta
+blokų grandinės technologija. Dabartiniais apskaičiavimais šios rinkos bendra vertė viršija 800 milijardų JAV dolerių \cite{CoinMarketCap},
+nors kiek daugiau nei prieš metus ši vertė buvo dvigubai didesnė - 1.6 trilijonų JAV dolerių, o tarp 2018 ir 2020 metų vertė daugmaž buvo stabili - apie 100 milijardų JAV dolerių.
+Šie duomenys dar kartą pabrėžia kriptovaliutų rinkos nepastovumą, bei ženkliai padidėjusi susidomėjimą, populiarumą visuomenėje.    
 
 
-Kriptovaliutų rinkos pagrindinis skirtumas lyginant su tradicine birža yra jog mainai vyksta 24 valandas per parą. Atvirkščiai nei akcijų birža, kur
-darbo valandos yra nustatytos institucijų, dažniausiai standartinėmis darbo valandomis vietiniu laiku. Mainams vykstant be sustojimo yra nepraktiška,
-bei neįmanoma visą dieną stebėti ir atlikti trumpus prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį procesą - įdarbinti automatizuotą
-prekybos robotą, kuris stebėtų ir atliktų prasmingus mainus šioje sferoje.
+Pagrindinis skirtumas tarp kriptovaliutų rinkos ir tradicines akcijų biržos yra jog mainai vyksta 24 valandas per parą. Akcijų biržoje yra nustatytos pagrindinės darbo valandos,
+jos dažniausiai yra tokios pat kaip vietos darbo valandos ir pagrindiniai mainai vyksta šiomis valandomis, todėl stebėti tendencijas ir realizuoti strategijas yra įmanomas darbas asmeniui.
+Kai rinka yra prieinama visa parą dirbant be sustojimo yra nepraktiška, bei neįmanoma stebėti ir atlikti prasmingus mainus rinkoje. Atsiranda puiki terpė automatizuoti šį 
+procesą - įdarbinti automatizuotą prekybos robotą, kuris gebėtų analizuoti rinkos duomenis ir prognozuoti tolimesnė rinkos eigą.
 
 
 Šio darbo tikslas yra sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius. 
@@ -61,11 +60,11 @@ kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks mode
 Tikslui įgyvendinti keliami uždaviniai:
 % bullet points
 \begin{itemize}
-  \item Atlikti mokslinės literatūros analizę; % kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
-  \item Atlikti autoregresinių modelių analizę;%Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
-  \item Sukurti automatizuotą robotą kuris gali pritaikyti autoregresinius modelius;
+  \item Mokslinės literatūros analizė, % kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
+  \item Atlikti autoregresinių modelių analizę, %Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
+  \item Sukurti automatizuotą robotą galintį pritaikyti autoregresinius modelius,
         % \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui;
-  \item Analizuoti gautus rezultatus atliktus modelių taikyma; % ištirti
+  \item Ištirti gautus rezultatus atlikus modelių taikymą, % ištirti
   \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas.
 \end{itemize}
 
@@ -249,7 +248,6 @@ Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{
 \[X_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + ... + \phi_{p}x_{t-p} + e_{t} - \theta_{1}e_{t-1} - \theta_{2}e_{t-2} - ... - \theta_{q}e_{t-q}\]
 
 
-%BAD SOURCE BUT W/E:
 \subsection {ARIMA modelis}
 ARIMA (angl. autoregressive integrated moving average) modelis yra paplitęs nuo 1970-ųjų iki šių dienų. Modelio pavadinimo šifravimas
 pažodžiui: AR - Autoregresinis modelis, I - Integracija (Diferencijavimas), atsižvelgiama į duomenų tendenciją, MA - (Moving average) slankusis vidurkis.
@@ -313,6 +311,8 @@ Palyginti autoregresiniai modeliai ir kuo jie skiriasi, surastas tinkamiausias e
 Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
 Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
 
+% Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
+% suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 \sectionnonum{Išvados}
 Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
 \begin{itemize}
@@ -322,10 +322,8 @@ Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniai
 \end{itemize}
 Neišvengiama, jog tokiame trumpame darbe būtų aptartos visos įmanomos sritys ir atvejai, taigi tolimesnei tyrimo eigai pasiūlymas nagrinėti prognozuojamus modelius, 
 kurie naudoja dirbtinį intelektą. Suprasti jų veikimą ir palyginti su standartiniais statistiniais prognozavimo būdais aptartais šiame darbe arba kitais nepaminėtais
-prognozavimo modeliais (VAR, GARCH).
-
-% Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
-% suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
+prognozavimo modeliais (VAR, GARCH). Šiame darbe apsistojama ties kainų tendencijų prognozavimų, tolimesnė programos galima eiga būtų realizuoti pritaikyti konkrečias strategijas 
+robotui lošėjui, kuris pagal gautas prognozes atlieka atitinkamą veiksmą.
 
 \sectionnonum{Sąvokų apibrėžimai}
 \textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
