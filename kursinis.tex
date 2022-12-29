@@ -74,15 +74,29 @@ Tikslui įgyvendinti keliami uždaviniai:
 %klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
 %išanalizuota medžiaga.
 \section{Pagrindinė tiriamoji dalis}
-Pagrindinė ir pirmoji kriptovaliuta visoje rinkoje - Bitcoin. Stebint kriptovaliutų rinka matoma, jog nuo šios valiutos kainos koreliuoja visos kitos kriptovaliutų kainos.
-Kyla bitcoin kainą - kyla kitų valiutų kainą, krenta bitcoin kainą - krenta kitų valiutų kainą. Retais atvejais kriptovaliuta sparčiau keičia kainą dėl pažangaus vystymosi ar dėl
+% citation about impact of bitcoin on other coins?
+% explain mining?
+Pagrindinė ir pirmoji kriptovaliuta - Bitcoin. Nors šios valiutos tinklas ir pirmieji 50 BTC buvo "iškasti" 2009 metų pradžioje, kriptovaliuta susilaukė didesnio dėmesio
+tik 2013 metais\cite{macdonell2014popping}. Bitcoin buvo skelbiama kaip ateities valiuta dėl savo naujoviškumo ir decentralizavimo, bet susilaukdavo ir 
+% write about silkroad?
+% BLOGAI NUKERPAMAS SKIEMUO PERKELIANT ZODI I KITA EILUTE?
+neigiamų atsilipiemų dėl atsiskaitymo nelegaliuose prekybos vietuose internete. Stebint kriptovaliutų rinką matoma koreliacija tarp Bitcoin kainos ir visų kitų kriptovaliutų kaina.
+Kyla bitcoin kaina - kyla kitų valiutų kaina, krenta bitcoin kaina - krenta kitų valiutų kaina. Retesniais atvejais kriptovaliutos sparčiau keičia kainą dėl 
+pažangaus vystymosi ar dėl esančių problemų. 
 % SOL auga labai? XRP freeze del teismo? ADA kyla nes pazangi, nors btc stabilus? ir kiti E.g. nezinu ar reikia čia šitą plėstis
-esančių vidinių problemų. Dauguma kriptovaliutų yra riboto kiekio, tad jeigu prekybos robotas per laiko tarpą uždirba maža procentą, jų kainą gali keleriopai išaugti
-tikrų valiutų atžvilgiu. Vienas iš uždavinių suprasti kaip veikia kriptovaliutų rinka, jog būtų galima automatizuoti šį robotą. Kriptovaliutų rinkoje, kaip ir
-akcijų biržoje yra sezoniškumo laikotarpis meškų turgus (angl. bear market) ir bulių turgus(angl. bull market), ankstesnis reiškiantis, jog kainos krenta ir pasilieka žemomis,
-o pastaris reiškiantis - atvirkščiai. Dar pastebima jog atskirų populiarų asmenų veikla socialiniuose tinkluose turi didelės įtakos valiutų kainai. Bet šitame darbe stengsimes
-atsižvelgti tik į diskrečius duomenys kuriuos galima analizuoti naudojant autoregersinius modelius. Populiarus aforizmas statistikoje "Visi modeliai yra neteisingi", kuris
-dažnai yra pratęsiamas kaip "Visi modeliai yra neteisingi, bet kai kurie yra naudingi", todėl šiame darba bus bandoma surasti tinkamiausią modelį šiai problemai.
+% citation that most cryptocurrencies are limited?
+
+% source on limited sources?
+Dauguma kriptovaliutų yra riboto kiekio, tad jeigu prekybos robotas uždirba konkrečios kriptovaliutos mažai, jų kainą gali keleriopai išaugti 
+tikrų valiutų atžvilgiu, todėl į kriptovaliutą galima žiūrėti ir kaip į investiciją. 2018 metais, nepaisant to, kad kriptovaliuta buvo galima 
+atsiskaityti už paslaugas ar prekes, populiauriausia paskirtis buvo investicija. Viena iš priežaščių - tuo metu kaina buvo pakilus nenuspėjamai
+aukštai\cite{garg2018autoregressive}. Akcijų birža, rinka naudojama investiciniais tikslais, jau kurį laiką yra analizuojama dėl savo finansinės
+naudos ir sudėtingumo. Šios rinkos turi panašumų, todėl galima tirti rezultatus ir atlikta metodika akcijų biržos analizės literatūroje.
+
+% Perkelti šį sezoniškumą tikriausiai prie SARFIMA ar kitos vietos
+% Abi rinkos turi sezoniškumo laikotarpį: meškų turgų (angl. bear market) ir bulių turgų(angl. bull market), ankstesnis reiškiantis, 
+% jog kainos krenta ir pasilieka žemomis, o pastaris reiškiantis - atvirkščiai.
+%social media influence?
 
 Pagrindinis tyrimas šiame darbe yra tinkamiausio auto-regresyvaus modelio pritaikymas automatizuotam robotui lošėjui, kuris tiksliai ir preciziškai veiktų pagal nustatymus
 t.y. išvengtų klaidų ir būtų galimybė palikti atlikiti savo darbą ilgam laikui. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiančias
@@ -91,6 +105,7 @@ kada yra tinkamas metas įsigyti kriptovaliutą, o kada parduoti. Šiame darbe t
 prognozuojant kaip keisis reikšmė pagal dabartines tendencijas ir kitus niuansus.
 
 % Apie kriptovaliutas galima pašnekėti labiau antroje dalyje tiesiog?
+% AR IŠVIS REIKIA APIE JAS PLĖSTIS JEIGU PAGRINDINĖ DALIS YRA PROGNOZAVIMAS (TIESIOG STATISTINIŲ MODELIŲ NAUDOJIMAS)?
 Kriptovaliutos yra paremtos blokų grandinės technologija, todėl daugelis jų yra decentralizuoti tinklai. Visa blokų informacija yra viešai prieinama publikai, puikiai žinoma
 tarp kokių šalių įvyksta vyksta sandoriai, taip suteikiamas skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką. Ypatingas kriptovaliutų bruožas yra tas,
 kad jų paprastai neišleidžia jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema
@@ -103,18 +118,16 @@ skatino bitcoin augimą, kas paspartino ir kitų kriptovaliutų progresą.
 Šiam robotui įgyvendinti naudosime Python programavimo kalbą, kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias bibliotekas autoregresyviems modeliams.
 Docker konteinerius, kad ši programa nepriklausomai nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų
 bazę saugoti analizuotems duomenis. 
-Citavimo pavyzdžiai: cituojamas vienas šaltinis \cite{PvzStraipsnLt}; cituojami
-keli šaltiniai \cite{PvzStraipsnEn, PvzKonfLt, PvzKonfEn, PvzKnygLt, PvzKnygEn,
-  PvzElPubLt, PvzElPubEn, PvzMagistrLt, PvzPhdEn}.
 
 \subsubsection{Python}
-Python programavimo kalba. Python yra aukšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą:
-procedurinę, objektinę ir netgi funkcinę. Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją ir panaudoti AR modelius.
-Python yra interpretuojama* kalba, todėl ji veikia nuo failo pradžios iki galo "interpetuojant" kiekvieną eilutę iš viršaus į apačia.
+Python yra aukšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą: procedurinę, objektinę ir netgi funkcinę.
+Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją ir panaudoti AR modelius.
+Python yra interpretuojama* kalba, todėl ji veikia nuo failo pradžios iki galo "interpetuojant" kiekvieną eilutę iš viršaus į apačia. % interpretuojama ne iki galo 
 Python yra įgyvendinta naudojant C kalbą, todėl egzistuoja optimalesnis python plėtinys - Cython, jeigu programoje pritrūksta našumo. Šiais laikais
 python yra viena populiariausių kalbų pasaulyje, dėl savo paprastumo ir paprasto naudojomo naujam vartotojui, bet tikrai yra daugybę savybių
-kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant, lengva išmokti, bet sunku įvaldyti. Dėl šios kalbos privalumų minėtų anksčiau
-beveik dauguma egzsistuojančių API bibliotekų palaiko python programavimo kalbą.
+kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant. Dėl šios kalbos privalumų beveik dauguma egzistuojančių API
+bibliotekų palaiko python programavimo kalbą.
+
 
 \subsubsubsection{Python-binance API}
 Šiame darbe naudojama "python binance" API. Ji gali būti lengvai instaliuojama vartotojo sistemoje jeigu yra "pip" paleidžiant komanda terminale "pip install python-binance"
@@ -167,7 +180,9 @@ iv) BNB/BTC ir v) ETH/BTC
 
 % interpolation vs extrapolation?
 \section{Laiko eilučių analizė}
+% Repetition
 "Visi modeliai yra klaidingi. Kai kurie modeliai yra naudingi" (angl. "All models are wrong. Some models are useful") - citata priskiriama George Box, kurios
+% Source is tos knygos kur tarp googles yra
 reikėtų nepamiršti analizuojant laiko eilutes. Šis analizės būdas bando pastebėti pasikartojančius modelius bėgant laikui, jog būtų galima atlikti kuo tikslesnes
 prognozes apie ateitį. 
 Dažnu atveju tai yra vienas ar keli izoliuoti kintamieji, kurie yra stebimi nustatytą laiko tarpą ar surenkant jų istorinius duomenis. Laiko eilučių duomenų 
