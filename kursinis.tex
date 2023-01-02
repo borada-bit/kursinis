@@ -69,50 +69,54 @@ Tikslui įgyvendinti keliami uždaviniai:
 \end{itemize}
 
 
-%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.
+%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.?
 %pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
 %klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
 %išanalizuota medžiaga.
 \section{Pagrindinė tiriamoji dalis}
-% citation about impact of bitcoin on other coins?
-% explain mining?
-Pagrindinė ir pirmoji kriptovaliuta - Bitcoin. Nors šios valiutos tinklas ir pirmieji 50 BTC buvo "iškasti" 2009 metų pradžioje, kriptovaliuta susilaukė didesnio dėmesio
-tik 2013 metais\cite{macdonell2014popping}. Bitcoin buvo skelbiama kaip ateities valiuta dėl savo naujoviškumo ir decentralizavimo, bet susilaukdavo ir 
-% write about silkroad?
-% BLOGAI NUKERPAMAS SKIEMUO PERKELIANT ZODI I KITA EILUTE?
-neigiamų atsilipiemų dėl atsiskaitymo nelegaliuose prekybos vietuose internete. Stebint kriptovaliutų rinką matoma koreliacija tarp Bitcoin kainos ir visų kitų kriptovaliutų kaina.
+% citation about impact of bitcoin on other coins? Explain mining (savoka)?
+%koks tinklas?
+Pagrindinė ir pirmoji kriptovaliuta - Bitcoin. Nors pirmieji 50 BTC buvo "iškasti" 2009 metų pradžioje, Bitcoin susilaukė didesnio dėmesio
+% kas atsitiko 2013 metais
+tik 2013 metais\cite{macdonell2014popping}. Ši kriptovaliuta buvo laikoma ateities valiuta dėl savo naujoviškumo ir decentralizavimo, bet susilaukdavo ir 
+neigiamų atsilipiemų dėl atsiskaitymo nelegaliuose prekybos vietuose internete. 
+% Source on bigggest revenue
+Vienas pirmųjų ir itin didelės apyvartos sulaukęs nelegalių prekių tinklalapis "Silkroad" atsiskaitymui už prekes naudojo Bitcoin.
+Didelė apyvarta skatino bitcoin augimą, susidomėjimą ir kitų kriptovaliutų progresą.
+% Source on correlation
+Stebint kriptovaliutų rinką matoma koreliacija tarp Bitcoin kainos ir visų kitų kriptovaliutų kainos, taip dar kartą pabrėžiama, jog ši valiuta yra pagrindinė rinkoje.
 Kyla bitcoin kaina - kyla kitų valiutų kaina, krenta bitcoin kaina - krenta kitų valiutų kaina. Retesniais atvejais kriptovaliutos sparčiau keičia kainą dėl 
 pažangaus vystymosi ar dėl esančių problemų. 
 % SOL auga labai? XRP freeze del teismo? ADA kyla nes pazangi, nors btc stabilus? ir kiti E.g. nezinu ar reikia čia šitą plėstis
-% citation that most cryptocurrencies are limited?
 
 % source on limited sources?
 Dauguma kriptovaliutų yra riboto kiekio, tad jeigu prekybos robotas uždirba konkrečios kriptovaliutos mažai, jų kainą gali keleriopai išaugti 
 tikrų valiutų atžvilgiu, todėl į kriptovaliutą galima žiūrėti ir kaip į investiciją. 2018 metais, nepaisant to, kad kriptovaliuta buvo galima 
 atsiskaityti už paslaugas ar prekes, populiauriausia paskirtis buvo investicija. Viena iš priežaščių - tuo metu kaina buvo pakilus nenuspėjamai
 aukštai\cite{garg2018autoregressive}. Akcijų birža, rinka naudojama investiciniais tikslais, jau kurį laiką yra analizuojama dėl savo finansinės
-naudos ir sudėtingumo. Šios rinkos turi panašumų, todėl galima tirti rezultatus ir atlikta metodika akcijų biržos analizės literatūroje.
+naudos ir sudėtingumo. Šios rinkos turi panašumų, todėl galima tirti akcijų biržos analizė literatūroje.
+
+% Citation needed on cryptocurrency block chain, anonimty and everything else!
+Šiais laikais vis daugiau žmonių naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kitų dalykų, 
+kurie mažina finansinių instituticijų pasitikėjimą. Kriptovaliutos yra paremtos blokų grandinės technologija, todėl daugelis jų yra decentralizuoti tinklai. 
+Visa blokų informacija yra viešai prieinama publikai, puikiai žinoma tarp kokių šalių vyksta sandoriai, taip suteikiamas skaidresnis ir patikimesnis būdas publikai
+turėti savo nepriklausomą rinką. Ypatingas kriptovaliutų bruožas yra tas, kad jų paprastai neišleidžia jokia centrinė institucija, todėl teoriškai jos nėra 
+apsaugotos nuo vyriausybės kišimosi. Ankščiau minėtos savybės suteikia anonimiškumo, todėl tai sudaro palankias sąlygas klestėti sukčiavimo atvejams, 
+"pump-and-dump" ar "ponzi" schemoms. Dažniausiai sutinkama yra "pump-and-dump" schema, kuri apibūdina procesą, kai valiutos paklausa yra iš anksto
+apgalvotai ir trumpam padidinima, taip pakeliant jos kainą, vėliau, kai kainą yra pasiekusi tinkamą tašką, organizatoriai, staigiai parduoda savo
+turimą kiekį, taip pasipelnydami\cite{xu2019anatomy}.
 
 % Perkelti šį sezoniškumą tikriausiai prie SARFIMA ar kitos vietos
 % Abi rinkos turi sezoniškumo laikotarpį: meškų turgų (angl. bear market) ir bulių turgų(angl. bull market), ankstesnis reiškiantis, 
 % jog kainos krenta ir pasilieka žemomis, o pastaris reiškiantis - atvirkščiai.
 %social media influence?
-
-Pagrindinis tyrimas šiame darbe yra tinkamiausio auto-regresyvaus modelio pritaikymas automatizuotam robotui lošėjui, kuris tiksliai ir preciziškai veiktų pagal nustatymus
-t.y. išvengtų klaidų ir būtų galimybė palikti atlikiti savo darbą ilgam laikui. Visa šis procesas gali būti atliekamas žmogaus, galima tam tikrą laiką stebėti besikeičiančias
-kainas ir atitinkamai elgtis. Tačiau toks darbas yra monotoniškas ir kyla natūrali mintis jį automatizuoti. Automatizavimui reikia taikyti pasirinktą strategiją, kuri spręstų
-kada yra tinkamas metas įsigyti kriptovaliutą, o kada parduoti. Šiame darbe tyrinėsime auto-regresyviuosius taikomus laiko eilutėms, labiausiai paplitusius statistikoje
-prognozuojant kaip keisis reikšmė pagal dabartines tendencijas ir kitus niuansus.
-
-% Apie kriptovaliutas galima pašnekėti labiau antroje dalyje tiesiog?
-% AR IŠVIS REIKIA APIE JAS PLĖSTIS JEIGU PAGRINDINĖ DALIS YRA PROGNOZAVIMAS (TIESIOG STATISTINIŲ MODELIŲ NAUDOJIMAS)?
-Kriptovaliutos yra paremtos blokų grandinės technologija, todėl daugelis jų yra decentralizuoti tinklai. Visa blokų informacija yra viešai prieinama publikai, puikiai žinoma
-tarp kokių šalių įvyksta vyksta sandoriai, taip suteikiamas skaidresnis ir patikimesnis būdas publikai turėti savo nepriklausomą rinką. Ypatingas kriptovaliutų bruožas yra tas,
-kad jų paprastai neišleidžia jokia centrinė institucija, todėl teoriškai jos nėra apsaugotos nuo vyriausybės kišimosi ar manipuliavimo. Šiais laikais tai yra gana aktuali tema
-kadangi vis daugiau žmonių naudojasi technologijomis ir nori nepriklausomybės nuo institucijų išleidžiamų ir manipuliuojami valiutų, infliacijos ir kt. dalykų. Taipogi sukeltos
-ekonominės krizės mažina institucijų pasitikėjimą, todėl kriptovaliutos yra alternatyvi valiuta visuomenei. Nors šiais laikais pastebima tendencija, jog kriptovaliutų sandoriai
-dominuoja nereguliuojamose rinkose. Vienas pirmųjų ir didžiausios apyvartos sulaukęs nelegalių prekių tinklalapis "Silkroad" kaip atsiskaitymą už prekes naudojo bitcoiną, tai
-skatino bitcoin augimą, kas paspartino ir kitų kriptovaliutų progresą.
+Pagrindinis tyrimas šiame darbe yra tinkamiausio auto regresinio modelio parinkimas automatizuotam robotui lošėjui. Lošimo procesas tam tikrą laiką gali būti atliekamas žmogaus, 
+stebėti besikeičiančias kainas ir atitinkamai elgtis, tačiau toks darbas yra monotoniškas ir atsiranda natūrali terpė jį automatizuoti. Automatizavimui
+reikia taikyti pasirinktą strategiją, kuri spręstų kada yra tinkamas metas įsigyti kriptovaliutą, o kada parduoti, bet pirmiausia reikalingas tinkamas prognozavimo modelis.
+Auto regresiniai modeliai taikomi laiko eilutėmis yra paplitę statistikoje norint prognozuoti tendenciją ateityje. Modelio prognozės tikslumui bei tinkamumui palyginti 
+bus naudojama santykinė ir absoliuti klaidos.
+% Egzistuoja populiarus aforizmas statistikoje "Visi modeliai yra neteisingi", kuris dažnai yra pratęsiamas 
+% kaip "Visi modeliai yra neteisingi, bet kai kurie yra naudingi", todėl šiame darba bus bandoma surasti tinkamiausią modelį šiai problemai.
 
 \subsection{Darbinė aplinka}
 Šiam robotui įgyvendinti naudosime Python programavimo kalbą, kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias bibliotekas autoregresyviems modeliams.
