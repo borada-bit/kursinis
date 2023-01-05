@@ -206,6 +206,7 @@ Trumpai tariant stacionari laiko eilutė yra laikoma tokia eilutė, kurios stati
 Stacionarumas reiškia laiko eilučių kontekste reiškia, jog eilutės vidurkis, standartinis nuokrypis ir kovariacija turi pastovias reikšmes. 
 Stacionarumas implikuoja jog imant skirtingas to paties dydžio imtis išlieka identiška startuojant nuo bet kurio taško.
 
+% parodyti iki galo stacionarumą (4 grafai, stacionarus, nestacionarus case 1, nestacionarus case 2 ir nestacionarus case 3) SAUGOTI KAIP BrAIZOMAS GRAFIKAS!
 \begin{figure}[H]
   \centering
   \begin{subfigure}{.5\textwidth}
@@ -229,9 +230,17 @@ investuojant į SnP500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir v
 variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais.
 % sources!!!!!!!
 % later after introducing AR models?
+% ACF : galima prieiti prie koreliacijos dviem budais S_t-2 -> S_t (tiesiogai) arba S_t-2 -> S_t-1 -> S_t (per visas reiksmes). ACF pasako 
+% PACF: rupi TIK tiesiogine reiksme corr(2)? : S_t-2 -> S_t (kaip reiksme pries du men itakoja reiksme dabar) hence the naming PARTIAL
+% ACF: is just pearson correlation with x/y data set where x: s_t-2 and y: s_t
+% PACF: regression model.
 \subsection {ACF ir PACF}
-ACF (angl. autocorrelation function) ir PACF (angl. partial autocorrelation function) naudojama analizuoti laiko eilutes. Pritaikant ACF bei PACF modelį 
-galima lengviau parinkti ARMA, ARIMA modelio pradines reikšmes pagal atsilukusiuos kintamuosius.
+Autokoreliacijos funkcija (ACF) (angl. autocorrelation function) ir dalinė autokoreliacijos funkcija (PACF) (angl. partial autocorrelation function) naudojamos analizuoti laiko eilutes,
+padedančios suprasti autokoreliacija duomenų rinkinyje. Pritaikant ACF bei PACF galima lengviau parinkti ARMA(p, q) ir ARIMA(p, d, q) modelių pradines reikšmes \cite{abu2017autoregressive}.
+% boldify parameters?
+Ženkliai didesnės reikšmės, pritaikius ACF laiko eilutei su tam tikru lagu, parodo optimalias ARMA ir ARIMA modelių slankaus vidurkio laipsnio (q) reikšmes. 
+PACF tokiu pat būdu nurodo p - autoregresinio parametro reikšmę. 
+%table of acf or pacf?
 
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
