@@ -196,15 +196,18 @@ Kriptovaliutų kainų duomenys, taip pat yra laiko eilutė, nes kaina yra sekama
 Reikia pabrėžti, kad toks analizės būdas tik bando nuspėti koks yra labiausiai tikėtinas rezultatas remiantis turimais duomeninimis ir naudojamu modeliu. 
 
 \subsection {Laiko eilutės}
-Laiko eilutė yra chronologiškai surikiuotas duomenų rinkinys. Laiko eilučių pagalbą analitkai gali pastebėti įvairias tendencijas ir taip bandyti numatyti reikšmes
+Laiko eilutė yra chronologiškai surikiuotas duomenų rinkinys. Laiko eilučiu analize analitkai gali pastebėti įvairias tendencijas ir taip prognozuoti reikšmes
 ateityje bei geriau pasiruošti įvykiams. Laiko eilutė gali būti stacionari arba ne stacionari. Šiame darbe norint analizuoti turimus duomenis naudojant 
-autoregresyvius modelius reikia turėti stacionarią laiko eilutę, jog būtų galima pritaikyti tam modeliui. Tačiau kriptovaliutų kainą iš tikrųjų yra
-ne stacionari laiko eilutė, todėl prieš dirbant reikia susitvarkyti
+autoregresyvius modelius reikia turėti stacionarią laiko eilutę, jog būtų galima pritaikyti autoregresiniui modeliui. Tačiau kriptovaliutų kainą dažnu atveju yra
+ne stacionari laiko eilutė, todėl prieš dirbant, reikia atitinkamai šiuos duomenis susitvarkyti arba analizuoti kitas eilutes.
+% tipo jei duomenų rinkinys nestacionarus - rip?
 
 \subsection {Laiko eilučių stacionarumas}
-Trumpai tariant stacionari laiko eilutė yra laikoma tokia eilutė, kurios statistinės savybės bėgant laikui nekinta \cite{nason2006stationary}. 
-Stacionarumas reiškia laiko eilučių kontekste reiškia, jog eilutės vidurkis, standartinis nuokrypis ir kovariacija turi pastovias reikšmes. 
-Stacionarumas implikuoja jog imant skirtingas to paties dydžio imtis išlieka identiška startuojant nuo bet kurio taško.
+Stacionari laiko eilutė yra laikoma tokia eilutė, kurios statistinės savybės bėgant laikui nekinta \cite{nason2006stationary}. Tai reiškia, jog laiko eilutės vidurkis,
+standartinis nuokrypis ir kovariacija turi pastovias reikšmes. Autoregresyvieji modeliai yra pritaikyti dirbti su stacionaria laiko eilute, šių modelių taikymas
+nestacionariems duomenims gali suteikti nepatikimas prognozes. Prieš dirbant su duomenimis, juos reikia pasiversti stacionariais, panaikiant sezoniškumus ar 
+tendencijas imtyje. Vienas iš būdų tai įvykdyti yra diferencijavimas, ką ir turi ARIMA modelis.% or applying a transformation such as taking the log of the data
+Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tikisi.
 
 % parodyti iki galo stacionarumą (4 grafai, stacionarus, nestacionarus case 1, nestacionarus case 2 ir nestacionarus case 3) SAUGOTI KAIP BrAIZOMAS GRAFIKAS!
 \begin{figure}[H]
@@ -226,8 +229,9 @@ Stacionarumas implikuoja jog imant skirtingas to paties dydžio imtis išlieka i
 \end{figure}
 
 Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Pirmajame (stacionariame) grafe yra pavaizduota vidutinis metinis pelnas
-investuojant į SnP500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
-variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais.
+investuojant į S&P500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
+variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais. Antrame grafe yra pavaizduota akcijos uždarymo kaina 2022 metais, nestacionarumas matomas
+ir vizualiai, kadangi yra akivaizdi tendencija žemyn. Šiuos teiginius patvirtina ir ADF testas, pritaikius šiuos duomenis. 
 % sources!!!!!!!
 % later after introducing AR models?
 % ACF : galima prieiti prie koreliacijos dviem budais S_t-2 -> S_t (tiesiogai) arba S_t-2 -> S_t-1 -> S_t (per visas reiksmes). ACF pasako 
@@ -241,6 +245,16 @@ padedančios suprasti autokoreliacija duomenų rinkinyje. Pritaikant ACF bei PAC
 Ženkliai didesnės reikšmės, pritaikius ACF laiko eilutei su tam tikru lagu, parodo optimalias ARMA ir ARIMA modelių slankaus vidurkio laipsnio (q) reikšmes. 
 PACF tokiu pat būdu nurodo p - autoregresinio parametro reikšmę. 
 %table of acf or pacf?
+
+% There are a few things you can try to improve the test:
+% try using a different test for stationarity, such as the Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test or the Phillips-Perron (PP) test.
+% try differencing the data to remove any trend or seasonality. This can help to stabilize the variance of the data and make it more stationary.
+% try applying a transformation to the data, such as taking the log of the data, to stabilize the variance and make the data more stationary.
+% try using more data in the test. A larger sample size may provide more accurate results.
+% try using a longer time period for the test. This can provide a more accurate assessment of stationarity, as it takes into account any long-term trends or seasonality in the data.
+\subsection{ADF testas}
+ADF (Angl. Augmented Dickey-Fuller) testas nustato ar laiko eilutė yra stacionari. Tai yra geras įrankis tvarkant laiko eilutės ir dirbant su algoritmais, kurie tikisi stacionarių 
+duomenų kaip parametrų. 
 
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
@@ -318,13 +332,12 @@ ankščiau minėtą ARIMA modelį.
 \subsection {SARFIMA modelis}
 SARFIMA (angl. autoregressive fractionally integrated moving average) modelis yra SARIMA modelio papildymas naudojant integravimą trupmenomis.
 
-\subsection {AR-ABS}
-%autoregressive - asset backed security
+%what abous AR ABS? autoregressive - asset backed security
 
-\section{Robotas lošėjas}
-Taigi po literatūros analizės galima pradėti modeliuoti robotą.
+% apie robota loseja rasyti projektiniame?
+% \section{Robotas lošėjas}
+% \subsection{Roboto veiksmai?}
 
-\subsection{Roboto veiksmai?}
 % Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
 % Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
 % yra nepastovi ir greitai keičiasi 
