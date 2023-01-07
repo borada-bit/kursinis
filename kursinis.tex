@@ -204,7 +204,7 @@ ne stacionari laiko eilutė, todėl prieš dirbant, reikia atitinkamai šiuos du
 
 \subsection {Laiko eilučių stacionarumas}
 Stacionari laiko eilutė yra laikoma tokia eilutė, kurios statistinės savybės bėgant laikui nekinta \cite{nason2006stationary}. Tai reiškia, jog laiko eilutės vidurkis,
-standartinis nuokrypis ir kovariacija turi pastovias reikšmes. Autoregresyvieji modeliai yra pritaikyti dirbti su stacionaria laiko eilute, šių modelių taikymas
+variacija ir kovariacija turi pastovias reikšmes. Autoregresyvieji modeliai yra pritaikyti dirbti su stacionaria laiko eilute, šių modelių taikymas
 nestacionariems duomenims gali suteikti nepatikimas prognozes. Prieš dirbant su duomenimis, juos reikia pasiversti stacionariais, panaikiant sezoniškumus ar 
 tendencijas imtyje. Vienas iš būdų tai įvykdyti yra diferencijavimas, ką ir turi ARIMA modelis.% or applying a transformation such as taking the log of the data
 Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tikisi.
@@ -214,13 +214,13 @@ Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tiki
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=.6\linewidth]{img/history.png}
+    \includegraphics[width=.6\linewidth]{img/AMZN_daily_return.png}
     \caption{Stacionari laiko eilutė}
     \label{fig:sub1}
   \end{subfigure}%
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=.6\linewidth]{img/SPY_500_trend.png}
+    \includegraphics[width=.6\linewidth]{img/AMZN_daily_close.png}
     \caption{Nestacionari}
     \label{fig:sub2}
   \end{subfigure}
@@ -228,10 +228,14 @@ Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tiki
   \label{fig:test}
 \end{figure}
 
-Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Pirmajame (stacionariame) grafe yra pavaizduota vidutinis metinis pelnas
-investuojant į S&P500 akciją nuo jos atsiradimo pradžios. Tai yra matoma ir vizualiai, jog imties vidurkis yra panašus visuose taškuose, taip pat
-variacija ir kovariacija yra pasiskirščiusios panašiai visais laikais. Antrame grafe yra pavaizduota akcijos uždarymo kaina 2022 metais, nestacionarumas matomas
-ir vizualiai, kadangi yra akivaizdi tendencija žemyn. Šiuos teiginius patvirtina ir ADF testas, pritaikius šiuos duomenis. 
+Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Grafuose naudojama Amazon akcijos duomenys gauti iš "Yahoo Finance" naudojant Python API\cite{yfinance}.
+Pirmajame (stacionariame) grafe yra pavaizduota kiekvienos dienos grąža investuojant į AMZN akciją trijų mėnesių laikotarpyje. 
+Stacionarumas matomas ir vizualiai - vidurkis imtyje išlieka panašus, centruojasi ties 0, taip pat
+% Variacija parodo kaip toli yra išsiskirste skaičiai imtyje, tai stacionariu atveju, nuo nulio atrodo visi panašų range turi. Variacija != standard deviation
+% Kovariacija parodo kaip du kintamieji yra susije (teigiamai jei abu keičiasi vienodai arba negiamai jei keičaisi skirtinga kryptimi), čia svarbu kad ji išliktu vienoda (0 - nera rysio)
+variacija ir kovariacija yra panašūs visuose taškuose. Antrame grafe yra pavaizduota tos pačios akcijos uždarymo kaina tokiame pat laikotarpyje. 
+Nestacionarumas matomas ir vizualiai, kadangi yra akivaizdi tendencija žemyn. Šiuos teiginius patvirtina ir ADF testas. % Do I need to cite? 
+
 % sources!!!!!!!
 % later after introducing AR models?
 % ACF : galima prieiti prie koreliacijos dviem budais S_t-2 -> S_t (tiesiogai) arba S_t-2 -> S_t-1 -> S_t (per visas reiksmes). ACF pasako 
