@@ -331,7 +331,19 @@ Dažniausiai yra 3 žingsniai naudoti ARIMA modelį:
   \item Prognozavimas naudojant ARIMA modelį - dažniausias taikomas ARIMA modelis yra ARIMA(1,1,0)
 \end{enumerate}
 
-% atskirti trumpos atminties ir ilgos taminties modelius?
+\subsection {SARIMA modelis}
+SARIMA (angl. seasonal autoregressive integrated moving average) modelis yra ARIMA modelio išplėtimas turintis vieną papildomą savybę - sezoniškumą\cite{carl2020ethereum}. 
+Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, galima taikyti šį modelį. Geras ir paprastas pavyzdys, prekyba šventiniu laikotarpiu - kalėdos.
+Prekybos centruose, tuo metu padidėja prekybą, tačiau kitą mėnesį ženkliai sumažėja. Spartus sumažėjimas nereiškia, jog prekybai yra didėlės problemos ir reikia pokyčių.
+Tai dažniausiai yra žmonių poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius sezoniškai atsitinkančius įvykius, juos atpažįsta ir pritaiko naudojant
+ankščiau minėtą ARIMA modelį.
+
+SARIMA galima išreikšti kaip ARIMA(p,d,q)(P,D,Q)[S], kur p,d,q standartiniai ARIMA modelio parametrai, o P - sezoniškumo autoregresivumo laipsnis,
+D - sezoniškumo diferencijavimo laipsnis, Q - sezoniškumo slankiojo vidurkio laipsnis ir S - sezoniškumo ciklio ilgis. 
+
+%what abous AR ABS? autoregressive - asset backed security
+% autoregression crypto currency predict
+%\subsection(Auto regressive - ABS)% atskirti trumpos atminties ir ilgos taminties modelius?
 \subsection {ARFIMA modelis}
 ARFIMA (angl. autoregressive fractionally integrated moving average) modelis yra ARIMA modelio išplėtimas.
 Šis modelis apibendrina autoregresyvų integruotą slankiojo vidurkio (ARIMA) modelį su sveikaisiais integracijos laipsniais.
@@ -339,22 +351,11 @@ Parametrizavimas sujungia autoregresyvų slankiojo vidurkio (ARMA) modelį, kuri
 patampant ilgos atminties procesu. ARFIMA tinka analyzuoti toliau į priekį lyginant su ARIMA trumpos atminties procesu \cite{samimi2009long}.
 
 % parašyti kas tokie tiksliai yra p ir q
-Atliekamos trys procedūros prieš pradedant naudoti ARFIMA(g,d,q) modelį:
+Atliekamos trys procedūros prieš pradedant naudoti ARFIMA(p,d,q) modelį:
 Testuojama laiko eilutės ilgos atminties savybės ir nustatoma trupmeninio diferencijavimo parametrą d.
 Trupmeniškai diferencijuojama laiko eilutė, ko pasekoje gaunamas ARMA procesas.
-Nustatomi kiti du ARFIMa modelio parametrai p ir q.
+Nustatomi kiti du ARFIMA modelio parametrai p ir q.
 % šis modelis iš esmės 
-
-\subsection {SARIMA modelis}
-SARIMA (angl. seasonal autoregressive integrated moving average) modelis yra ARIMA modelio išplėtimas turintis vieną papildomą savybę - sezoniškumą. 
-Pastebėjus, jog periodiškai kartojasi rezultatai laiko eilutėse, galima taikyti šį modelį. Geras ir paprastas pavyzdys, prekyba šventiniu laikotarpiu - kalėdos.
-Prekybos centruose, tuo metu padidėja prekybą, tačiau kitą mėnesį ženkliai sumažėja. Spartus sumažėjimas nereiškia, jog prekybai yra didėlės problemos ir reikia pokyčių.
-Tai dažniausiai yra žmonių poilsis nuo pirkinių po šventinio laikotarpio. šis modelis pastebi panašius sezoniškai atsitinkančius įvykius, juos atpažįsta ir pritaiko naudojant
-ankščiau minėtą ARIMA modelį. 
-
-%what abous AR ABS? autoregressive - asset backed security
-% autoregression crypto currency predict
-%\subsection(Auto regressive - ABS)
 
 \section{Prognozės}
 Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
