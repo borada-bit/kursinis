@@ -434,27 +434,22 @@ ETHBUSD SARIMA Gautos paklaidos:
 
 \section{Rezultatai ir išvados}
 Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti statistinius modelius ir kriptovaliutų rinką, bei naudojamus įrankius.
-Palyginti autoregresiniai modeliai ir kuo jie skiriasi, 
-Padėti pamatai kurti robotui, kuris galėtų implementuoti reikalinga stragei, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
-Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
+Palyginti autoregresiniai modeliai ir kuo jie skiriasi. Padėti pamatai kurti robotui, kuris galėtų implementuoti reikalinga strategiją, susipažinta kokią
+darbinę aplinką teks naudoti, python ir python-binance biblioteką.
 
-Matome, jeigu naudojame modelius prognozuoti ilgą laiką gauname tiesias linijas, nes pvz. ARIMA(2,1,2) naudoja visada dvi reikšmes prognozuoti,
-todėl klaidos susideda ko pasekoje gaunasi tikra nesamonę.
-
-Kitu atveju tiesiog prognozuojame po viena vertę į priekį cikliškai pridedami tikrą vertę, žiurėdami kokią paklaida tarp atspėjimo ir realybes.
-
-Matome kad prognozuojant kiekviename žingsnyje naują 15m valiutos kainą, visumoje absoliutus paklaidos procentas gaunasi gana mažas, tačiau
+Matome, kad prognozuojant kiekviename žingsnyje naują 15m intervalu valiutos kainą, visumoje absoliutus paklaidos procentas gaunasi gana mažas, tačiau
 nereikia pamiršti, jog kaina per 15m pasikeičia neperdaugiausiai. Rezultatai neblogi, bet tai nereiškia, kad galima taikyti lošimo taktika ir iškarto išlošti daug pinigų,
-jei bus keičiamasi tuo pačiu 15min dažniu šie procentai greit susideda ir visumoje bus pralaimėjimas bet kokiu atveju.
+jei bus keičiamasi tuo pačiu 15min dažniu šie procentai greit susideda ir reikia apmastyti lošimo strategiją.
 
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 % \sectionnonum{Išvados}
-Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
+\vspace{10pt}
+Taigi galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
 \begin{itemize}
-  \item Geriausi rezultatai gaunami naudojant ARIMA modelį (pavyzdys);
-  \item Dar viena išvada;
-  \item Paskutinė išvada;
+  \item Kadangi kainos nėra stacionarus duomneys negalima naudoti paprastesnių AR, ARMA modelių.
+  \item Geriausi rezultatai gaunami naudojant ARIMA modelį nei SARIMA modelį;
+  \item Paklaidos gaunasi gana mažos, todėl galima implementuoti norima strategija robotui lošti
 \end{itemize}
 Neišvengiama, jog tokiame trumpame darbe būtų aptartos visos įmanomos sritys ir atvejai, taigi tolimesnei tyrimo eigai pasiūlymas nagrinėti prognozuojamus modelius, 
 kurie naudoja dirbtinį intelektą. Suprasti jų veikimą ir palyginti su standartiniais statistiniais prognozavimo būdais aptartais šiame darbe arba kitais nepaminėtais
