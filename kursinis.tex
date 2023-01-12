@@ -366,57 +366,35 @@ ankščiau minėtą ARIMA modelį.
 
 \section{Prognozės}
 Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
-Prognozavimui naudojamas 90 procentų dumomenų rinkinio dydžio apmokymas modelio, o kitus 10\% bandoma prognozuoti po vieną reikšmę cikle kiekvieną
-karta iš naujo apmokus modelį su tikra reikšmę. 
+Prognozavimui naudojamas 90 procentų dumomenų rinkinio dydis modelio pradiniam modelio apmokymui, kitus 10\% bandoma prognozuoti po vieną reikšmę cikle kiekvieną
+kartą iš naujo apmokus modelį su tikra reikšmę. Tikrinimui naudosime MSE ir MAPE paklaidas.
 \subsection{ARIMA}
 Kadangi kriptovaliutų duomenys nėra stacionarūs, jiem visiem iškarto tenka taikyti diferencijavimą, todėl pradėta nuo ARIMA modelio nes ji naudoja ir AR
 ir MA modelį ir iškarto pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. 
-naudojamos ARIMA pagalbinės bibliotekos bei heuristins ARIMA algoritmas padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
-$Auto_arima$ funkcija pmdarima bibliotekoje Python naudoja statistinių testų ir heuristikų derinį, kad rastų geriausius ARIMA modelio parametrus. Funkcijos
-rezultatas yra ARIMA klasė, kurioje yra $summary()$ metodas, kuris gali būti naudojamas peržiūrėti pasirinktus parametrus. Pavyzdžiui, galite naudoti $print(model.summary())$
-norėdami atspausdinti pasirinktų parametrų santrauką.
-
-BTCBUSD poros geriausi rasti parametrai p,d,q yra (2,1,2)
-mse: 210.8316014022673
-mape: 0.0006145148014448673
+Prognozuojant naudojamos ARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} bei heuristins ARIMA algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{img/BTCBUSD_15m_dec_final.png}
-  \caption{Prognozės ir tikrų verčių grafas}
+  \includegraphics[scale=0.4]{img/BTCBUSD_15m_dec_final.png}
+  \caption{BTCBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:btcbusd_results}
 \end{figure}
 
-ETHBUSD poros geriausi rasti parametrai p,d,q yra (2,1,3)
-ticker='ETHBUSD' results
-mse: 1.6908145946915674
-mape: 0.0008286163872857759
+Gautos paklaidos:
+\textbf{MSE}: 210.83
+\textbf{MAPE}: 0.061 \%
+
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{img/ETHBUSD_15m_dec_final.png}
-  \caption{Prognozės ir tikrų verčių grafas}
+  \includegraphics[scale=0.4]{img/ETHBUSD_15m_dec_final.png}
+  \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:ethbusd_results}
 \end{figure}
 
-% \begin{figure}[H]
-%   \centering
-%   \begin{subfigure}[H]%{.5\textwidth}
-%     \centering
-%     % \includegraphics[width=.6\linewidth]{img/ETHBUSD_15m_dec_final.png}
-%     \includegraphics[scale=0.5]{img/ETHBUSD_15m_dec_final.png}
-%     \caption{Prognozės ir tikrų verčių grafas}
-%     \label{fig:ethbusd_results}
-%   \end{subfigure}%
-%   % \begin{subfigure}{.5\textwidth}
-%   %   \centering
-%   %   \includegraphics[width=.6\linewidth]{img/ethbusd_plan.png}
-%   %   \caption{Treniravimo ir testavimo dalis}
-%   %   \label{fig:ethbusd_data}
-%   % \end{subfigure}
-%   % \caption{Visa reikšmė}
-%   % \label{fig:ethbusd}
-% \end{figure}
+Gautos paklaidos:
+\textbf{MSE}: 1.69
+\textbf{MAPE}: 0.082 \%
 
 \subsection{SARIMA}
 
