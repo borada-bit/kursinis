@@ -260,7 +260,7 @@ PACF tokiu pat būdu nurodo p - autoregresinio parametro reikšmę.
 ADF (Angl. Augmented Dickey-Fuller) testas nustato ar laiko eilutė yra stacionari. Tai yra dažnai naudojamas įrankis analizuojant laiko eilutės ir jų algoritmais, kurie tikisi stacionarių 
 duomenų\cite{chi2018stock}. Stacionariai laiko eilutėje privaloma atmesti nulinę hipotezę tam tikrame užtikrintumo intervale. 
 Jeigu ADF testo absoliuti statistinė vertė yra daugiau už kritinę vertę, nulinę hipotezę yra atmetama ir ši laiko eilutė yra stacionari.
-pritaikius ADF testą AMZN akcijų duomenims gauti rezultatai:
+pritaikius ADF testą{\cite{seabold2010statsmodels}} AMZN akcijų duomenims (\textbf{1 pav.}) gauti rezultatai:
 
 % p reiksme, alfa reiksmingumo lygis
 \begin{tabularx}{\linewidth}{|X|X|X|X|X|X|}
@@ -289,7 +289,7 @@ Toliau apžvelgsime detaliau autoregresinius modelius ir kaip jie galėtų būti
 
 \subsection{AR modelis}
 AR (angl. autoregressive) modelis remiasi tik praeities duomenimis, kad nuspėti kintamojo reikšme ateityje, ieškoma ar pastebimas pasikartojantis
-modelis, kuris padėtų tiksliau nuspėti dydį ateityje. Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių 
+modelis, kuris padėtų tiksliau nuspėti dydį ateityje\cite{chi2018stock}. Šis modelis dar dažnai vadinamas ARp modeliu, nes naudojamas kintamasis "p", nusakantis kiek praeiteis reikšmių 
 iš laiko periodo norima naudoti. Laikant, kad kintamasis X yra laiko eilutės kintamasis AR(p) modelio formulė gali atrodyti taip: 
 \[X_{t} = \Phi _{1}X_{t-1}+\epsilon_{t} \]
 
@@ -304,11 +304,10 @@ reikšmė tiesiškai priklauso nuo dabartines ir praeitų reikšmių. Žymėjima
 ${X_t}$ - stacionari laiko eilutė, q - MA modelio laipsnis, ${\epsilon_t}$ - MA modelio paklaida.
 
 \subsection {ARMA modelis}
-% @article{makridakis1997arma}
 ARMA (angl. autorogressive moving average) modelis yra autoregresyviaus ir slankaus vidurkio modelio junginys. Modelis dažnai žymimas
 kaip ARMA(p, q), kur p yra AR laipsnis, o q yra MA laispnis. Pirmą kartą sujungtas 1938 mokslininko Herman Wold, jis pastebėjo jog ARMA modelis gal apimti 
-dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis. Taip pat reikia pabrėžti, jog ARMA(0, q) = MA(q) ir ARMA(p, 0) = AR(p)
-Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{t}$ reikšmių ir/arba praeities $e_{t}$ klaidų:
+dideles stacionarias laiko eilutes, kai yra tinkamai nurodytas p laipsnis ir q laipsnis\cite{makridakis1997arma}. Taip pat reikia pabrėžti, 
+jog ARMA(0, q) = MA(q) ir ARMA(p, 0) = AR(p) Reiškia, jog Xt eilutė gali būti modeliuojama kaip kombinacija praeities $x_{t}$ reikšmių ir/arba praeities $e_{t}$ klaidų:
 \[X_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + ... + \phi_{p}x_{t-p} + e_{t} - \theta_{1}e_{t-1} - \theta_{2}e_{t-2} - ... - \theta_{q}e_{t-q}\]
 
 
@@ -354,15 +353,6 @@ Tai dažniausiai yra žmonių poilsis nuo pirkinių po šventinio laikotarpio. �
 ankščiau minėtą ARIMA modelį. 
 
 %what abous AR ABS? autoregressive - asset backed security
-
-% apie robota loseja rasyti projektiniame?
-% \section{Robotas lošėjas}
-% \subsection{Roboto veiksmai?}
-
-% Taigi valiutą perkame jeigu gauname signalą pirkti, kitu atveju robotas skanuoja duomenis nustatyta periodą. Pirkimui naudojamas "Moving Average" algoritmas. 
-% Vartotojas pats gali nustatyti norimą intervala šiam algoritmui, tačiau rekomenduojamas intervalas yra kuo mažesnis, nes kriptovaliutų rinka 
-% yra nepastovi ir greitai keičiasi 
-
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
 
@@ -434,19 +424,24 @@ prognozavimo modeliais (VAR, GARCH). Šiame darbe apsistojama ties kainų tenden
 robotui lošėjui, kuris pagal gautas prognozes atlieka atitinkamą veiksmą.
 
 \sectionnonum{Sąvokų apibrėžimai}
-\textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
-
-\textbf{Kriptovaliutų pora} - Kriptovaliutų pora rinkoje yra naudojama prekiaujant. Kriptovaliutos yra susietos poromis, tad norint nusipirkt BTC valiutos pirmiausia reikia surasti 
-galimus keitimo variantus, jei egzistuoja pora BTC/BUSD, galima nusipirkti BTC kriptovaliutos uz turimas BUSD valiutas. Dažnu atveju rinkoje pasidėjus ("FIAT") valiuta
-prekybos rinką ją konvertuoją i panašių token valiuta kaip BUSD(us -regulated stablecoin), USDT (usd tether) ar BNB (binance coin)
-
 \textbf{API} - Aplikacijų programavimo sąsaja (angl. Application programming interface), tai sistemos suteikiama sąsaja, kuria galima naudotis norint pasiekti tos sistemos
 funckionalumą ar apsikeisti duomenimis.
 
 \textbf{Autoregresinis modelis} - Statistinis modelis yra autoregresinis, jei jis numato būsimas reikšmes pagal praeities reikšmes. Pavyzdžiui, autoregresinis modelis gali
 siekti numatyti būsimas akcijų kainas, remiantis ankstesniais rezultatais.
 
-\textbf{Heuristinis algoritmas}
+\textbf{Euristinis algoritmas} - euristiniai algoritmai yra tokios intelektualios optimizavimo uždavinių sprendimo priemonės, kuriomis siekiama rasti aukštos
+kokybės (bet nebūtinai optimalius) sprendinius per priimtiną laiką. Algoritmas negarantuoja, kad rastas sprendimas bus optimalus. \cite{misevivcius2009euristiniku}
+
+\textbf{Kriptovaliuta} - Kriptovaliuta yra skaitmeninė arba virtuali valiuta, kuri yra apsaugota kriptografija, todėl beveik neįmanoma jos padirbti ar išleisti dvigubai.
+
+\textbf{Kriptovaliutų pora} - Kriptovaliutų pora rinkoje yra naudojama prekiaujant. Kriptovaliutos yra susietos poromis, tad norint nusipirkt BTC valiutos pirmiausia reikia surasti 
+galimus keitimo variantus, jei egzistuoja pora BTC/BUSD, galima nusipirkti BTC kriptovaliutos uz turimas BUSD valiutas. Dažnu atveju rinkoje pasidėjus ("FIAT") valiuta
+prekybos rinką ją konvertuoją i panašių token valiuta kaip BUSD(us -regulated stablecoin), USDT (usd tether) ar BNB (binance coin)
+
+\textbf{MSE} - Vidutinė kvadratinė paklaida, angl. (Mean squared error)
+
+\textbf{MAPE} - Vidutinė  bsoliučioji paklaida išreikšta procentais, angl. (Mean absolute percentage error)
 
 \printbibliography[heading=bibintoc] % Literatūros šaltiniai aprašomi
 % bibliografija.bib faile. Šaltinių sąraše nurodoma panaudota literatūra,
@@ -460,13 +455,5 @@ siekti numatyti būsimas akcijų kainas, remiantis ankstesniais rezultatais.
 % parengta, medžiaga. Savarankiški priedai gali būti pateikiami kompiuterio
 % diskelyje ar kompaktiniame diske. Priedai taip pat vadinami ir numeruojami.
 % Tekstas su priedais siejamas nuorodomis (pvz.: \ref{img:mlp}).
-
-% \section{Roboto veikimo struktūra}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[scale=0.5]{img/DIAGRAM}
-%   \caption{Paveikslėlio pavyzdys}   % Antraštė įterpiama po paveikslėlio
-%   \label{img:diagram}
-% \end{figure}
 
 \end{document}
