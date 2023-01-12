@@ -10,6 +10,7 @@
 % \usepackage{hyperref}  % Nuorodų aktyvavimas
 \usepackage{url}
 \usepackage{subcaption}	% You need this package for subfigures
+\usepackage{tabularx}
 
 
 % Titulinio aprašas
@@ -256,8 +257,26 @@ PACF tokiu pat būdu nurodo p - autoregresinio parametro reikšmę.
 % try using more data in the test. A larger sample size may provide more accurate results.
 % try using a longer time period for the test. This can provide a more accurate assessment of stationarity, as it takes into account any long-term trends or seasonality in the data.
 \subsection{ADF testas}
-ADF (Angl. Augmented Dickey-Fuller) testas nustato ar laiko eilutė yra stacionari. Tai yra geras įrankis tvarkant laiko eilutės ir dirbant su algoritmais, kurie tikisi stacionarių 
-duomenų kaip parametrų. 
+ADF (Angl. Augmented Dickey-Fuller) testas nustato ar laiko eilutė yra stacionari. Tai yra dažnai naudojamas įrankis analizuojant laiko eilutės ir jų algoritmais, kurie tikisi stacionarių 
+duomenų\cite{chi2018stock}. Stacionariai laiko eilutėje privaloma atmesti nulinę hipotezę tam tikrame užtikrintumo intervale. 
+Jeigu ADF testo absoliuti statistinė vertė yra daugiau už kritinę vertę, nulinę hipotezę yra atmetama ir ši laiko eilutė yra stacionari.
+pritaikius ADF testą AMZN akcijų duomenims gauti rezultatai:
+
+% p reiksme, alfa reiksmingumo lygis
+\begin{tabularx}{\linewidth}{|X|X|X|X|X|X|}
+  \hline
+  \textbf{Time Series} & \textbf{ADF Statistic} & \textbf{p-value} & \textbf{1\% Critical Value} & \textbf{5\% Critical Value} & \textbf{10\% Critical Value} \\ \hline
+  Daily Returns        & -7.087727              & 0.000000         & -3.542                      & -2.910                      & -2.593                       \\ \hline
+  Daily Close Price    & -1.640623              & 0.461935         & -3.542                      & -2.910                      & -2.593                       \\ \hline
+\end{tabularx}
+
+\vspace{10pt}
+Pagal šiuos rezultatus
+\begin{itemize}
+  \item ADF statistika yra skaičius, kuris lyginamas su kritinėmis vertėmis iš lentelės (skirtingais lygiais), kad būtų nuspręsta, ar atmesti ar priimti nulio hipotezę apie stacionarumą.
+  \item Pirmu atveju ADF statistika dienos grąžoms yra -7.087727, kuri mažesnė, nei kritinė vertė -3.542 1\% lygyje. Todėl nulinė hipotezė yra atmesta ir laiko seka laikoma stacionaria.
+  \item Antru atveju ADF statistika dienos uždarymo kainoms yra -1.640623, kuris yra nemažesnė, nei kritinė vertė -3.542 1\% lygyje. Todėl nulio hipotezė nėra atmesta ir laiko seka laikoma nestacionari.
+\end{itemize}
 
 % autoregression crypto currency predict
 % ar, ar-abs, arima, arfima, sarima
