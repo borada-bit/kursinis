@@ -119,9 +119,8 @@ bus naudojama santykinė ir absoliuti klaidos.
 % kaip "Visi modeliai yra neteisingi, bet kai kurie yra naudingi", todėl šiame darba bus bandoma surasti tinkamiausią modelį šiai problemai.
 
 \subsection{Darbinė aplinka}
-Šiam robotui įgyvendinti naudosime Python programavimo kalbą, kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias bibliotekas autoregresyviems modeliams.
-Docker konteinerius, kad ši programa nepriklausomai nuo kompiuterines sistemos. Taip pat turėsime sujungta duomenų
-bazę saugoti analizuotems duomenis. 
+Šiam robotui ir statistiniams modeliams teks naudotis jau sukurtais įrankiais, kurie palengvins darbą. Naudojama Python programavimo kalbą, 
+kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias bibliotekas autoregresyviems modeliams bei kitiems reikalingiems API.
 
 \subsubsection{Python}
 Python yra aukšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą: procedurinę, objektinę ir netgi funkcinę.
@@ -179,7 +178,7 @@ nepavyko praturtėti prekiaujant kriptovaliutomis, vėl įgaunama proga pradėti
 nuo nulio.
 
 % padaryti ka reiškią žymėjimas, PADARYTI KODĖL PASIRENKAmE šitas? žiurėjom į marketa, buvo mažas volume kitų porų 
-Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, šiame tyrime apsiribojama prekiauti šiomis poromis rinkoje: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
+Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, didžiausia prekyba vyksta šiomis poromis: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
 iv) BNB/BTC ir v) ETH/BTC
 
 % interpolation vs extrapolation?
@@ -228,8 +227,8 @@ Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tiki
   \label{fig:test}
 \end{figure}
 
-Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Grafuose naudojama Amazon akcijos duomenys gauti iš "Yahoo Finance" naudojant Python API\cite{yfinance}.
-Pirmajame (stacionariame) grafe yra pavaizduota kiekvienos dienos grąža investuojant į AMZN akciją trijų mėnesių laikotarpyje. 
+Grafai parodantys skirtumą tarp stacionarios ir nestacionarios laiko eilutės. Grafuose naudojama "Amazon" kompanijos (NASDAQ: AMZN) akcijos duomenys gauti iš "Yahoo Finance" 
+naudojant Python API\cite{yfinance}. Pirmajame (stacionariame) grafe yra pavaizduota kiekvienos dienos grąža investuojant į AMZN akciją trijų mėnesių laikotarpyje. 
 Stacionarumas matomas ir vizualiai - vidurkis imtyje išlieka panašus, centruojasi ties 0, taip pat
 % Variacija parodo kaip toli yra išsiskirste skaičiai imtyje, tai stacionariu atveju, nuo nulio atrodo visi panašų range turi. Variacija != standard deviation
 % Kovariacija parodo kaip du kintamieji yra susije (teigiamai jei abu keičiasi vienodai arba negiamai jei keičaisi skirtinga kryptimi), čia svarbu kad ji išliktu vienoda (0 - nera rysio)
@@ -349,12 +348,80 @@ SARFIMA (angl. autoregressive fractionally integrated moving average) modelis yr
 % autoregression crypto currency predict
 %\subsection(Auto regressive - ABS)
 
+\section{Prognozės}
+Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
+Prognozavimui naudojamas 90 procentų dumomenų rinkinio dydžio apmokymas modelio, o kitus 10\% bandoma prognozuoti po vieną reikšmę cikle kiekvieną
+karta iš naujo apmokus modelį su tikra reikšmę. 
+\subsection{ARIMA}
+Kadangi kriptovaliutų duomenys nėra stacionarūs, jiem visiem iškarto tenka taikyti diferencijavimą, todėl pradėta nuo ARIMA modelio nes ji naudoja ir AR
+ir MA modelį ir iškarto pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. 
+naudojamos ARIMA pagalbinės bibliotekos bei heuristins ARIMA algoritmas padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
+$Auto_arima$ funkcija pmdarima bibliotekoje Python naudoja statistinių testų ir heuristikų derinį, kad rastų geriausius ARIMA modelio parametrus. Funkcijos
+rezultatas yra ARIMA klasė, kurioje yra $summary()$ metodas, kuris gali būti naudojamas peržiūrėti pasirinktus parametrus. Pavyzdžiui, galite naudoti $print(model.summary())$
+norėdami atspausdinti pasirinktų parametrų santrauką.
+
+BTCBUSD poros geriausi rasti parametrai p,d,q yra (2,1,2)
+mse: 210.8316014022673
+mape: 0.0006145148014448673
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{img/BTCBUSD_15m_dec_final.png}
+  \caption{Prognozės ir tikrų verčių grafas}
+  \label{fig:btcbusd_results}
+\end{figure}
+
+ETHBUSD poros geriausi rasti parametrai p,d,q yra (2,1,3)
+ticker='ETHBUSD' results
+mse: 1.6908145946915674
+mape: 0.0008286163872857759
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{img/ETHBUSD_15m_dec_final.png}
+  \caption{Prognozės ir tikrų verčių grafas}
+  \label{fig:ethbusd_results}
+\end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \begin{subfigure}[H]%{.5\textwidth}
+%     \centering
+%     % \includegraphics[width=.6\linewidth]{img/ETHBUSD_15m_dec_final.png}
+%     \includegraphics[scale=0.5]{img/ETHBUSD_15m_dec_final.png}
+%     \caption{Prognozės ir tikrų verčių grafas}
+%     \label{fig:ethbusd_results}
+%   \end{subfigure}%
+%   % \begin{subfigure}{.5\textwidth}
+%   %   \centering
+%   %   \includegraphics[width=.6\linewidth]{img/ethbusd_plan.png}
+%   %   \caption{Treniravimo ir testavimo dalis}
+%   %   \label{fig:ethbusd_data}
+%   % \end{subfigure}
+%   % \caption{Visa reikšmė}
+%   % \label{fig:ethbusd}
+% \end{figure}
+
+\subsection{SARIMA}
+
+\subsection{ARFIMA}
+
+
 \section{Rezultatai}
 Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti darbinę sritį ir pasigilinti į 
 tyrinėjamą dalyką. 
 Palyginti autoregresiniai modeliai ir kuo jie skiriasi, surastas tinkamiausias esamoje situacijoje modelis
 Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
 Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
+
+Matome, jeigu naudojame modelius prognozuoti ilgą laiką gauname tiesias linijas, nes pvz. ARIMA(2,1,2) naudoja visada dvi reikšmes prognozuoti,
+todėl klaidos susideda ko pasekoje gaunasi tikra nesamonę.
+
+Kitu atveju tiesiog prognozuojame po viena vertę į priekį cikliškai pridedami tikrą vertę, žiurėdami kokią paklaida tarp atspėjimo ir realybes.
+
+Matome kad prognozuojant kiekviename žingsnyje naują 15m valiutos kainą, visumoje absoliutus paklaidos procentas gaunasi gana mažas, tačiau
+nereikia pamiršti, jog kaina per 15m pasikeičia neperdaugiausiai. Rezultatai neblogi, bet tai nereiškia, kad galima taikyti lošimo taktika ir iškarto išlošti daug pinigų,
+jei bus keičiamasi tuo pačiu 15min dažniu šie procentai greit susideda ir visumoje bus pralaimėjimas bet kokiu atveju.
 
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
@@ -380,9 +447,10 @@ prekybos rinką ją konvertuoją i panašių token valiuta kaip BUSD(us -regulat
 \textbf{API} - Aplikacijų programavimo sąsaja (angl. Application programming interface), tai sistemos suteikiama sąsaja, kuria galima naudotis norint pasiekti tos sistemos
 funckionalumą ar apsikeisti duomenimis.
 
-% TODO: autoregresinis ar autoregresyvus
 \textbf{Autoregresinis modelis} - Statistinis modelis yra autoregresinis, jei jis numato būsimas reikšmes pagal praeities reikšmes. Pavyzdžiui, autoregresinis modelis gali
 siekti numatyti būsimas akcijų kainas, remiantis ankstesniais rezultatais.
+
+\textbf{Heuristinis algoritmas}
 
 \printbibliography[heading=bibintoc] % Literatūros šaltiniai aprašomi
 % bibliografija.bib faile. Šaltinių sąraše nurodoma panaudota literatūra,
