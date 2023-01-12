@@ -361,44 +361,81 @@ Nustatomi kiti du ARFIMA modelio parametrai p ir q.
 Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
 Prognozavimui naudojamas 90 procentų dumomenų rinkinio dydis modelio pradiniam modelio apmokymui, kitus 10\% bandoma prognozuoti po vieną reikšmę cikle kiekvieną
 kartą iš naujo apmokus modelį su tikra reikšmę. Tikrinimui naudosime MSE ir MAPE paklaidas.
+Kadangi kriptovaliutų duomenys nėra stacionarūs, jiem visiem iškarto tenka taikyti diferencijavimą, todėl pradėta nuo ARIMA modelio nes jį naudoja ir AR
+ir MA modelį ir iškarto pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. ARFIMA modelis šiuo atveju taip pat nėra aktualus,
+nes prognozuojamas laiko tarpas yra viena reikšmė į ateitį.
 \subsection{ARIMA}
-Kadangi kriptovaliutų duomenys nėra stacionarūs, jiem visiem iškarto tenka taikyti diferencijavimą, todėl pradėta nuo ARIMA modelio nes ji naudoja ir AR
-ir MA modelį ir iškarto pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. 
-Prognozuojant naudojamos ARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} bei heuristins ARIMA algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
+Prognozuojant naudojamos ARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} bei heuristins $AUTO_ARIMA$ algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.4]{img/BTCBUSD_15m_dec_final.png}
+  \includegraphics[scale=0.35]{img/BTCBUSD_15m_dec_final.png}
   \caption{BTCBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:btcbusd_results}
 \end{figure}
 
-Gautos paklaidos:
+BTCBUSD Gautos paklaidos:
 \textbf{MSE}: 210.83
 \textbf{MAPE}: 0.061 \%
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.4]{img/ETHBUSD_15m_dec_final.png}
+  \includegraphics[scale=0.35]{img/ETHBUSD_15m_dec_final.png}
   \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:ethbusd_results}
 \end{figure}
 
-Gautos paklaidos:
+ETHBUSD Gautos paklaidos:
 \textbf{MSE}: 1.69
 \textbf{MAPE}: 0.082 \%
 
 \subsection{SARIMA}
+SARIMA modeliui parametrams parinkti taip pat naudojama $AUTO_ARIMA$ algoritmas, sezoniškumo intervalas naudojamas 4, bandoma pamatyti ar atsiranda
+sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
 
-\subsection{ARFIMA}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{img/btcbusd_sarim_full.png}
+  \caption{BTCBUSD poros prognozės ir tikrų verčių grafas}
+  \label{fig:btcbusd_sarima_results}
+\end{figure}
+
+BTCBUSD Gautos paklaidos:
+\textbf{MSE}: 288.87
+\textbf{MAPE}: 00.07\%
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{img/ethbusd_sarima_full.png}
+  \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
+  \label{fig:ethbusd_sarima_results}
+\end{figure}
 
 
-\section{Rezultatai}
-Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti darbinę sritį ir pasigilinti į 
-tyrinėjamą dalyką. 
-Palyginti autoregresiniai modeliai ir kuo jie skiriasi, surastas tinkamiausias esamoje situacijoje modelis
-Padėti pamatai kurti robotui, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
+ETHBUSD SARIMA Gautos paklaidos:
+\textbf{MSE}: 2.306
+\textbf{MAPE}: 00.09\%
+
+\vspace{20pt}
+
+\begin{table}[h]
+  \centering
+  \caption{MSE ir MAPE palyginimas ETHBUSD ir BTCBUSD kriptovaliutų poromis}
+  \begin{tabularx}{\linewidth}{|X|X|X|}
+    \hline
+    \textbf{Model} & \textbf{MSE} & \textbf{MAPE} \\ \hline
+    ETHBUSD SARIMA & 2.306        & 0.09\%        \\ \hline
+    ETHBUSD ARIMA  & 1.69         & 0.082\%       \\ \hline
+    BTCBUSD SARIMA & 288.87       & 0.07\%        \\ \hline
+    BTCBUSD ARIMA  & 210.83       & 0.061\%       \\ \hline
+  \end{tabularx}
+\end{table}
+
+\section{Rezultatai ir išvados}
+Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti statistinius modelius ir kriptovaliutų rinką, bei naudojamus įrankius.
+Palyginti autoregresiniai modeliai ir kuo jie skiriasi, 
+Padėti pamatai kurti robotui, kuris galėtų implementuoti reikalinga stragei, susipažinta kokią darbinę aplinką teks naudoti, python ir python-binance biblioteką.
 Pritaikyti "Binance" testiniame tinkle parinkti autoregresniai modeliai ir gauti rezultatai
 
 Matome, jeigu naudojame modelius prognozuoti ilgą laiką gauname tiesias linijas, nes pvz. ARIMA(2,1,2) naudoja visada dvi reikšmes prognozuoti,
@@ -412,7 +449,7 @@ jei bus keičiamasi tuo pačiu 15min dažniu šie procentai greit susideda ir vi
 
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
-\sectionnonum{Išvados}
+% \sectionnonum{Išvados}
 Taigi matome, jog galima kurti robotą kuris prekiauja remiantis autoregresiniais modeliais.
 \begin{itemize}
   \item Geriausi rezultatai gaunami naudojant ARIMA modelį (pavyzdys);
