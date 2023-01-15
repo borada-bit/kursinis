@@ -196,16 +196,13 @@ Laiko eilutė yra chronologiškai surikiuotas duomenų rinkinys. Laiko eilučiu 
 ateityje bei geriau pasiruošti įvykiams. Laiko eilutė gali būti stacionari arba ne stacionari. Šiame darbe norint analizuoti turimus duomenis naudojant 
 autoregresyvius modelius reikia turėti stacionarią laiko eilutę, jog būtų galima pritaikyti autoregresiniui modeliui. Tačiau kriptovaliutų kainą dažnu atveju yra
 ne stacionari laiko eilutė, todėl prieš dirbant, reikia atitinkamai šiuos duomenis susitvarkyti arba analizuoti kitas eilutes.
-% tipo jei duomenų rinkinys nestacionarus - rip?
 
 \subsection {Laiko eilučių stacionarumas}
 Stacionari laiko eilutė yra laikoma tokia eilutė, kurios statistinės savybės bėgant laikui nekinta \cite{nason2006stationary}. Tai reiškia, jog laiko eilutės vidurkis,
-variacija ir kovariacija turi pastovias reikšmes. Autoregresyvieji modeliai yra pritaikyti dirbti su stacionaria laiko eilute, šių modelių taikymas
-nestacionariems duomenims gali suteikti nepatikimas prognozes. Prieš dirbant su duomenimis, juos reikia pasiversti stacionariais, panaikiant sezoniškumus ar 
-tendencijas imtyje. Vienas iš būdų tai įvykdyti yra diferencijavimas, ką ir turi ARIMA modelis.% or applying a transformation such as taking the log of the data
-Stacionarūs duomenys yra lengviau analizuojami ir dauguma algoritmų šito tikisi.
+variacija ir kovariacija turi pastovias reikšmes. Stacionarios laiko eilutės yra lengviau analizuojamos, todėl autoregresyvieji modeliai yra pritaikyti dirbti su 
+stacionariais duomenimis. Autoregresinių modelių taikymas nestacionariems duomenims gali suteikti nepatikimas prognozes ir prastesnius rezultatus. 
+Prieš dirbant su duomenimis, juos galima pasiversti stacionariais, panaikinant sezoniškumus ar tendencijas imtyje.
 
-% parodyti iki galo stacionarumą (4 grafai, stacionarus, nestacionarus case 1, nestacionarus case 2 ir nestacionarus case 3) SAUGOTI KAIP BrAIZOMAS GRAFIKAS!
 \begin{figure}[H]
   \centering
   \begin{subfigure}{.5\textwidth}
@@ -274,8 +271,6 @@ Pagal šiuos rezultatus
   \item Antru atveju ADF statistika dienos uždarymo kainoms yra -1.640623, kuris yra nemažesnė, nei kritinė vertė -3.542 1\% lygyje. Todėl nulio hipotezė nėra atmesta ir laiko seka laikoma nestacionari.
 \end{itemize}
 
-% autoregression crypto currency predict
-% ar, ar-abs, arima, arfima, sarima
 \section{Autoregresiniai modeliai}
 Vienas iš būdų analizuoti laiko eilutės yra autoregresija ir ją naudojantis modeliai. Egzistuoja ne vienas autoregresija naudojantis modelis. 
 Populiarusi ir dažniausiai sutinkami modeliai yra ARMA(p, q) ir ARIMA(p, d, q).
