@@ -379,25 +379,12 @@ Prognozuojant naudojamos ARIMA pagalbinės bibliotekos\cite{seabold2010statsmode
   \label{fig:btcbusd_results}
 \end{figure}
 
-BTCBUSD Gautos paklaidos:
-\textbf{MSE}: 210.83
-\textbf{MAPE}: 0.061 \%
-
-
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{img/ETHBUSD_15m_dec_final.png}
   \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:ethbusd_results}
 \end{figure}
-
-ETHBUSD Gautos paklaidos:
-\textbf{MSE}: 1.69
-\textbf{MAPE}: 0.082 \%
-
-\subsection{SARIMA}
-SARIMA modeliui parametrams parinkti taip pat naudojama $AUTO_ARIMA$ algoritmas, sezoniškumo intervalas naudojamas 4, bandoma pamatyti ar atsiranda
-sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
 
 \begin{figure}[H]
   \centering
@@ -406,21 +393,12 @@ sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
   \label{fig:btcbusd_sarima_results}
 \end{figure}
 
-BTCBUSD Gautos paklaidos:
-\textbf{MSE}: 288.87
-\textbf{MAPE}: 00.07\%
-
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.35]{img/ethbusd_sarima_full.png}
   \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
   \label{fig:ethbusd_sarima_results}
 \end{figure}
-
-
-ETHBUSD SARIMA Gautos paklaidos:
-\textbf{MSE}: 2.306
-\textbf{MAPE}: 00.09\%
 
 \vspace{20pt}
 
