@@ -354,42 +354,63 @@ Modelių vertinimui bus naudojama MSE ir MAPE paklaidos.
 % A discussion of any evaluation metrics you will be using to assess the performance of your models, such as mean squared error or Akaike information criterion.
 
 
-\section{Prognozės}
-Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
-Prognozavimui naudojamas 90 procentų dumomenų rinkinio dydis modelio pradiniam modelio apmokymui, kitus 10\% bandoma prognozuoti po vieną reikšmę cikle kiekvieną
-kartą iš naujo apmokus modelį su tikra reikšmę. Tikrinimui naudosime MSE ir MAPE paklaidas.
-Kadangi kriptovaliutų duomenys nėra stacionarūs, jiem visiem iškarto tenka taikyti diferencijavimą, todėl pradėta nuo ARIMA modelio nes jį naudoja ir AR
-ir MA modelį ir iškarto pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. ARFIMA modelis šiuo atveju taip pat nėra aktualus,
-nes prognozuojamas laiko tarpas yra viena reikšmė į ateitį.
-\subsection{ARIMA}
-Prognozuojant naudojamos ARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} bei heuristins $AUTO_ARIMA$ algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA parametrus konkrečiam duomenų rinkiniui.
+\subsection{Prognozės}
 
+BTCBUSD
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.35]{img/BTCBUSD_15m_dec_final.png}
-  \caption{BTCBUSD poros prognozės ir tikrų verčių grafas}
-  \label{fig:btcbusd_results}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/BTCBUSD__ARIMA(1, 1, 1).png}
+    \caption{ARIMA modelis}
+    \label{fig:btcbusd_arima}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/BTCBUSD_seasonal_ARIMA(1, 1, 1)(0, 1, 1, 4).png}
+    \caption{SARIMA modelis}
+    \label{fig:btcbusd_sarima}
+  \end{subfigure}
+  \caption{BTCUSD prognozavimas}
+  \label{fig:btcbusd}
 \end{figure}
 
+LTCBUSD
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.35]{img/ETHBUSD_15m_dec_final.png}
-  \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
-  \label{fig:ethbusd_results}
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/LTCBUSD__ARIMA(2, 1, 2).png}
+    \caption{ARIMA modelis}
+    \label{fig:ltcbusd_arima}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/LTCBUSD_seasonal_ARIMA(0, 1, 0)(2, 1, 0, 4).png}
+    \caption{SARIMA modelis}
+    \label{fig:ltcbusd_sarima}
+  \end{subfigure}
+  \caption{LTCBUSD prognozavimas}
+  \label{fig:ltcbusd}
 \end{figure}
 
+XRPBUSD
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.35]{img/btcbusd_sarim_full.png}
-  \caption{BTCBUSD poros prognozės ir tikrų verčių grafas}
-  \label{fig:btcbusd_sarima_results}
-\end{figure}
-
-\begin{figure}[H]
+  \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[scale=0.35]{img/ethbusd_sarima_full.png}
-  \caption{ETHBUSD poros prognozės ir tikrų verčių grafas}
-  \label{fig:ethbusd_sarima_results}
+    \includegraphics[width=\linewidth]{img/XRPBUSD__ARIMA(0, 1, 2).png}
+    \caption{ARIMA modelis}
+    \label{fig:xrpbusd_arima}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{img/XRPBUSD_seasonal_ARIMA(2, 1, 3)(0, 1, 2, 4).png}
+    \caption{SARIMA modelis}
+    \label{fig:xrpbusd_sarima}
+  \end{subfigure}
+  \caption{LTCBUSD prognozavimas}
+  \label{fig:xrpbusd}
 \end{figure}
 
 \vspace{20pt}
