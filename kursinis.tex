@@ -333,7 +333,34 @@ SARIMA galima išreikšti kaip ARIMA(p,d,q)(P,D,Q)[S], kur p,d,q standartiniai A
 D - sezoniškumo diferencijavimo laipsnis, Q - sezoniškumo slankiojo vidurkio laipsnis ir S - sezoniškumo ciklio ilgis. 
 
 \section{Metodika}
-Modeliams naudojama ankščiau minėta python programavimo ir pagalbinės bibliotekos.
+
+\subsection{Modeliai}
+Prognozavimui bus naudojami ARIMA ir SARIMA modelis. Kadangi kriptovaliutų kainų duomenys nėra stacionarūs, todėl naudojamas ARIMA modelis, kuris gali taikyti diferencijavimą.
+ARIMA naudoja anksčiau minėtus AR ir MA modelius, bei pritaiko diferencijavimą, taip galėdamas dirbti ir su nestacionariais duomenimis. 
+Jeigu laiko eilutė yra nestacionari ir bandoma naudoti AR, MA ir ARMA modelius, rezultatai galimai bus klaidingi arba netikslūs.
+Taip pat naudojamas SARIMA modelis, nes jis yra ARIMA modelio pratęsimas tiriantis sezoniškumą laiko eilutėje, todėl dar bus patikrinama ar duomenyse egzistuoja sezoniškumas
+galintis padėti prognozuoti.
+
+% since network is test, used highest volatility pairs
+\subsection{Duomenys}
+Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}. Naudojami 2022 metų gruodžio mėnesio 15 minučių intervalo duomenys. 
+Duomenyse yra daugiau informacijos bet bus naudojama tik datos ir `close' stulpelis, parodantis konkrečios kriptovaliutos uždarymo kainą tam tikru laiku. Tai yra paskutinė 
+kaina, už kurią buvo prekiaujama tam tikru laikotarpiu, pavyzdžiui, valandą ar dieną. Uždarymo kaina yra svarbi, nes ji atspindi galutinę kainą, už kurią pirkėjai ir pardavėjai
+sutarė prekiauti kriptovaliuta. Duomenys bus naudojami tokie kokie yra ir iškarto perduodami į modelius. Nagrinėjamos dvi populiariausios valiutos BTC ir ETH, taigi imama
+BTCBUSD ir ETHBUSD kriptovaliutų pora. Modeliui apmokyti naudojamas 90 procentų dumomenų rinkinio dydis. Kitus 10\% bandoma prognozuoti po vieną reikšmę į priekį. Modeliui atlikus prognozė, 
+jis yra iš naujo apmokomas pridėjus tikrąją sekančią vertę prie mokymo rinkinio ir taip vėl yra prognozuojama kitą reikšmė, jau su naujai apmokytu modeliu.
+
+% A detailed explanation of the model fitting process, including the specific parameters that you will be using for each of the AR models and any assumptions that you will be making.
+\subsection{Modelių realizacija}
+Prognozuojant naudojamos ARIMA ir SARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} kuri aprašo šiuos modelius, 
+bei euristins auto\_arima algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA ir SARIMA parametrus konkrečiam duomenų rinkiniui.
+SARIMA modeliui sezoniškumo intervalas naudojamas 4 - bandoma pamatyti ar atsiranda sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
+Modelių vertinimui bus naudojama MSE ir MAPE paklaidos.
+
+% An evaluation of the performance of your models against the actual crypto prices, and a discussion of how well your models were able to predict future prices.
+% A schematic or flowchart that visually illustrates the steps of your methodology, which will help your readers understand the process you used.
+% A discussion of any evaluation metrics you will be using to assess the performance of your models, such as mean squared error or Akaike information criterion.
+
 
 \section{Prognozės}
 Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
