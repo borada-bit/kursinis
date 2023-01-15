@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 % \usepackage{hyperref}  % Nuorodų aktyvavimas
 \usepackage{url}
-\usepackage{subcaption}	% You need this package for subfigures
+\usepackage{subcaption}	% package for subfigures
 \usepackage{tabularx}
 
 
@@ -59,21 +59,17 @@ kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks mode
 
 
 Tikslui įgyvendinti keliami uždaviniai:
-% bullet points
 \begin{itemize}
-  \item Mokslinės literatūros analizė, % kriptovaliutų, laiko eilučių ir autoregresinių modelių tema;
-  \item Atlikti autoregresinių modelių analizę, %Autoregresinių modelių analizė ir jų paruošimas prognozuoti kainą.
+  \item Mokslinės literatūros analizė,
+  \item Atlikti autoregresinių modelių analizę,
   \item Sukurti automatizuotą robotą galintį pritaikyti autoregresinius modelius,
-        % \item Ekspermentiškai ištirti autoregresinius modelius juos taikant robotui;
-  \item Ištirti gautus rezultatus atlikus modelių taikymą, % ištirti
-  \item Apibendrinti tyrimo metu gautus rezultatus ir apibrėžti išvadas.
+  \item Ištirti gautus rezultatus atlikus modelių taikymą,
 \end{itemize}
 
 
-%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika; ARFIMA AR MODELIAI IR T.t.?
+%Pagrindinėje tiriamojoje dalyje aptariama ir pagrindžiama tyrimo metodika;
 %pagal atitinkamas darbo dalis, nuosekliai, panaudojant lyginamosios analizės,
-%klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir
-%išanalizuota medžiaga.
+%klasifikacijos, sisteminimo metodus bei apibendrinimus, dėstoma sukaupta ir išanalizuota medžiaga.
 \section{Pagrindinė tiriamoji dalis}
 % citation about impact of bitcoin on other coins? Explain mining (savoka)?
 %koks tinklas?
@@ -356,6 +352,9 @@ Testuojama laiko eilutės ilgos atminties savybės ir nustatoma trupmeninio dife
 Trupmeniškai diferencijuojama laiko eilutė, ko pasekoje gaunamas ARMA procesas.
 Nustatomi kiti du ARFIMA modelio parametrai p ir q.
 % šis modelis iš esmės 
+
+\section{Metodika}
+Modeliams naudojama ankščiau minėta python programavimo ir pagalbinės bibliotekos.
 
 \section{Prognozės}
 Prognozuoti kriptovaliutas naudojami duomenys iš Binance API\cite{binanceKlines}, imant 2022 metų gruodžio mėnesio 15 minučių intervalo duomenis.
