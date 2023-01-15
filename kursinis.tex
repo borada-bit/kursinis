@@ -63,7 +63,7 @@ Tikslui įgyvendinti keliami uždaviniai:
   \item Mokslinės literatūros analizė,
   \item Atlikti autoregresinių modelių analizę,
   \item Sukurti automatizuotą robotą galintį pritaikyti autoregresinius modelius,
-  \item Ištirti gautus rezultatus atlikus modelių taikymą,
+  \item Ištirti gautus rezultatus atlikus modelių taikymą.
 \end{itemize}
 
 
@@ -122,19 +122,15 @@ kadangi ši kalba turi patogų API su dauguma kriptovaliutų rinkų ir patogias 
 \subsubsection{Python}
 Python yra aukšto lygio programavimo kalba. Joje galima sutikti ne viena programavimo paradigmą: procedurinę, objektinę ir netgi funkcinę.
 Ši kalba suteikia patogu abstrakcijos lygį šiai užduočiai - automatizuoti robotą lošėją ir panaudoti AR modelius.
-Python yra interpretuojama* kalba, todėl ji veikia nuo failo pradžios iki galo "interpetuojant" kiekvieną eilutę iš viršaus į apačia. % interpretuojama ne iki galo 
-Python yra įgyvendinta naudojant C kalbą, todėl egzistuoja optimalesnis python plėtinys - Cython, jeigu programoje pritrūksta našumo. Šiais laikais
-python yra viena populiariausių kalbų pasaulyje, dėl savo paprastumo ir paprasto naudojomo naujam vartotojui, bet tikrai yra daugybę savybių
-kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant. Dėl šios kalbos privalumų beveik dauguma egzistuojančių API
-bibliotekų palaiko python programavimo kalbą.
+Šiais laikais python yra viena populiariausių kalbų pasaulyje, dėl savo paprastumo ir paprasto naudojomo naujam vartotojui, bet tikrai yra daugybę savybių
+kuriomis prireiktų ne vienus metus suprasti ir prasmingai naudoti programuojant. Dėl šios kalbos privalumų dauguma egzistuojančių API
+bibliotekų palaiko Python programavimo kalbą.
 
 
 \subsubsubsection{Python-binance API}
-Šiame darbe naudojama "python binance" API. Ji gali būti lengvai instaliuojama vartotojo sistemoje jeigu yra "pip" paleidžiant komanda terminale "pip install python-binance"
-, kur pip yra vartotojo turima pip versija. Ji yra populiarausiai binance API turinti netgi 4.7 tūkstančių žvaigždžių GITHUB platformoje\cite{DokTest}, palyginimui populiaurisias github projektas turi
-200 tūstančių žvaigždžių, taigi neoficialiam API projektui turėti tiek dėmėsio yra labai didelis pasiekimas. Šis API yra "wrapperis" oficialiam Binance 
-API - binance-connector-python (šis API yra labai paprastas ir lengvasvoris, todėl didelio patogumo nėra, tik paprasčiausios užklausos, kurias visvien
-reikėtų apdoroti, ką labai padeda padaryt ankščiau minėta wrapper API - python-binance)  
+Šiame darbe naudojama "python-binance" API. Šis API yra "Wrapper" oficialiam Binance API - binance-connector-python. 
+Oficialus API yra labai paprastas ir lengvasvoris, todėl didelio patogumo nėra, tik paprasčiausios užklausos,
+kurias visvien reikėtų apdoroti, labai padeda padaryti šis wrapper API - python-binance.
 
 % Straipsnis kuriuo remiasi šitas darbas
 \subsubsection{Binance}
@@ -173,10 +169,6 @@ matomų 1 lentelėje.
 tinklas kas mėnesį laiko yra iš naujo nustatomas ir visas turimas likutis yra konvertuojamas atgal į pradinį likutį, išvalant ankščiau buvusį balansą, tad jeigu
 nepavyko praturtėti prekiaujant kriptovaliutomis, vėl įgaunama proga pradėti prekyba, na o sėkmingu atveju visas pelnas yra ištrinamas ir reikia vėl pradėti
 nuo nulio.
-
-% padaryti ka reiškią žymėjimas, PADARYTI KODĖL PASIRENKAmE šitas? žiurėjom į marketa, buvo mažas volume kitų porų 
-Kadangi tinklas yra testinis, jame prekiauja mažiau žmonių, didžiausia prekyba vyksta šiomis poromis: i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD,
-iv) BNB/BTC ir v) ETH/BTC
 
 % interpolation vs extrapolation?
 \section{Laiko eilučių analizė}
