@@ -11,7 +11,7 @@
 \usepackage{url}
 \usepackage{subcaption}	% package for subfigures
 \usepackage{tabularx}
-
+\usepackage{pythonhighlight}
 
 % Titulinio aprašas
 \university{Vilniaus universitetas}
@@ -53,7 +53,7 @@ Kai rinka yra prieinama visa parą dirbant be sustojimo yra nepraktiška, bei ne
 procesą - įdarbinti automatizuotą prekybos robotą, kuris gebėtų analizuoti rinkos duomenis ir prognozuoti tolimesnė rinkos eigą.
 
 
-Šio darbo tikslas yra sukurti automatizuota kriptovaliutų prekybos robotą naudojant standartinius laiko eilutės autoregresinius modelius. 
+Šio darbo tikslas yra analizuoti ir ištirti ko reikia automatizuoto kriptovaliutų prekybos roboto kūrimui. 
 Darbe tiriama, kokį autoregresinį modelį galima taikyti: AR, ARMA, ARIMA, SARIMA tiksliausiai nuspėti kriptovaliutos
 kainas ateityje. Pagal gautus rezultatus ir tikslumą galima spręsti, koks modelis yra tinkamiausias robotui naudoti.
 
@@ -62,7 +62,7 @@ Tikslui įgyvendinti keliami uždaviniai:
 \begin{itemize}
   \item Mokslinės literatūros analizė,
   \item Atlikti autoregresinių modelių analizę,
-  \item Sukurti automatizuotą robotą galintį pritaikyti autoregresinius modelius,
+  \item Skirtingų autoregresinius modelių pritaikymas duomenims,
   \item Ištirti gautus rezultatus atlikus modelių taikymą.
 \end{itemize}
 
@@ -137,7 +137,7 @@ kurias visvien reikėtų apdoroti, labai padeda padaryti šis wrapper API - pyth
 Binance yra didžiausia kriptovaliutų birža pagal prekybos apimtį, turinti itin didelį valiutų pasiulą ir patogiai prieinamus duomenis. Ši birža taip pat
 suteikia galimybė "lošti" kriptovaliutomis testiniame tinkle. Tinklo paskirtis yra lengvai nuspėjama iš pavadinimo, jame galima atlikti tuos pačius 
 % issiplesti ir papasakoti apie rinkoje galimus atlikti veiksmus, LIMIT BUY, LIMIT SELL ir t.t.
-veiksmus kaip realioje rinkoje, tik naudojama netikra valiuta kuri tikros vertės neturi. 
+veiksmus kaip realioje rinkoje, tik naudojama netikra valiuta kuri tikros vertės neturi.
 
 % kas yra SPOT market parašyti? https://academy.binance.com/en/articles/a-complete-guide-to-cryptocurrency-trading-for-beginners
 \subsubsubsection{Binance Spot Test Network}
@@ -353,7 +353,7 @@ BTCBUSD ir ETHBUSD kriptovaliutų pora. Modeliui apmokyti naudojamas 90 procent�
 jis yra iš naujo apmokomas pridėjus tikrąją sekančią vertę prie mokymo rinkinio ir taip vėl yra prognozuojama kitą reikšmė, jau su naujai apmokytu modeliu.
 
 % A detailed explanation of the model fitting process, including the specific parameters that you will be using for each of the AR models and any assumptions that you will be making.
-\subsection{Modelių realizacija}
+\subsection{Modeliai}
 Prognozuojant naudojamos ARIMA ir SARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} kuri aprašo šiuos modelius, 
 bei euristins auto\_arima algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA ir SARIMA parametrus konkrečiam duomenų rinkiniui.
 SARIMA modeliui sezoniškumo intervalas naudojamas 4 - bandoma pamatyti ar atsiranda sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
@@ -390,9 +390,85 @@ Abi šios metrikos gali būti naudojamos vertinant modelių veikimą ir lyginant
 % A schematic or flowchart that visually illustrates the steps of your methodology, which will help your readers understand the process you used.
 % A discussion of any evaluation metrics you will be using to assess the performance of your models, such as mean squared error or Akaike information criterion.
 
+\section{Realizacija}
+Šio darbo realizavimo ir rezultatų skyriuje pristatomas metodikos įgyvendinimas ir gauti rezultatai. 
+Skyriuje pateikiamos duomenų ir prognozavimo rezultatų vizualizacijos, taip pat kodo fragmentai, demonstruojantys naudojamų modelių įgyvendinimą.
+Vizualizacijos suteikia aiškų vaizdą apie modelių veikimą ir prognozių tikslumą. 
+Kodo fragmentai suteikia išsamų supratimą apie modelių įgyvendinimą. 
+Šioje dalyje taip pat palyginami rezultatai, gauti naudojant ARIMA ir SARIMA modelius, leidžiantys įvertinti modelių veikimą.
+\subsection{Modelių realizacija}
+
+Iš pradžių prisijungiama prie testinio tinklo naudojant API ir naudotojo raktus
+
+\begin{python}
+  with open(CONFIG_FILE_NAME, 'r') as config_file:
+	  data = json.load(config_file)
+	  validate(instance=data, schema=config_schema)
+	  client = Client(data['api_key'], data['api_secret'], testnet=True)
+\end{python}
+
+Tuomet gaunami istoriniai duomenys iš API. Kaip minėta, jog Sausio 4d. įvykio atnaujinimas ir eksperimentiniais tikslais imama duomenys savaitė nuo pradžios į priekį.
+tuomet kviečiami funkcija, jog paverstų gautus duomenis į reikalinga struktūrą.
+
+\begin{python}
+  klines = client.get_historical_klines(symbol, Client.KLINE_INTERVAL_15MINUTE, end_str='11 Jan, 2023')
+  df = binance_klines_to_df(klines)
+  model_predict_arima(symbol, df)
+  model_predict_arima(symbol, df, seasonal=True)
+  
+  def binance_klines_to_df(klines):
+	  klines = np.array(klines)
+	  df = pd.DataFrame(klines.reshape(-1, 12), dtype=float, columns=('Open Time','Open', 'High', 'Low', 'Close', 'Volume', 'Close time', 'Quote asset volume', 'Number of trades', 'Taker  buy base asset volume', 'Taker buy quote asset volume', 'Ignore'))
+	  df['Open Time'] = pd.to_datetime(df['Open Time'], unit='ms')
+	  return df
+\end{python}
+
+Turint duomenis kviečiama model\_predict\_arima funckija, kuri pagal seasonal parametrą atlieka ARIMA arba SARIMA modelį.
+
+\begin{python}
+  df = df[['Open Time', 'Close']]
+  df.set_index('Open Time', inplace=True)
+  
+  to_row = int(len(df) * 0.9)
+  training_data = list(df[0:to_row]['Close'])
+  
+  if seasonal:
+	  order, seasonal_order = best_params_arima_seasonal(training_data)
+  else:
+	  order = best_params_arima(training_data)
+  seasonal_order = None
+  
+  testing_data = list(df[to_row:]['Close'])
+  model_predictions = []
+  for i in range(len(testing_data)):
+	  model = ARIMA(training_data, order=order, seasonal_order=seasonal_order)
+	  model_fit = model.fit()
+	  output = model_fit.forecast(steps=1)
+	  yhat = output[0]
+	  model_predictions.append(yhat)
+	  actual_test_value = testing_data[i]
+	  training_data.append(actual_test_value)
+\end{python}
+
+Pagrindinė kodo dalis atliekanti skaičiavimus
+Pasiemama is duomenų tik data ir uždarymo kainą, tuomet duomenys padalijami 90\% apmokymui ir kita dalis prognozavimui. Tuomet modeliui gaunami 
+optimalūs parametrai. Po šito inicijuojamas tuščias sąrašas, vadinamas model\_predictions. Kiekvienai iteracijai atliekami šie veiksmus:
+
+\begin{itemize}
+  \item sukuria ARIMA modelį turimais duomenimis ir parametrais ir jis yra pritaikomas naudojant fit().
+  \item gaunama prognozuojama reikšmė yhat
+  \item prie prognozių sąrašo pridedama reikšmė
+  \item į turimus duomenis pridedama tikroji reikšmė ir toliau cikliškai apmokamas modelis
+\end{itemize}
 
 \subsection{Prognozės}
 
+Šie rezultatai rodo ARIMA ir SARIMA modelių našumą prognozuojant trijų skirtingų simbolių - BTCBUSD, LTCBUSD ir XRPBUSD - kriptovaliutų kainas.
+Modelių veikimui įvertinti naudojami MSE (Mean Squared Error) ir MAPE (Mean Absolute Percentage Error). 
+MSE matuoja vidutinį skirtumą tarp numatytų ir faktinių verčių kvadratu, o MAPE – vidutinį procentinį skirtumą tarp numatomų ir faktinių verčių. 
+Abu šie rodikliai yra svarbūs vertinant modelių tikslumą.
+
+Taikymo rezultatai trims skirtingoms kriptovaliutų poroms: BTCBUSD, LTCBUSD ir XRPBUSD. Grafikuose matosi prognozuota ir tikra kaina laikotarpiu.
 BTCBUSD
 \begin{figure}[H]
   \centering
@@ -435,7 +511,7 @@ XRPBUSD
 \begin{figure}[H]
   \centering
   \begin{subfigure}{.5\textwidth}
-  \centering
+    \centering
     \includegraphics[width=\linewidth]{img/XRPBUSD__ARIMA(0, 1, 2).png}
     \caption{ARIMA modelis}
     \label{fig:xrpbusd_arima}
@@ -452,38 +528,50 @@ XRPBUSD
 
 \vspace{20pt}
 
-\begin{table}[h]
+\begin{table}[H]
   \centering
-  \caption{MSE ir MAPE palyginimas ETHBUSD ir BTCBUSD kriptovaliutų poromis}
-  \begin{tabularx}{\linewidth}{|X|X|X|}
+  \begin{tabularx}{\linewidth}{|X|X|X|X|}
     \hline
-    \textbf{Model} & \textbf{MSE} & \textbf{MAPE} \\ \hline
-    ETHBUSD SARIMA & 2.306        & 0.09\%        \\ \hline
-    ETHBUSD ARIMA  & 1.69         & 0.082\%       \\ \hline
-    BTCBUSD SARIMA & 288.87       & 0.07\%        \\ \hline
-    BTCBUSD ARIMA  & 210.83       & 0.061\%       \\ \hline
+    Symbol  & Model  & MSE      & MAPE   \\
+    \hline
+    \hline
+    BTCBUSD & ARIMA  & 13702.25 & 0.22\% \\
+    \hline
+    BTCBUSD & SARIMA & 13349.98 & 0.24\% \\
+    \hline
+    \hline
+    LTCBUSD & ARIMA  & 0.05     & 0.2\%  \\
+    \hline
+    LTCBUSD & SARIMA & 0.06     & 0.24\% \\
+    \hline
+    \hline
+    XRPBUSD & ARIMA  & 4.92     & 0.16\% \\
+    \hline
+    XRPBUSD & SARIMA & 5.24     & 0.17\% \\
+    \hline
   \end{tabularx}
+  \caption{Modelių taikymo rezultatai}
+  \label{table:rezultatai}
 \end{table}
 
-\section{Rezultatai ir išvados}
-Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti statistinius modelius ir kriptovaliutų rinką, bei naudojamus įrankius.
-Palyginti autoregresiniai modeliai ir kuo jie skiriasi. Padėti pamatai kurti robotui, kuris galėtų implementuoti reikalinga strategiją, susipažinta kokią
-darbinę aplinką teks naudoti, python ir python-binance biblioteką.
+Iš lentelės matome, kad BTCBUSD poros MSE yra šiek tiek mažesnė SARIMA modeliui nei ARIMA modeliui, tai rodo, kad SARIMA modelis gali šiek tiek geriau atitikti šį duomenų rinkinį, bet MAPE yra šiek tiek mažesnė ARIMA modeliui.
 
-Matome, kad prognozuojant kiekviename žingsnyje naują 15m intervalu valiutos kainą, visumoje absoliutus paklaidos procentas gaunasi gana mažas, tačiau
-nereikia pamiršti, jog kaina per 15m pasikeičia neperdaugiausiai. Rezultatai neblogi, bet tai nereiškia, kad galima taikyti lošimo taktika ir iškarto išlošti daug pinigų,
-jei bus keičiamasi tuo pačiu 15min dažniu šie procentai greit susideda ir reikia apmastyti lošimo strategiją.
+LTCBUSD ir XRPBUSD poroje abiejų modelių MSE ir MAPE yra panašiai žemi, o tai rodo, kad abiejų modelių šių duomenų rinkinių našumas yra panašus. Visų porų MSE ir MAPE yra palyginti žemos, o tai rodo, kad modeliai gerai tinka duomenims, o prognozės yra gana tikslios.
+
+Verta paminėti, kad šie rezultatai yra naudojami konkrečiams duomenų rinkiniui, taigi modeliai gali duoti skirtingus rezultatus kitiems rinkiniams.
+
 
 % Išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų,
 % suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 \section{Rezultatai ir išvados}
 Atlikta mokslinė analizė, literatūros apžvalga, kurios dėka pavyko aiškiau suprasti statistinius modelius, kriptovaliutų rinką, bei naudojamus įrankius.
 \begin{itemize}
-  \item Palyginti autoregresiniai modeliai,
   \item Susipažinta su darbinė aplinka, bei reikalingomis bibliotekomis ir API,
-  \item Kadangi kainos nėra stacionarūs duomneys negalima naudoti paprastesnių AR, ARMA modelių,
-  \item Geresni rezultatai gaunami naudojant ARIMA modelį nei SARIMA modelį,
-  \item Galima naudoti modelius implementuoti strategiją robotui lošti.
+  \item Palyginti autoregresiniai modeliai,
+  \item Kadangi kainos nėra stacionarūs duomenys negalima naudoti su paprastesniais AR, ARMA modeliais,
+  \item Šie modeliai gali būti naudojami prognozuoti kriptovaliutų kainas,
+  \item Kadangi rezultatai tiek ARIMA tiek SARIMA modelio panašūs, dėl paprastumo vertėtų naudoti ARIMA modelį.
+  \item Padėti pamatai roboto lošėjui kūrimui, kuris implementuos konkretų planą ar strategiją,
 \end{itemize}
 
 Neišvengiama, jog tokiame trumpame darbe būtų aptartos visos įmanomos sritys ir atvejai, taigi tolimesnei tyrimo eigai pasiūlymas nagrinėti modelius, 
