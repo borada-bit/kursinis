@@ -348,12 +348,11 @@ Kadangi tinklas yra testinis, jame prekiaujama nevisomis galimomis kriptovaliut�
 i) BTC/BUSD, ii) LTC/BUSD, iii) XRP/BUSD.
 Gaunamuose duomenyse yra daugiau informacijos bet bus naudojama tik datos ir `close' stulpelis, parodantis konkrečios kriptovaliutos uždarymo kainą tam tikru laiku. Tai yra paskutinė 
 kaina, už kurią buvo prekiaujama tam tikru laikotarpiu, pavyzdžiui, valandą ar dieną. Uždarymo kaina yra svarbi, nes ji atspindi galutinę kainą, už kurią pirkėjai ir pardavėjai
-sutarė prekiauti kriptovaliuta. Duomenys bus naudojami tokie kokie yra ir iškarto perduodami į modelius. Nagrinėjamos dvi populiariausios valiutos BTC ir ETH, taigi imama
-BTCBUSD ir ETHBUSD kriptovaliutų pora. Modeliui apmokyti naudojamas 90 procentų dumomenų rinkinio dydis. Kitus 10\% bandoma prognozuoti po vieną reikšmę į priekį. Modeliui atlikus prognozė, 
+sutarė prekiauti kriptovaliuta. Duomenys bus naudojami tokie kokie yra ir iškarto perduodami į modelius. Modeliui apmokyti naudojamas 90 procentų dumomenų rinkinio dydis. Kitus 10\% bandoma prognozuoti po vieną reikšmę į priekį. Modeliui atlikus prognozė, 
 jis yra iš naujo apmokomas pridėjus tikrąją sekančią vertę prie mokymo rinkinio ir taip vėl yra prognozuojama kitą reikšmė, jau su naujai apmokytu modeliu.
 
 % A detailed explanation of the model fitting process, including the specific parameters that you will be using for each of the AR models and any assumptions that you will be making.
-\subsection{Modeliai}
+\subsection{Modelių implementavimas}
 Prognozuojant naudojamos ARIMA ir SARIMA pagalbinės bibliotekos\cite{seabold2010statsmodels} kuri aprašo šiuos modelius, 
 bei euristins auto\_arima algoritmas\cite{pmdarima} padedantis nustatyti geriausius ARIMA ir SARIMA parametrus konkrečiam duomenų rinkiniui.
 SARIMA modeliui sezoniškumo intervalas naudojamas 4 - bandoma pamatyti ar atsiranda sezoniškumas kiekvieną valandą, nes duomenų intervalas yra 15min.
@@ -402,9 +401,9 @@ Iš pradžių prisijungiama prie testinio tinklo naudojant API ir naudotojo rakt
 
 \begin{python}
   with open(CONFIG_FILE_NAME, 'r') as config_file:
-	  data = json.load(config_file)
-	  validate(instance=data, schema=config_schema)
-	  client = Client(data['api_key'], data['api_secret'], testnet=True)
+  data = json.load(config_file)
+  validate(instance=data, schema=config_schema)
+  client = Client(data['api_key'], data['api_secret'], testnet=True)
 \end{python}
 
 Tuomet gaunami istoriniai duomenys iš API. Kaip minėta, jog Sausio 4d. įvykio atnaujinimas ir eksperimentiniais tikslais imama duomenys savaitė nuo pradžios į priekį.
@@ -417,10 +416,10 @@ tuomet kviečiami funkcija, jog paverstų gautus duomenis į reikalinga struktū
   model_predict_arima(symbol, df, seasonal=True)
   
   def binance_klines_to_df(klines):
-	  klines = np.array(klines)
-	  df = pd.DataFrame(klines.reshape(-1, 12), dtype=float, columns=('Open Time','Open', 'High', 'Low', 'Close', 'Volume', 'Close time', 'Quote asset volume', 'Number of trades', 'Taker  buy base asset volume', 'Taker buy quote asset volume', 'Ignore'))
-	  df['Open Time'] = pd.to_datetime(df['Open Time'], unit='ms')
-	  return df
+  klines = np.array(klines)
+  df = pd.DataFrame(klines.reshape(-1, 12), dtype=float, columns=('Open Time','Open', 'High', 'Low', 'Close', 'Volume', 'Close time', 'Quote asset volume', 'Number of trades', 'Taker  buy base asset volume', 'Taker buy quote asset volume', 'Ignore'))
+  df['Open Time'] = pd.to_datetime(df['Open Time'], unit='ms')
+  return df
 \end{python}
 
 Turint duomenis kviečiama model\_predict\_arima funckija, kuri pagal seasonal parametrą atlieka ARIMA arba SARIMA modelį.
@@ -433,21 +432,21 @@ Turint duomenis kviečiama model\_predict\_arima funckija, kuri pagal seasonal p
   training_data = list(df[0:to_row]['Close'])
   
   if seasonal:
-	  order, seasonal_order = best_params_arima_seasonal(training_data)
+  order, seasonal_order = best_params_arima_seasonal(training_data)
   else:
-	  order = best_params_arima(training_data)
+  order = best_params_arima(training_data)
   seasonal_order = None
   
   testing_data = list(df[to_row:]['Close'])
   model_predictions = []
   for i in range(len(testing_data)):
-	  model = ARIMA(training_data, order=order, seasonal_order=seasonal_order)
-	  model_fit = model.fit()
-	  output = model_fit.forecast(steps=1)
-	  yhat = output[0]
-	  model_predictions.append(yhat)
-	  actual_test_value = testing_data[i]
-	  training_data.append(actual_test_value)
+  model = ARIMA(training_data, order=order, seasonal_order=seasonal_order)
+  model_fit = model.fit()
+  output = model_fit.forecast(steps=1)
+  yhat = output[0]
+  model_predictions.append(yhat)
+  actual_test_value = testing_data[i]
+  training_data.append(actual_test_value)
 \end{python}
 
 Pagrindinė kodo dalis atliekanti skaičiavimus
